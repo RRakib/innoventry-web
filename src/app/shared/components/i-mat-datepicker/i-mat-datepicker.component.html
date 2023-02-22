@@ -1,0 +1,7 @@
+<mat-form-field appearance="outline" [fxFlex]="100"
+    [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField'">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [matDatepicker]="pickerDate" [(ngModel)]="dateNgModel" (ngModelChange)="getUTCDate($event)">         
+    <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickerDate></mat-datepicker>
+</mat-form-field>

@@ -1,0 +1,14 @@
+.full-width-table {
+    width: 100%;
+  }
+  
+  .more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  
+  .search-criteria {
+    max-width: 52% !important;
+    justify-content: left !important;
+  }

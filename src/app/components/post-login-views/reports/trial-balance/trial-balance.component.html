@@ -1,0 +1,60 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header>
+            <mat-card-title>
+                Trial Balance
+                <div class="title-underline"></div>
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item>Expand</button>
+                    <button mat-menu-item>Remove</button>
+                </mat-menu>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="reportForm" *ngIf="isFormLoaded">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Ledger Group</mat-label>
+                        <mat-select formControlName="filterLedgerGroupId" name="filterLedgerGroupId">
+                          <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
+                            {{ledgerGroup.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city" name="city">
+                          <mat-option *ngFor="let city of cities" [value]="city.name">
+                            {{city.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Summary As On'"
+                            [dateFormControl]="reportForm.controls['date'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+
+                    <div class="showbutton">                        
+                        <button mat-raised-button color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 50" 
+                            (click)="showReport()">
+                            Show
+                        </button>
+                    </div>
+
+
+                </div>
+
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+</div>

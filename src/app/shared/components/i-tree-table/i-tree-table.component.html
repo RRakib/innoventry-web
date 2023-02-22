@@ -1,0 +1,14 @@
+<div class="table-action-buttons table-header-group">
+    <label style="margin-top:auto; font-weight: 500; font-size: 15px;">
+        {{tableLabel}}
+    </label>
+    <button mat-raised-button color="primary" [disabled]="!isRowSelected" (click)="editRow()">
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+<div class="responsive-table">
+    <div>
+        <db-angular-tree-grid #angularGrid [data]="data" [configs]="configs" (rowselect)="rowSelected($event)">
+        </db-angular-tree-grid>
+    </div>
+</div>

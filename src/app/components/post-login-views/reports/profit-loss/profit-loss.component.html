@@ -1,0 +1,72 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-title>
+                Profit & Loss
+                <div class="title-underline"></div>
+                <button mat-raised-button class="more-button" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
+                  <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>  
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxflexfill [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start" class="mb-1">
+                <div>            
+                  <i-mat-datepicker [label]="'Start Date'" [dateFormControl]="startDate"></i-mat-datepicker>
+                </div>
+                <div [class]="(isHandset$ | async) ? '' : 'ml-10px mr-10px'">
+                  <i-mat-datepicker [label]="'End Date'" [dateFormControl]="endDate"></i-mat-datepicker>
+                </div>
+                <div  fxflexfill fxLayout="column">
+                  <mat-checkbox  [(ngModel)]="zeroBalrequired">Show account with Zero Balance</mat-checkbox>
+                  <mat-checkbox  [(ngModel)]="ledgerRequired">Show only Ledger Groups</mat-checkbox>
+                </div>
+      
+                <div [class]="(isHandset$ | async) ? '' : 'showbutton'">
+                  <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''"  (click)="getProfitLossReport()" >
+                    Show
+                  </button>   
+                </div>    
+            </div> 
+
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill [fxLayoutAlign]="(isHandset$ | async) ? 'start' : 'end'">
+                <div class="mb-1">
+                  <b>Total Expenses</b> : {{totalExpenses | number : '1.2-2'}}
+                </div>              
+                <span *ngIf="!(isHandset$ | async)">&nbsp; | &nbsp;</span>
+                <div>                
+                  <b>Total Income</b> : {{totalIncome | number : '1.2-2'}}
+                </div>                     
+              </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+          <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'">
+            
+            <div [fxFlex]="50" [class]="(isHandset$ | async) ? 'mb-10px' : ''">
+              <i-tree-table [tableLabel]="'Expenses'" [columnDefs]="columns" 
+                [data]="expensesData" [enableRowEdit]=false>
+              </i-tree-table>
+            </div>
+            
+            <div [class]="(isHandset$ | async) ? 'mb-10px' : 'ml-10px'" [fxFlex]="50">
+              <i-tree-table [tableLabel]="'Income'" [columnDefs]="columns" 
+                [data]="incomeData" [enableRowEdit]=false>
+              </i-tree-table>          
+            </div>      
+          </div>
+        </mat-card-content>
+    </mat-card>
+</div>

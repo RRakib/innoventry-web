@@ -1,0 +1,15 @@
+.full-width-table {
+  width: 100%;
+}
+
+.search-criteria {
+  justify-content: left !important;
+}
+
+.pb-10{
+  padding-bottom: 10px !important;
+}
+
+.mat-chip-list-wrapper input.mat-input-element, .mat-chip-list-wrapper .mat-standard-chip {
+   margin: 0px !important; 
+}

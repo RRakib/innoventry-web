@@ -1,0 +1,103 @@
+
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header>
+            <mat-card-title>
+                Inactive Ledgers
+                <div class="title-underline"></div>
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="inactiveLedgersReportForm" *ngIf="isFormLoaded">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                    <div [class]="(isHandset$ | async) ? '' : ''"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Summary As On'"
+                            [dateFormControl]="inactiveLedgersReportForm.controls['date'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Ledger Group</mat-label>
+                        <mat-select formControlName="ledgerGroupId" name="ledgerGroupId">
+                          <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
+                            {{ledgerGroup.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end">                   
+                    <div>                        
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 50" (click)="showReport()">
+                            Show
+                        </button>
+                    </div>
+                </div> 
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>            
+            <div class="responsive-table">
+                <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="ledgerName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ledger</th>
+                        <td mat-cell [class]="'text-left'" *matCellDef="let row">
+                            {{row.ledgerName }}
+                        </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="ledgerGroupName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>LedgerGroup Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.ledgerGroupName}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="currentBalance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Balance</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.currentBalance  | number : '1.2-2' }}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="dateOfLastTransaction">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Last Transaction</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.dateOfLastTransaction | date:'mediumDate'}}</td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        No Records Found.
+                        </td>
+                    </tr>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <mat-paginator #paginator
+                [pageSize]="200"
+                [pageSizeOptions]="[100, 200, 500]"
+                showFirstLastButtons 
+                aria-label="Select page">
+            </mat-paginator> 
+        </mat-card-content>
+    </mat-card>
+</div>

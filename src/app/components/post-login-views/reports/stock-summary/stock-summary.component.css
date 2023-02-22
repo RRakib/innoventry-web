@@ -1,0 +1,17 @@
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+    margin-top: 15px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 1.34375em;
+}
+
+.align-radio-group{
+  display: flex;
+  align-items: baseline;
+}

@@ -1,0 +1,178 @@
+<div class="mat-elevation-z8" *ngIf="isFormLoaded">
+    <form [formGroup]="journalForm">
+        <mat-card class="mb-1" >
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-title>
+                    New Journal
+                    <div class="title-underline"></div>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="text-center">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                   
+                    <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Date'" [dateFormControl]="journalForm.controls['transactiondate'] | convertToFormControl"></i-mat-datepicker>
+                    </div>
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                        <mat-label>Voucher No.</mat-label>
+                        <input matInput placeholder="Enter Voucher No." #vouchernumber name="vouchernumber"
+                            id="vouchernumber" formControlName="vouchernumber">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                        <mat-label>Reference No.</mat-label>
+                        <input matInput placeholder="Enter Reference No." #referenceNo name="referenceNo"
+                            id="referenceNo" formControlName="referenceNo">
+                    </mat-form-field>
+
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                    <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Cheque Date'" [dateFormControl]="journalForm.controls['chequedate'] | convertToFormControl"></i-mat-datepicker>
+                    </div>
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Cheque No.</mat-label>
+                        <input matInput placeholder="Enter Cheque No." #chequeNo name="chequeNo"
+                            id="chequeNo" formControlName="chequeNo">
+                    </mat-form-field>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </form>
+
+    <form [formGroup]="entryForm">
+        <mat-card class="mb-1">
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-subtitle>Add Single/Multiple Entries</mat-card-subtitle>               
+            </mat-card-header>
+            <mat-card-content class="text-center">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill>
+
+                    <Ledger-Box                      
+                        [ledgerFormControl]="getEntryFormControl('ledgerName')"
+                        [ledgerBoxTitle]="'Ledger'"
+                        [applyForbiddenNameValidator]=applyForbiddenNameValidator
+                        (onLedgerSelection)="onLedgerSelectionChange($event)">
+                    </Ledger-Box>
+
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'">
+                        <mat-label>Credit/Debit Amount</mat-label>
+                        <input matInput placeholder="Enter Amount (Toggle to switch Tx. type)"
+                            #lineAmount name="lineAmount" id="lineAmount" 
+                            formControlName="lineAmount">
+                        <mat-slide-toggle matSuffix color="primary" formControlName="txType">
+                            {{txTypeLabel}}
+                        </mat-slide-toggle>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 30">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Enter Description"
+                            #description name="description" id="description" 
+                            formControlName="description">                            
+                    </mat-form-field>
+
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : 'align-items-center'">                    
+                                                
+                            <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : 'ml-10px'" color="primary"
+                                (click)="addJounralEntry()">
+                                <mat-icon>save</mat-icon>   
+                                {{ isEntryEditModeEnabled ? 'Edit' : 'Add' }}
+                            </button>                            
+                        
+                            <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-10px' : 'ml-10px'" (click)="cancelEditMode()" [disabled]="!isEntryEditModeEnabled">
+                                <mat-icon>cancel</mat-icon> Cancel
+                            </button>  
+                        
+                    </div>
+                </div>                               
+            </mat-card-content>
+        </mat-card>
+    </form>
+
+    <form [formGroup]="journalForm" >
+        <mat-card>           
+            <mat-card-content class="text-center">
+                <div class="table-action-buttons">
+                    <button mat-raised-button color="primary" class="button-group" [disabled]="selectedRowIndex == -1" (click)="prepareForEditEntryLine()">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-raised-button color="warn" class="button-group" [disabled]="selectedRowIndex == -1" (click)="deleteJournalEnty()">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                </div>
+                <div class="mb-1">
+                    <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+                        <ng-container matColumnDef="ledgerName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ledger</th>
+                            <td mat-cell class="text-left" *matCellDef="let row">{{row.ledgerName}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="debit">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Debit</th>
+                            <td mat-cell class="text-right" *matCellDef="let row">{{row.debit  | number : '1.2-2'}}</td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="credit">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Credit</th>
+                            <td mat-cell class="text-right" *matCellDef="let row">{{row.credit  | number : '1.2-2'}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                            <td mat-cell class="text-left" *matCellDef="let row">{{row.description}}</td>
+                        </ng-container>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                              No Entries Added.
+                            </td>
+                        </tr>
+                       
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                            [ngClass]="{'highlight': selectedRowIndex == row.id}"
+                            (click)="highlight(row)">
+                    </table>
+
+                    <!-- <mat-paginator #paginator
+                        [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons 
+                        aria-label="Select page">
+                    </mat-paginator>  -->
+                </div>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="space-between">
+                    <div class="pb-10">
+                        <b>Total Credit</b> : {{totalCredit | number : '1.2-2'}}
+                        |
+                        <b>Total Debit</b> : {{totalDebit | number : '1.2-2'}}
+                    </div>                    
+                    <div>                        
+                        <button mat-raised-button class="button-group" [fxFlex]="50">
+                            Cancel
+                        </button>
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="saveJournalTx()">
+                            Save
+                        </button>
+                    </div>
+                </div>               
+            </mat-card-content>
+        </mat-card>
+    </form>
+</div>

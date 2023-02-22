@@ -1,0 +1,1 @@
+java -jar %SOFTWARE_REPO%\swagger\swagger-codegen-cli-2.3.0-local.jar generate -i http://localhost:8080/innoventry/rest/swagger.yaml -l typescript-angular2 -o src\app\server\ 1>codegen_out.log 2>codegen_err.log

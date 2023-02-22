@@ -1,0 +1,124 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-title>
+                Item Purchase Rate Variation Analysis
+                <div class="title-underline"></div>
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="text-center" *ngIf="isFormLoaded">
+            <form [formGroup]="reportForm">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                    <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Start Date'"
+                            [dateFormControl]="reportForm.controls['dateFrom'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'End Date'"
+                            [dateFormControl]="reportForm.controls['dateTo'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                    <mat-form-field
+                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
+                            appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Item Group</mat-label>
+                            <input type="text" placeholder="Select Item Group" aria-label="itemGroup" matInput
+                                [matAutocomplete]="autoItemGroup" formControlName="itemGroupName"
+                                (keyup)="keyUpItemGroupTyping($event)" (blur)="blurItemGroupSelection($event)">
+                            <mat-icon matSuffix class="search-icon">search</mat-icon>
+                            <mat-autocomplete autoActiveFirstOption #autoItemGroup="matAutocomplete"
+                                (optionSelected)="onItemGroupSelectionChanged($event)">
+                                <mat-option *ngFor="let option of filteredItemGroups  | async" [value]="option.name">
+                                    {{option.name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error>
+                                {{ reportForm.get('itemGroupName')?.errors?.['forbiddenNames']?.value }}
+                            </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'"
+                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Variation(%)</mat-label>
+                        <input matInput placeholder="Enter Variation(%)"
+                            #hsnCode name="txtPurchasePriceVariation" id="txtPurchasePriceVariation"
+                            formControlName="txtPurchasePriceVariation">
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end">                    
+                    <div>                        
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="getReport()">
+                            Show
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <div class="mb-1" fxLayoutAlign="end">                
+                <button mat-raised-button class="toolbar-button" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </div>
+            <div class="responsive-table">
+                <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Name</th>
+                        <td mat-cell [class]="'text-left'" *matCellDef="let row">
+                            {{row.name }}
+                        </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="minPurchasePrice">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Min. Purchase Price</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.minPurchasePrice | number : '1.2-2'}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="maxPurchasePrice">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Max. Purchase Price</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.maxPurchasePrice | number : '1.2-2'}}</td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="variation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Variation(%)</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{ row.variation | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        No Records Found.
+                        </td>
+                    </tr>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

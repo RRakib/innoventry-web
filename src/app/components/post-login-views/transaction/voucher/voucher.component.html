@@ -1,0 +1,103 @@
+<div class="mat-elevation-z8">
+
+    <mat-card class="mb-10px">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-title>
+                {{ headerTitle }}
+                <div class="title-underline"></div>                
+              </mat-card-title>
+              <div>
+                <button mat-raised-button class="button-group"  matTooltip="Add New Item">
+                    <mat-icon>arrow_back</mat-icon>
+                    {{ headerTitle }} Vouchers
+                </button>                
+              </div>
+        </mat-card-header> 
+        <mat-card-content  class="text-center">
+            <form [formGroup]="voucherForm" *ngIf="isFormLoaded">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                    <Ledger-Box [fxFlex]="(isHandset$ | async) ? 100 : 50"                        
+                        [ledgerFormControl]="voucherForm.controls['fromLedgerName'] | convertToFormControl"
+                        [ledgerBoxTitle]="'From Ledger'"
+                        [applyForbiddenNameValidator]=true
+                        (onLedgerSelection)="onFromLedgerSelection($event)">
+                    </Ledger-Box>
+
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <i-mat-datepicker [label]="'Date'" [dateFormControl]="voucherForm.controls['transactiondate'] | convertToFormControl"></i-mat-datepicker>
+                    </div>
+                    
+                </div>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Voucher No.</mat-label>
+                        <input matInput placeholder="Enter Voucher No."
+                            #vouchernumber name="vouchernumber" id="vouchernumber" 
+                            formControlName="vouchernumber">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Reference No.</mat-label>
+                        <input matInput placeholder="Enter Reference No."
+                            #referenceNo name="referenceNo" id="referenceNo"
+                            formControlName="referenceNo">
+                    </mat-form-field>
+                </div>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Ref. Invoice No.</mat-label>
+                        <input matInput placeholder="Enter Ref. Invoice No."
+                            #referenceInvoiceNo name="referenceInvoiceNo" id="referenceNo">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Amount</mat-label>
+                        <input matInput placeholder="Enter Amount"
+                            #amount name="amount" id="amount"
+                            formControlName="amount">
+                    </mat-form-field>
+                </div>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                    
+                    <Ledger-Box [fxFlex]="(isHandset$ | async) ? 100 : 50"
+                        [ledgerFormControl]="voucherForm.controls['byLedgerName'] | convertToFormControl" 
+                        [ledgerBoxTitle]="'By Ledger'"
+                        [applyForbiddenNameValidator]=true
+                        [filterLedgersByGroupNames]="filterLedgersByGroupNames"
+                        (onLedgerSelection)="onByLedgerSelection($event)">
+                    </Ledger-Box>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Enter Description"
+                            #description name="description" id="description"
+                            formControlName="description">
+                    </mat-form-field>
+                </div>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Cheque No.</mat-label>
+                        <input matInput placeholder="Enter Cheque No."
+                            #ChequeNo name="ChequeNo" id="ChequeNo">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'">
+                        <mat-label>Cheque Date</mat-label>
+                        <input matInput [matDatepicker]="pickerChequeDate">         
+                        <mat-datepicker-toggle matSuffix [for]="pickerChequeDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerChequeDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end">                    
+                    <div>                        
+                        <button type="submit" mat-raised-button class="button-group"  color="primary" [fxFlex]="100" (click)="saveVoucher()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content> 
+    </mat-card>
+</div>

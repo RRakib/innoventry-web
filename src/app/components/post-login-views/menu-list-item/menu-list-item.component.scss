@@ -1,0 +1,29 @@
+@import '../../../../custom-theme.scss';
+
+
+:host {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  width: 100%;
+
+  .mat-list-item.active {
+    background-color: map-get($webapp-primary, 50);
+  }
+  &:hover,
+  &:focus {
+    >.mat-list-item:not(.expanded) {
+      background-color: map-get($webapp-primary, 100) !important;
+    }
+  }
+}
+
+.mat-list-item {
+  display: flex;
+  width: auto; 
+  height: 40px;
+
+  .routeIcon {
+    margin-right: 5px;
+  }
+}

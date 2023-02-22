@@ -1,0 +1,228 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+    background: url(../src/assets/images/background-image.png) repeat 0 0 #f9f9f9;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.market-banner {
+    background: url('../src/assets/images/logo/login.png') bottom center no-repeat #00458d;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.registration-banner {
+    background: url('../src/assets/images/logo/registration.png') bottom center no-repeat #00458d;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.market-text {
+    color: #fff;
+    font-family: 'open_sansregular';
+    font-size: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 20px;
+    line-height: 50px;
+}
+
+.innov-container {    
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.font14{
+    font-size: 14px !important;
+}
+
+.width100{
+    width: 100%;
+}
+
+.mb-10px {
+    margin-bottom: 10px;
+}
+
+.mt-10px {
+    margin-top: 10px;
+}
+
+.mr-10px {
+    margin-right: 10px;
+}
+
+.ml-10px {
+    margin-left: 10px !important;
+}
+
+.pb-2{
+    padding-bottom: 2px !important;
+}
+
+.pb-10 {
+    padding-bottom: 10px !important;
+}
+
+
+.title-underline {
+    width: 100%;
+    height: 2px;
+    background: #ff6700;
+    margin-top: 2px;
+}
+
+.mat-card-header-text {
+    margin: 0 0px !important;
+}
+
+.innov-matFormField{
+    font-size: 0.8rem;
+}
+
+.more-button {
+    position: absolute !important;
+    top: 5px;
+    right: 10px;
+}
+
+.table-action-buttons{
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+th.mat-header-cell {
+    color: #fff;
+    background-color: #3f51b5;
+}
+
+.angular-tree-grid-header{    
+    background-color: #3f51b5 !important;
+}
+
+tr.angular-tree-grid-header > th{
+    color: #fff !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+}
+
+db-tree-cell-view{
+    font-size: 14px !important;
+}
+
+span.expand-icon-container span.inbuild-icon {
+    font-size: 20px !important;
+}
+
+.mat-sort-header-container {
+    justify-content: center !important;
+}
+
+.justify-space-between{
+    justify-content: space-between;
+}
+
+td,
+th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.i-chip-box.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.i-chip .cdk-drop-list-dragging {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.calendar-component{
+    font-size: 12px !important;
+}
+
+.mat-form-component{
+    font-size: 12px !important;
+}
+
+.mat-card-headers{
+    justify-content: space-between;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: blue; 
+}
+
+table {
+    width: 100%;
+}
+
+table.innoventry-table tr.mat-row, tr.mat-footer-row {
+    height: 25px;
+}
+
+table.innoventry-table tr.mat-header-row {
+    height: 35px;
+}
+.responsive-table{
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+}
+
+table.innoventry-table tr:nth-child(odd){
+    background: #efeeee;
+}
+
+table.innoventry-table td, table.db-tree-view td {
+    border: 1px solid #bfbdbd;
+}
+
+.highlight{  
+    background: #8699ff !important;
+}
+
+.showbutton {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.button-group{    
+    margin-left: 8px !important;
+    height: 35px;
+}
+
+.toolbar-button{
+    min-width: 0px !important;
+    padding: 0px 5px !important; 
+    margin: 0 0px 0 10px !important;
+}
+
+.custom-dialog-container .mat-dialog-container {  
+    padding: 0px !important;
+    overflow-y: auto;
+    max-height: 75vh !important;
+}
+
+mat-card.mat-card{
+    padding: 5px;
+}
+
+.mat-card-subtitle{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.fw-500{
+    font-weight: 500 !important;
+}
+
+.label-value-spacer{
+    margin: 0 1.5rem;
+}

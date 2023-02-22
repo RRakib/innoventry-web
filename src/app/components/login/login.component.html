@@ -1,0 +1,56 @@
+<div fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+    <div class="logo">
+        <img src="assets/images/logo/logo.png" [attr.width]="'100%'" alt="" />
+    </div>
+    <div fxLayout="row" [class]="(isHandset$ | async) ? 'login-container' : 'login-container login-container-fixed-height'">
+        <div [fxFlex]="60" class="market-banner"  [style]="(isHandset$ | async) ? 'display : none' : ''">
+            <div class="market-text mrtop60">
+                 Online Billing, Accounting and Inventory Management software for small and medium business.
+            </div>
+        </div>
+        <mat-card [fxFlex]="(isHandset$ | async) ? 100 : 40" class="login-card-corners" [class]="(isHandset$ | async) ? 'handset-login-card' : 'browser-login-card'">
+            <mat-card-header>
+                <mat-card-title class="font14">
+                    Log In
+                    <div class="title-underline"></div>
+                </mat-card-title>                
+            </mat-card-header>
+            <form fxLayoutAlign="stretch" fxLayout="column"
+                [formGroup]="loginForm" (submit)="login()">
+                <mat-form-field appearance="outline" class="innov-matFormField">
+                    <mat-label>Company Id</mat-label>
+                    <input matInput placeholder="Company Id" formControlName="companyId"
+                        #companyid name="companyId" id="companyid">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="innov-matFormField">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="Username" formControlName="username"
+                    #username name="username" id="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="innov-matFormField">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Password" type="password" formControlName="password"
+                    #password name="password" id="password">
+                </mat-form-field>
+    
+                <button mat-raised-button type="submit" color="primary">
+                    Login             
+                </button>
+
+                <div class="or">
+                    OR
+                </div>
+
+                <button mat-raised-button type="button" color="secondary" (click)="newRegistration()">
+                    <mat-icon>account_box</mat-icon>
+                    Create Account                                 
+                </button>
+
+                <!-- <span class="mt-10px">Don't have an account ? 
+                    <a class="register-view" href="javascript:void(0)">Register</a>
+                </span> -->
+            </form>
+        </mat-card>
+    </div>
+    
+</div>

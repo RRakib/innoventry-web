@@ -1,0 +1,95 @@
+<div class="mat-elevation-z8">
+  <mat-card class="mb-1 pb-2">
+    <mat-card-header>
+      <mat-card-title>
+        Day Book
+        <div class="title-underline"></div>
+        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          <mat-icon>print</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="download('PDF')">
+            <mat-icon>picture_as_pdf</mat-icon> 
+            Export as PDF
+          </button>
+          <button mat-menu-item (click)="download('EXCEL')">
+            <mat-icon>description</mat-icon>
+            Export as Excel
+          </button>
+        </mat-menu>
+      </mat-card-title>
+    </mat-card-header>
+    <div>
+
+      <mat-card-content class="text-center">
+        
+        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+          [class]="(isHandset$ | async) ? '' : 'search-criteria'">
+          <div>            
+            <i-mat-datepicker [label]="'Start Date'" [dateFormControl]="fromDate"></i-mat-datepicker>
+          </div>
+          <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+            <i-mat-datepicker [label]="'End Date'" [dateFormControl]="toDate"></i-mat-datepicker>
+          </div>
+
+          <div  [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+            <mat-form-field appearance="outline"[class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField mr-10px'">
+              <mat-label>Format</mat-label>
+              <mat-select>
+                <mat-option>
+                  Detailed
+                </mat-option>
+                <mat-option>
+                  Summary
+                </mat-option>
+                <mat-option>
+                  Detailed without cash
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="showbutton">
+            <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? ' full-width-table' : ''"
+              (click)="getDayBookReport()">
+              Show
+            </button>
+          </div>
+          
+        </div>
+        
+        
+        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+          [class]="(isHandset$ | async) ? '' : 'search-criteria'">
+          <div>
+            <section class="example-section">
+              <mat-checkbox class="example-margin" [(ngModel)]="showCashTx">Show cash transactions</mat-checkbox>              
+            </section>
+          </div>
+        </div>
+
+        <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end">
+          <div>
+            <b>Total Credit</b> : {{totalCreditAmount | number : '1.2-2'}}
+            |
+            <b>Total Debit</b> : {{totalDebitAmount | number : '1.2-2'}}
+          </div>         
+        </div>
+
+      </mat-card-content>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <i-tree-table [columnDefs]="columns" [data]="data"
+       (onRowSelection)="onRowSelection($event)"
+       (onRowEdit)="onRowEdit()"></i-tree-table>
+      <mat-paginator [length]="100"
+              [pageSize]="200"
+              [pageSizeOptions]="[100, 200, 500]"
+              aria-label="Select page">
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

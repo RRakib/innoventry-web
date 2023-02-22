@@ -1,0 +1,8 @@
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.attribute-container{
+    max-width: 50rem;
+    overflow-x: auto;
+}

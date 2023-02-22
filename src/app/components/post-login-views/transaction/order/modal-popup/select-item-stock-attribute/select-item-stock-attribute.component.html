@@ -1,0 +1,66 @@
+<div>
+    <div>
+        <mat-card class="mb-1">
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-title>
+                    Select Item
+                    <div class="title-underline"></div>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <mat-form-field appearance="standard">                
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Search Stock Attributes" #filterInput>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        
+        <mat-card-content>
+            <div class="responsive-table">
+                <div class="table-action-buttons mt-1">
+                    <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+                        <ng-container *ngFor="let disCol of displayedColumns; let colIndex = index" matColumnDef="{{disCol}}">
+
+                            <th mat-header-cell *matHeaderCellDef>{{disCol}}</th>
+                            <td mat-cell *matCellDef="let element; let i = index;">   
+
+                                <ng-container *ngIf="disCol === 'Quantity';else second">                                    
+                                    <mat-form-field apparence="legacy"> 
+                                        <div [formGroup]="getFormGroupByStockLineIndex(i)">
+                                            <input matInput type="number" name="stockAttrQuantity" id="stockAttrQuantity" 
+                                            class="form-control quantity-box" formControlName="quantity">
+                                        </div>                                
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-template #second>
+                                    {{element[disCol]}}
+                                </ng-template>
+                            </td>
+                            
+                        </ng-container>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                              No Stock Available.
+                            </td>
+                        </tr>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns; let rowIndex = index;"></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'm-1' : 'm-1 align-items-center'">
+                <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary"
+                    (click)="saveStockAttributes()">                         
+                    Save
+                </button>
+                <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelAddOrUpdate()">
+                    Cancel
+                </button>
+            </div>
+        </mat-card-content>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+      <mat-card-header>
+        <mat-card-title>
+          Sale Order Register
+          <div class="title-underline"></div>
+          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>print</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="download('PDF')">
+              <mat-icon>picture_as_pdf</mat-icon> 
+              Export as PDF
+            </button>
+            <button mat-menu-item (click)="download('EXCEL')">
+              <mat-icon>description</mat-icon>
+              Export as Excel
+            </button>
+          </mat-menu>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="saleOrderReportForm" *ngIf="isFormLoaded">
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                <div [class]="(isHandset$ | async) ? '' : 'mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <Ledger-Box
+                    [ledgerFormControl]="saleOrderReportForm.controls['ledgerName'] | convertToFormControl"
+                    (onLedgerSelection)="onLedgerSelection($event)"></Ledger-Box>
+                </div>
+                
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'"  
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50"  fxLayoutAlign="space-between">
+
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+                        <i-mat-datepicker [label]="'Start Date'"
+                            [dateFormControl]="saleOrderReportForm.controls['dateFrom'] | convertToFormControl"></i-mat-datepicker>
+                    </div>
+        
+                    <div>
+                        <i-mat-datepicker [label]="'End Date'"
+                            [dateFormControl]="saleOrderReportForm.controls['dateTo'] | convertToFormControl"></i-mat-datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+
+                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Sales Man</mat-label>
+                    <mat-select formControlName="salesManId" name="salesManId">
+                        <mat-option *ngFor="let option of salesManLedgers" [value]="option.id">
+                            {{ option.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+
+
+                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" 
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Tax Group</mat-label>
+                    <mat-select formControlName="taxGroupId" name="taxGroupId">
+                        <mat-option *ngFor="let option of taxGroups" [value]="option.id">
+                            {{ option.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+
+            </div>
+
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <div class="text-left" [fxFlex]="(isHandset$ | async) ? 100 : 50" fxLayoutAlign="start">
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin" formControlName="showItemDetails">Show Item Details</mat-checkbox>
+                    </section>
+                    <section class="example-section ml-10px">
+                        <mat-checkbox class="example-margin" formControlName="showUsage">Show Usage</mat-checkbox>
+                    </section>
+                </div>
+                <div>
+                    <button mat-raised-button  color="secondary" [fxFlex]="(isHandset$ | async) ? 100 : 50"
+                        [class]="(isHandset$ | async) ? '' : 'mr-1'"  (click)="resetSearchForm()">
+                        Reset
+                    </button>
+                    <button mat-raised-button  color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 50" (click)="getSaleOrderReport()">
+                        Show
+                    </button>
+                </div>
+            </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+          <i-tree-table [columnDefs]="columns" [data]="data"
+           (onRowSelection)="onRowSelection($event)"
+           (onRowEdit)="onRowEdit()"></i-tree-table>
+          <mat-paginator [length]="100"
+                  [pageSize]="200"
+                  [pageSizeOptions]="[100, 200, 500]"
+                  aria-label="Select page">
+          </mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

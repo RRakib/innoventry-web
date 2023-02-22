@@ -1,0 +1,224 @@
+<div  *ngIf="isFormLoaded">
+    <div>
+        <mat-card class="mb-1">
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-title>
+                    Payment Details
+                    <div class="title-underline"></div>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="fw-500">Total Amount : {{ data.netAmount }}</div>
+            </mat-card-content>
+
+        </mat-card>
+        <mat-card-content>
+            <div [formGroup]="paymentDetailForm" fxflexfill fxLayoutAlign="start" 
+                [fxLayout]="(isHandset$ | async) ? 'column' : 'column'"                 
+                [class]="(isHandset$ | async) ? ''  : 'attribute-container'">
+
+                <ng-container formArrayName="paymentModeLines">
+                    <ng-container *ngFor="let paymentDetailLine of paymentModeLines.controls; let i = index">
+
+                        <div class="paymentDetail-form-row" [formGroup]="toFormGroup(paymentDetailLine)">
+                            
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Cash">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                    <div [class]="'summary-header'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Cheque">
+                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start" [class]="'summary-component'">
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div>
+                                            <mat-form-field appearance="outline"
+                                                [class]="'innov-matFormField'">                           
+                                                <input matInput type="number" class="text-right" formControlName="amount">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            Cheque No.
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div>
+                                            <mat-form-field appearance="outline"
+                                                [class]="'innov-matFormField'">                           
+                                                <input matInput type="number" class="text-right" formControlName="chequeNumber">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            Cheque Date
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div class="cheque-date-calendar">
+                                            <i-mat-datepicker [dateFormControl]="getFormControl(paymentDetailLine, 'chequeDate')"></i-mat-datepicker>
+                                        </div>
+                                    </div>
+                                    
+                                </div> 
+                            </ng-container>
+
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Card">
+                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div>
+                                            <mat-form-field appearance="outline"
+                                                [class]="'innov-matFormField'">                           
+                                                <input matInput type="number" class="text-right" formControlName="amount">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            Card No.
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div>
+                                            <mat-form-field appearance="outline"
+                                                [class]="'innov-matFormField'">                           
+                                                <input matInput type="number" class="text-right" formControlName="cardNumber">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+
+                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                        <div [class]="'summary-header'">
+                                            Card Type
+                                        </div>
+                                        <!--<div class="label-value-spacer"></div>-->
+                                        <div class="cheque-date-calendar">
+                                            <mat-form-field appearance="outline">                                                
+                                                <mat-select name="cardType" name="cardType" formControlName="cardType">
+                                                    <mat-option value="Master Card">Master Card</mat-option>
+                                                    <mat-option value="Visa">Visa</mat-option>                                                    
+                                                </mat-select>                            
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.MobileMoney">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                    <div [class]="'summary-header'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Voucher">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                    <div [class]="'summary-header'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.ECommerce">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                    <div [class]="'summary-header'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Other">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                    <div [class]="'summary-header'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                            <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == 'RETURN_AMOUNT'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center mt-2'">
+                                    <div [class]="'summary-header return-amount-label'">
+                                        {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
+                                    </div>
+                                    <!--<div class="label-value-spacer"></div>-->
+                                    <div>
+                                        <mat-form-field appearance="outline"
+                                            [class]="'innov-matFormField'">                           
+                                            <input matInput type="number" class="text-right" formControlName="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </ng-container>
+
+                        </div>
+
+                    </ng-container>
+                </ng-container>
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
+                    <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary" (click)="savePaymentLines()">                         
+                        Ok
+                    </button>
+                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelPaymentEntry()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </div>
+</div>

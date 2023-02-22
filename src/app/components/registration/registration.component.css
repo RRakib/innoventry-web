@@ -1,0 +1,40 @@
+.login-container {
+    width: 70%;
+    box-shadow: 2px 2px 10px 5px grey;
+}
+
+.login-container-handset {
+    width: 90%;
+    box-shadow: 2px 2px 10px 5px grey;
+}
+
+.login-container-fixed-height {
+    min-height: 70%;
+}
+
+
+
+.login-card-corners {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+.handset-login-card {
+    width: 90%;
+}
+
+.browser-login-card {
+    width: 30%;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.a-login{
+    font-weight: 500;
+    text-decoration: none;
+    color: #ff6600;
+}

@@ -1,0 +1,96 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-title>
+                OtherCharge/Discount
+                <div class="title-underline"></div>                
+              </mat-card-title>
+              <div>
+                <button mat-raised-button class="toolbar-button"  matTooltip="Add New Other Charge" (click)="viewAllOtherCharges()">
+                    <mat-icon>arrow_back</mat-icon>                    
+                </button>                
+              </div>
+        </mat-card-header> 
+
+        <mat-card-content  class="text-center" *ngIf="isFormLoaded">
+            <form [formGroup]="otherChargesForm">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50" fxLayoutAlign="space-between">
+                        <mat-radio-group aria-label="Select an option" formControlName="discount">
+                            <mat-radio-button value="false">Charges</mat-radio-button>
+                            <mat-radio-button value="true">Discount</mat-radio-button>
+                        </mat-radio-group>
+
+
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Enter Name"
+                                #name name="name" id="name"
+                                formControlName="name">
+                        </mat-form-field>    
+    
+                    </div>
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Type</mat-label>
+                        <mat-select formControlName="type" name="type">
+                            <mat-option value="FIXED">FIXED</mat-option>
+                            <mat-option value="PERCENT">PERCENT</mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                      
+                </div>
+
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Value</mat-label>
+                        <input matInput placeholder="Enter value"
+                            #name name="value" id="value"
+                            type="number"
+                            formControlName="value">
+                    </mat-form-field>    
+
+                    <mat-form-field class="innov-matFormField" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Ledger</mat-label>
+                        <input type="text"
+                            placeholder="Select Ledger" 
+                            aria-label="availableLedger"
+                            matInput                    
+                            [matAutocomplete]="autoLedger"
+                            formControlName="ledgerName">
+                            <mat-icon matSuffix class="search-icon">search</mat-icon>
+                        <mat-autocomplete autoActiveFirstOption #autoLedger="matAutocomplete" 
+                            (optionSelected)="onAvailableLedgerSelectionChanged($event)">
+                        <mat-option *ngFor="let option of filteredAvailableAccountLedgers  | async" [value]="option.name">
+                            {{option.name}}
+                        </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>  
+                </div>
+
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">                   
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
+                        <mat-label>Enter Description</mat-label>
+                        <textarea matInput placeholder="Enter item group Description"  formControlName="description"></textarea>
+                    </mat-form-field> 
+                </div>   
+
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end">                    
+                    <div>
+                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="viewAllOtherCharges()">
+                            Cancel
+                        </button>
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="saveOtherCharge()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+</div>

@@ -1,0 +1,57 @@
+.login-container {
+    width: 70%;
+    box-shadow: 2px 2px 10px 5px grey;
+}
+
+:host ::ng-deep mat-card.mat-card{
+    padding: 36px;
+}
+
+.login-container-fixed-height {
+    min-height: 70%;
+}
+
+.login-card-corners {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+.handset-login-card {
+    width: 90%;
+}
+
+.browser-login-card {
+    width: 30%;
+}
+
+.register-view {
+    color: #f60;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.mat-card-title {
+    margin-bottom: 5px !important;
+}
+
+
+.or {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+    margin: 15px 0 15px 0;
+}
+
+.or:after,
+.or:before {
+    content: "";
+    display: block;
+    background: grey;
+    width: 30%;
+    height: 1px;
+    margin: 0 10px;
+}

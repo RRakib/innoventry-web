@@ -1,0 +1,17 @@
+<div>
+    <mat-form-field class="example-full-width" appearance="outline" [class]="'innov-matFormField mr-10px width100'">
+        <mat-label>{{ contactBoxTitle }}</mat-label>
+        <input type="text" placeholder="Select Contact" aria-label="Contact" matInput [matAutocomplete]="auto"
+            [formControl]="autoCompleteInput"
+            (blur)="blurContactNameSelection($event)">
+        <mat-icon matSuffix class="search-icon">search</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onContactSelectionChanged($event)">
+            <mat-option *ngFor="let option of filteredContacts  | async" [value]="option.name">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>
+            {{ autoCompleteInput?.errors?.['forbiddenNames']?.value }}
+        </mat-error>
+    </mat-form-field>
+</div>

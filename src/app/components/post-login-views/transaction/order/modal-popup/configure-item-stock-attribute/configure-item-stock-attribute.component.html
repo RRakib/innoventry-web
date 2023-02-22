@@ -1,0 +1,123 @@
+<div class="mat-elevation-z8" *ngIf="isFormLoaded">
+    <div [formGroup]="itemStockAttributeForm">
+        <mat-card class="mb-1">
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-title>
+                    Item Attribute
+                    <div class="title-underline"></div>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="text-left">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" 
+                    [class]="(isHandset$ | async) ? ''  : 'attribute-container'">
+
+                    <ng-container formArrayName="attributes">
+                        <ng-container *ngFor="let attributeForm of attributes.controls; let i = index">
+                            <div class="attribute-form-row" [formGroup]="toFormGroup(attributeForm)">
+
+                                <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'NUMBER'">
+                                    <mat-form-field appearance="outline"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [fxFlex]="100">
+                                        <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
+                                        <input matInput type="number" #value name="value" id="value" formControlName="value">
+                                    </mat-form-field>
+                                </ng-container>
+
+                                <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'TEXT'">
+                                    <mat-form-field appearance="outline"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [fxFlex]="100">
+                                        <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
+                                        <input matInput  #value name="value" id="value" formControlName="value">
+                                    </mat-form-field>
+                                </ng-container>
+
+                                <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'CHOICE'">
+                                    <mat-form-field appearance="outline"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [fxFlex]="100">
+                                        <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
+                                        <mat-select formControlName="value" name="value" (selectionChange)="getSelectedRefChoices(attributeForm)">
+                                            <mat-option *ngFor="let configureChoice of getFormGroupControlChoices(attributeForm)" 
+                                                [value]="configureChoice.value">
+                                                {{configureChoice.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+
+                                <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'REFERENCE_CHOICE'">
+                                    <mat-form-field appearance="outline"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [fxFlex]="100">
+                                        <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
+                                        <mat-select formControlName="value" name="value">
+                                            <mat-option *ngFor="let configureChoice of getFormGroupControlChoices(attributeForm)" 
+                                                [value]="configureChoice.value">
+                                                {{configureChoice.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                                
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
+                        <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary"
+                            (click)="addEditAttributeGroupLine()">                         
+                            Add
+                        </button>
+                        <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="resetForm()">
+                            Cancel
+                        </button>
+                    </div>
+                      
+                </div>
+                <div class="responsive-table">
+                    <div class="table-action-buttons mt-1">
+                        <button mat-raised-button color="primary" class="button-group"  [disabled]="selectedAttributeGroupLineId == -1 || isEditAttrGrpLineEnabled"
+                            (click)="editSelectedAttributeGroupLine()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button color="warn" class="button-group"  [disabled]="selectedAttributeGroupLineId == -1 || isEditAttrGrpLineEnabled"
+                            (click)="deleteSelectedAttributeGroupLine()">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                    <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+                        <ng-container *ngFor="let disCol of displayedColumns; let colIndex = index" matColumnDef="{{disCol}}">
+                            <th mat-header-cell *matHeaderCellDef>{{disCol}}</th>
+                            <td mat-cell *matCellDef="let element">{{element[disCol]}}</td>
+                        </ng-container>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                              No AttributeGroup Lines Added.
+                            </td>
+                        </tr>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            [ngClass]="{'highlight': selectedAttributeGroupLineId == row.id}"
+                            (click)="highlight(row)"></tr>
+                    </table>
+                </div>
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
+                    <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary"
+                        (click)="saveStockAttributes()">                         
+                        Save
+                    </button>
+                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelAddOrUpdate()">
+                        Cancel
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

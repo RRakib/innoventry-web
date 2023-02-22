@@ -1,0 +1,27 @@
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.summary-component{
+    min-height: 30px !important;
+    border: 1px solid #e0e0e0;
+    padding: 5px !important;
+}
+
+.summary-header{
+    font-weight: 500;
+}
+
+.summary-received-amount{
+    padding-top: 1.25rem !important;
+}
+
+.edit-delete-action{
+    padding: 0px !important;
+    min-width: 0px !important;
+    margin-left: 8px !important;
+}
+
+.item_form-buttons{
+    padding: 0 5px !important;
+}

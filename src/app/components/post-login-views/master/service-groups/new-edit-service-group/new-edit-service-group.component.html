@@ -1,0 +1,47 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-title>
+                New Service Group
+                <div class="title-underline"></div>                
+              </mat-card-title>
+              <div>
+                <button mat-raised-button class="button-group"  matTooltip="Add New Item" (click)="viewAllServiceGroups()">
+                    <mat-icon>arrow_back</mat-icon>
+                    All Service Groups
+                </button>                
+              </div>
+        </mat-card-header> 
+        <mat-card-content  class="text-center" *ngIf="isFormLoaded">
+            <form [formGroup]="serviceGroupForm">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                    <mat-form-field appearance="outline" [class]="'innov-matFormField'" [fxFlex]="100">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter Service Group Name"
+                            #name name="name" id="name"
+                            formControlName="name">
+                    </mat-form-field>    
+                  
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">                   
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
+                        <mat-label>Enter Description</mat-label>
+                        <textarea matInput placeholder="Enter service group Description"  formControlName="description"></textarea>
+                    </mat-form-field> 
+                </div>   
+                
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end">                    
+                    <div>
+                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="viewAllServiceGroups()">
+                            Cancel
+                        </button>
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="saveServiceGroup()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

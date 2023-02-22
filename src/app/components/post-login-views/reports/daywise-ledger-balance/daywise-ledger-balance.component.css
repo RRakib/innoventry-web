@@ -1,0 +1,7 @@
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1.34375em;
+}

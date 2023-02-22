@@ -1,0 +1,68 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-title>
+                Sale Register
+                <div class="title-underline"></div>
+                <button mat-raised-button class="more-button" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-center">
+            <form [formGroup]="saleRegisterForm">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+                    [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+                    <div class="mr-10px">
+                        <Ledger-Box [fxFlex]="100"
+                            [ledgerFormControl]="saleRegisterForm.controls['ledgerName'] | convertToFormControl"
+                            [ledgerBoxTitle]="'From Ledger'" (onLedgerSelection)="onFromLedgerSelection($event)">
+                        </Ledger-Box>
+                    </div>
+
+                    <div>
+                        <i-mat-datepicker [label]="'Start Date'" 
+                            [dateFormControl]="saleRegisterForm.controls['startDate'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+                        <i-mat-datepicker [label]="'End Date'"
+                             [dateFormControl]="saleRegisterForm.controls['endDate'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>
+                    <div fxflexfill fxLayout="column" [class]="'ml-10px mr-10px'">
+                        <mat-checkbox formControlName="isItemDetailRequired">Show Item Details</mat-checkbox>
+
+                    </div>
+                    <div>
+                        <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''"
+                            (click)="getSaleRegisterReport()">
+                            Show
+                        </button> 
+                    </div>
+                </div>
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+          <i-tree-table [columnDefs]="columns" [data]="data" 
+          (onRowSelection)="onRowSelection($event)"
+          (onRowEdit)="onRowEdit()"></i-tree-table>          
+        </mat-card-content>
+    </mat-card>
+
+</div>

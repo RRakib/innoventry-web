@@ -1,0 +1,83 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-10px">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-title>
+                New Attribute
+                <div class="title-underline"></div>                
+              </mat-card-title>
+              <div>
+                <button mat-raised-button class="toolbar-button"  matTooltip="Add New Item" (click)="viewAllAttributes()">
+                    <mat-icon>arrow_back</mat-icon>
+                    All Attributes
+                </button>                
+              </div>
+        </mat-card-header> 
+        <mat-card-content  class="text-center" *ngIf="isFormLoaded">
+            <form [formGroup]="attributeForm">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter Attribute Name"
+                            #name name="name" id="name"
+                            formControlName="name"
+                            (keyup)="updateDisplayName()">
+                    </mat-form-field>    
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Display Name</mat-label>
+                        <input matInput placeholder="Enter Display Name"
+                            #displayName name="displayName" id="displayName"
+                            formControlName="displayName">
+                    </mat-form-field>    
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Type</mat-label>
+                        <mat-select formControlName="type" name="type" (selectionChange)="changeAttributeType()">
+                          <mat-option *ngFor="let attributeType of attributeTypes | keyvalue" [value]="attributeType.value">
+                            {{attributeType.key}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>{{selectedTypeLabel}}</mat-label>
+                        <mat-select formControlName="choiceListId" name="choiceListId" (selectionChange)="changeSelectedChoiceName()">
+                          <mat-option *ngFor="let choice of choiceList" [value]="choice.id">
+                            {{choice.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">                   
+                    <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
+                        <mat-label>Enter Description</mat-label>
+                        <textarea matInput placeholder="Enter item group Description"  formControlName="description"></textarea>
+                    </mat-form-field> 
+                </div>   
+                
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                    <div fxflexfill fxLayoutAlign="start" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <section class="mr-10px">
+                            <mat-checkbox formControlName="mandatory">Mandatory</mat-checkbox>              
+                        </section>
+                        <section>
+                            <mat-checkbox formControlName="printInTransaction">Include in Voucher Print</mat-checkbox>              
+                        </section>
+                    </div>
+                    <div>
+                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="viewAllAttributes()">
+                            Cancel
+                        </button>
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="saveAttribute()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

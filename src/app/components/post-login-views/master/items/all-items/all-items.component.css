@@ -1,0 +1,12 @@
+.itemName-txtLeft{
+    text-align: left !important;    
+    width: 45%;
+}
+
+.button-group{    
+    margin: 0 8px 0 0;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1.34375em;
+}

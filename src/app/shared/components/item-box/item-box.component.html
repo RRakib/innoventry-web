@@ -1,0 +1,18 @@
+<div>
+    <mat-form-field class="example-full-width" appearance="outline" [class]="'innov-matFormField mr-10px search-item-area'">
+        <mat-label>Item</mat-label>
+        <input type="text" placeholder="Select Item" aria-label="item" matInput [matAutocomplete]="auto"
+            [formControl]="autoCompleteInput"
+            (blur)="blurItemNameSelection($event)">
+        <mat-hint class="current-stock-hint">{{ stockCountStatement }}</mat-hint>
+        <mat-icon matSuffix class="search-icon">search</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onItemSelectionChanged($event)">
+            <mat-option *ngFor="let option of filteredItems  | async" [value]="option.name">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>
+            {{ autoCompleteInput?.errors?.['forbiddenNames']?.value }}
+        </mat-error>
+    </mat-form-field>
+</div>

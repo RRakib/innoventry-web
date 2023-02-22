@@ -1,0 +1,31 @@
+.full-width-table {
+  width: 100%;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.search-criteria {
+  justify-content: left !important;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+:host ::ng-deep .mat-paginator-page-size-select .mat-form-field-wrapper{
+  padding-bottom: 10px;
+}
+
+.showbutton {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+}
+

@@ -1,0 +1,14 @@
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+
+:host ::ng-deep .mat-paginator-page-size-select .mat-form-field-wrapper{
+    padding-bottom: 10px !important;
+}
+
+.button-group{    
+    margin: 0 8px 0 0;
+    height: 35px;
+}
+
