@@ -1,5 +1,35 @@
 :host {
 
+
+  mat-grid-tile{
+    background: #FFF;
+
+    mat-grid-tile-header{
+      font-size: 16px;
+      font-weight: 600;
+      background: #FFF;
+      color: #333;
+
+      .plan-name-price{       
+        
+        .plan-price-tile{
+          
+        }
+  
+        .plan-price{
+          color: #f60;
+          font-weight: 500;
+        }
+      }
+    }
+
+    mat-grid-tile-footer{
+      background: #FFF;
+    }
+
+    
+  }
+
   .grid-container {
     margin: 20px;
   }
@@ -20,18 +50,7 @@
     bottom: 15px;
     padding: 1rem;
 
-    .plan-name-price{
-      height: 4.5rem;
-      
-      .plan-price-tile{
-        margin: 0.5rem 0;
-      }
-
-      .plan-price{
-        color: #f60;
-        font-weight: 500;
-      }
-    }
+    
 
     .plan-detail{
       margin: 0.5rem 0;
