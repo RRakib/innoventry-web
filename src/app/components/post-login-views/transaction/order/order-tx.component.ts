@@ -158,7 +158,7 @@ export abstract class OrderTxComponent {
     this.ledgerAttributesService.findById(ledgerId).subscribe({
       next: (ledgerAttributes) => {
 
-        let billingGroups = ledgerAttributes.billingGroupList?.filter((billingGroup) => {
+        let billingGroups = ledgerAttributes?.billingGroupList?.filter((billingGroup) => {
           return billingGroup.transactionTypes?.some((txType) => txType.type == 301);
         });
 
@@ -166,12 +166,13 @@ export abstract class OrderTxComponent {
           this.txProvider.billingGroup(billingGroups[0]);
         }            
 
-        this.billingClassificationService.findById(ledgerAttributes.billingClassificationId).subscribe({
-          next: (iBillingClassification) => {
-            this.txProvider.billingClassification(iBillingClassification);            
-          }
-        });
-
+        if(!!ledgerAttributes && !!ledgerAttributes.billingClassificationId) {
+          this.billingClassificationService.findById(ledgerAttributes.billingClassificationId).subscribe({
+            next: (iBillingClassification) => {
+              this.txProvider.billingClassification(iBillingClassification);            
+            }
+          });
+        }
       }
     });
   }
@@ -351,20 +352,27 @@ export abstract class OrderTxComponent {
    */
   private updateTaxGroupLinkedToItemAndTaxAmount(taxClassId: number | undefined, type: string) : void{
 
-    this.taxableEntityService.getTaxGroup(this.txProvider.billingClassification().id, this.txProvider.billingGroup().id, taxClassId).subscribe({
-      next: (taxGroup) => {
-        if (taxGroup) {
-          if (type == 'ITEM') {
-            this.itemForm.patchValue({
-              taxGroup: taxGroup.id,
-              taxGroupName: taxGroup.displayName
-            });
-
-            this.updateTaxAmount(taxGroup);  
+    if(!!this.txProvider.billingClassification() && !!this.txProvider.billingClassification().id && 
+      !!this.txProvider.billingGroup() && !!this.txProvider.billingGroup().id) {
+        
+      this.taxableEntityService.getTaxGroup(this.txProvider.billingClassification().id, this.txProvider.billingGroup().id, taxClassId).subscribe({
+        next: (taxGroup) => {
+          if (taxGroup) {
+            if (type == 'ITEM') {
+              this.itemForm.patchValue({
+                taxGroup: taxGroup.id,
+                taxGroupName: taxGroup.displayName
+              });
+            }
           }
+  
+          this.updateTaxAmount(taxGroup);
         }
-      }
-    });  
+      });  
+    }else{
+      this.updateTaxAmount();
+    }
+    
   }  
 
   /**
@@ -372,7 +380,7 @@ export abstract class OrderTxComponent {
    * 1. When tax group, quantity , discount is changed (From subscribers on form control)   
    * @param taxGroup 
    */
-  private updateTaxAmount(taxGroup: ITaxGroup | undefined) {
+  private updateTaxAmount(taxGroup?: ITaxGroup | undefined) {
 
     let taxableAmount = this.itemForm.controls["taxableAmountBeforeBillDiscount"].value;
     if (!!taxGroup) {

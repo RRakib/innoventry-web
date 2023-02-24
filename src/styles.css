@@ -226,3 +226,8 @@ mat-card.mat-card{
 .label-value-spacer{
     margin: 0 1.5rem;
 }
+
+.mat-grid-tile .mat-figure {
+    justify-content: flex-start !important ;
+    align-items: flex-start !important;
+ }

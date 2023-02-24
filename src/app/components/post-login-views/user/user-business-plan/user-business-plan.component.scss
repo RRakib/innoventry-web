@@ -23,10 +23,26 @@
       }
     }
 
+    .plan-features{
+      list-style: none;
+      padding: 10px;
+
+      .feature-tick{
+        margin-right: 5px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        color: #45ad04;
+      }
+
+      li{
+        padding: 5px 0;
+      }
+    }
+
     mat-grid-tile-footer{
       background: #FFF;
     }
-
     
   }
 
@@ -55,22 +71,7 @@
     .plan-detail{
       margin: 0.5rem 0;
 
-      .plan-features{
-        list-style: none;
-        padding: 0;
-
-        .feature-tick{
-          margin-right: 5px;
-          font-size: 20px;
-          display: flex;
-          align-items: center;
-          color: #45ad04;
-        }
-
-        li{
-          padding: 5px 0;
-        }
-      }
+      
     }
   }
 
