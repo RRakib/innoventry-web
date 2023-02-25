@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { map, Observable, shareReplay, Subscription } from "rxjs";
-import { GetObjectsArgument, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, StockAttributeGroupLineServiceService } from "src/server";
+import { forkJoin, map, Observable, shareReplay, Subscription } from "rxjs";
+import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
 import { TaxableEntityServiceService } from "src/server/api/taxableEntityService.service";
 import { TransactionsProvider } from "src/app/services/transactionsProvider";
 import { LedgerAttributesServiceService } from "src/server/api/ledgerAttributesService.service";
@@ -76,7 +76,9 @@ export abstract class OrderTxComponent {
     private otherChargesService : OtherChargesServiceService,private _snackBar: MatSnackBar, private parentLedgerService : LedgerServiceService,
     private itemService : ItemServiceService, private parentOverlayService : OverlayService,
     private stockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    public matDialog: MatDialog) { 
+    public matDialog: MatDialog,private currentTxType: number,
+    private taxConfigurationService : TaxConfigurationServiceService
+    ) { 
   } 
 
   /**
@@ -154,27 +156,104 @@ export abstract class OrderTxComponent {
    * This function updates the billing classification and billing group for the current selected ledger.
    * @param ledgerId : Current selected ledger id.
    */
-  public getBillingGroup(ledgerId : number | undefined) : void {
+  public getBillingGroup(ledgerId : number | undefined, currentTxType : number) : void {
+
+    let billingGroup : IBillingGroup = {};
+    let billingClassification : IBillingClassification = {};
+
     this.ledgerAttributesService.findById(ledgerId).subscribe({
       next: (ledgerAttributes) => {
 
-        let billingGroups = ledgerAttributes?.billingGroupList?.filter((billingGroup) => {
-          return billingGroup.transactionTypes?.some((txType) => txType.type == 301);
-        });
+        if(ledgerAttributes == undefined) {
 
-        if(!!billingGroups && billingGroups.length > 0) {
-          this.txProvider.billingGroup(billingGroups[0]);
-        }            
+          this.billingGroupClassificationRequests().subscribe({
+            next: (data) => {
+              billingGroup = this.getDefaultBillingGroup(data[0], data[1]);
+              billingClassification = data[2];
 
-        if(!!ledgerAttributes && !!ledgerAttributes.billingClassificationId) {
-          this.billingClassificationService.findById(ledgerAttributes.billingClassificationId).subscribe({
-            next: (iBillingClassification) => {
-              this.txProvider.billingClassification(iBillingClassification);            
+              this.txProvider.billingGroup(billingGroup);
+              this.txProvider.billingClassification(billingClassification);
             }
           });
+
+        }else{
+          if(ledgerAttributes.billingGroupList?.length == 0) {
+
+            this.billingGroupClassificationRequests().subscribe({
+              next: (data) => {
+                billingGroup = this.getDefaultBillingGroup(data[0], data[1]);
+                this.txProvider.billingGroup(billingGroup);
+              }
+            });
+
+            
+          }else{
+
+            let currentTxBillingGroup = ledgerAttributes?.billingGroupList?.find((billingGroup) => {
+              return billingGroup.transactionTypes?.some((txType) => txType.type == currentTxType);
+            });
+
+            if(!!currentTxBillingGroup) {
+              billingGroup = currentTxBillingGroup
+            }else{
+              this.billingGroupClassificationRequests().subscribe({
+                next: (data) => {
+                  billingGroup = this.getDefaultBillingGroup(data[0], data[1]);                 
+                }
+              });
+            }
+
+            this.txProvider.billingGroup(billingGroup);
+          }
+
+          this.billingClassificationService.findById(ledgerAttributes.billingClassificationId).subscribe({
+            next: (data) => {
+              if(!!data) {
+                billingClassification = data;
+              }else{
+                billingClassification = this.getDefaultBillingClassification();
+              }
+            }
+          });
+
+          if(!!billingClassification) {
+            this.txProvider.billingClassification(billingClassification);            
+          }
         }
       }
     });
+  }
+
+  /**
+   * This function returns all the observables required on page load.
+   * @returns 
+   */
+  public billingGroupClassificationRequests(): Observable<any[]> {
+    let purchaseBillingGroup$ :  Observable<IBillingGroup> = this.taxConfigurationService.getDefaultPurchaseBillingGroup();
+    let saleBillingGroup$ : Observable<IBillingGroup> = this.taxConfigurationService.getDefaultSaleBillingGroup();
+    let billingClassification$ : Observable<IBillingClassification> = this.billingClassificationService.findByName("Intrastate (Within State)");
+
+    return forkJoin([purchaseBillingGroup$, saleBillingGroup$, billingClassification$]);
+  }
+
+
+  private getDefaultBillingGroup(purchaseBillingGroup : IBillingGroup, saleBillingGroup : IBillingGroup) : IBillingGroup{
+    if(this.currentTxType == 301) {
+      return purchaseBillingGroup;
+    }else{
+      return saleBillingGroup;
+    }
+  }
+
+  private getDefaultBillingClassification() : IBillingClassification{
+    let billingClassification = {};
+
+    this.billingClassificationService.findByName("Intrastate (Within State)").subscribe({
+      next : (data) => {
+        billingClassification =  data;
+      }
+    });
+    return billingClassification;
   }
 
   //This will also executed in edit of any new added entry only.
@@ -185,7 +264,7 @@ export abstract class OrderTxComponent {
     })
 
     //Update billing group and billing classification for the selected ledger.
-    this.getBillingGroup(selectedLedger.id);
+    this.getBillingGroup(selectedLedger.id, this.currentTxType);
   }
 
   //This will also executed in edit of any new added entry only.
@@ -351,6 +430,13 @@ export abstract class OrderTxComponent {
    * Also updates the taxGroup id and name for calculating the tax amount
    */
   private updateTaxGroupLinkedToItemAndTaxAmount(taxClassId: number | undefined, type: string) : void{
+
+    if (type == 'ITEM') {
+      this.itemForm.patchValue({
+        taxGroup: '',
+        taxGroupName: ''
+      });
+    }
 
     if(!!this.txProvider.billingClassification() && !!this.txProvider.billingClassification().id && 
       !!this.txProvider.billingGroup() && !!this.txProvider.billingGroup().id) {

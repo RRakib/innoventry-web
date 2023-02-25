@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { StockAttributeGroupLineServiceService } from 'src/server';
+import { StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -40,13 +40,15 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
     private overlayService : OverlayService,
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<SaleComponent>,
     public dialog: MatDialog, private childItemService : ItemServiceService, 
-    private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService) {
+    private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
+    private childTaxConfigurationService : TaxConfigurationServiceService) {
 
     super(saleBreakpointObserver, childFormBuilder, 
       childstockLocationService, childTaxableEntityService,
       childTxProvider, childLedgerAttributesService, childBillingClassificationService,
       childOtherChargesService,_childSnackBar, ledgerService, childItemService, overlayService,
-      childStockAttributeGroupLineService, dialog);
+      childStockAttributeGroupLineService, dialog,
+      302, childTaxConfigurationService);
 
     this.headerTitle = 'Sale';
   }
@@ -100,7 +102,7 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
         });
 
         //Get billing group associated with Transaction or Default(Cash) Ledger.
-        this.getBillingGroup(!!this.saleOrderTx.ledger ? this.saleOrderTx.ledger : data.id);
+        this.getBillingGroup(!!this.saleOrderTx.ledger ? this.saleOrderTx.ledger : data.id, 302);
 
         //Initialize the item form on load and other properties.
         this.initializeItemForm();

@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { IContact, IQuotationTx, StockAttributeGroupLineServiceService } from 'src/server';
+import { IContact, IQuotationTx, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -37,13 +37,14 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
     private datePipe: DatePipe, private quotationTxService : QuotationTxServiceService, private overlayService : OverlayService,
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<QuotationComponent>,
     private childItemService : ItemServiceService, public dialog: MatDialog,
-    private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService) {
+    private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
+    private childTaxConfigurationService : TaxConfigurationServiceService) {
       
       super(saleBreakpointObserver, childFormBuilder, 
         childstockLocationService, childTaxableEntityService,
         childTxProvider, childLedgerAttributesService, childBillingClassificationService,
         childOtherChargesService,_childSnackBar, ledgerService, childItemService, 
-        overlayService, childStockAttributeGroupLineService, dialog);
+        overlayService, childStockAttributeGroupLineService, dialog, 302, childTaxConfigurationService);
 
       this.headerTitle = 'Quotation';
   }
@@ -107,7 +108,7 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
         });
 
         //Get billing group associated with Transaction or Default(Cash) Ledger.
-        this.getBillingGroup(!!this.quotationOrderTx.ledger ? this.quotationOrderTx.ledger : data.id);
+        this.getBillingGroup(!!this.quotationOrderTx.ledger ? this.quotationOrderTx.ledger : data.id, 302);
 
         //Initialize the item form on load and other properties.
         this.initializeItemForm();
