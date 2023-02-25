@@ -8,7 +8,7 @@ import { CashInHandComponent } from './cash-in-hand/cash-in-hand.component';
 import { ReportsBaseViewComponent } from './reports-base-view/reports-base-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverstockReportComponent } from './overstock-report/overstock-report.component';
-import { AttributeGroupServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemLineServiceService, PaymentModeServiceService, StockAttributeGroupLineServiceService } from 'src/server';
+import { AttributeGroupServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemLineServiceService, PaymentModeServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
 import { LedgerBookComponent } from './ledger-book/ledger-book.component';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -130,7 +130,8 @@ import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
     ProfitLossReportServiceService,
     UnderstockReportServiceService,
     StockSummaryReportService2Service,
-    StockAttributeGroupLineServiceService
+    StockAttributeGroupLineServiceService,
+    TaxConfigurationServiceService 
   ],
   bootstrap: []
 })
