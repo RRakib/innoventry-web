@@ -5,8 +5,8 @@
     <mat-icon matSuffix class="search-icon">search</mat-icon>
     <mat-autocomplete autoActiveFirstOption #autoTaxClass="matAutocomplete"
         (optionSelected)="onTaxGroupSelectionChanged($event)">
-        <mat-option *ngFor="let option of filteredTaxGroups  | async" [value]="option.displayName">
-            {{option.displayName}}
+        <mat-option *ngFor="let option of filteredTaxGroups  | async" [value]="option.name">
+            {{option.name}}
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>
