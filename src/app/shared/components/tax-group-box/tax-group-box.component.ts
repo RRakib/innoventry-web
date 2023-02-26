@@ -61,7 +61,7 @@ export class TaxGroupBoxComponent implements OnInit, OnChanges {
           let taxGroupInEditMode: ITaxGroup[] = [];
           if (!!this.autoCompleteInput.value && this.autoCompleteInput.value.length > 0) {
             taxGroupInEditMode = this._filterTaxGroups(this.autoCompleteInput.value);
-            this.autoCompleteInput.setValue(taxGroupInEditMode[0].displayName);
+            this.autoCompleteInput.setValue(taxGroupInEditMode[0].name);
           }
 
           this.filteredTaxGroups = this.autoCompleteInput.valueChanges.pipe(startWith(this.autoCompleteInput.value), map(value => this._filterTaxGroups(value)));
@@ -84,13 +84,13 @@ export class TaxGroupBoxComponent implements OnInit, OnChanges {
 
     let taxGroups : ITaxGroup[] = this.taxGroups;
 
-    return taxGroups?.filter(option => option.displayName?.toLowerCase().includes(filterValue));     
+    return taxGroups?.filter(option => option.name?.toLowerCase().includes(filterValue));     
   }
 
   public onTaxGroupSelectionChanged(event : MatAutocompleteSelectedEvent) {
     const filterValue = event.option.value.toLowerCase();
 
-    let taxGroup  = this.taxGroups.find((taxGroup) => taxGroup.displayName?.toLowerCase().includes(filterValue));
+    let taxGroup  = this.taxGroups.find((taxGroup) => taxGroup.name?.toLowerCase().includes(filterValue));
 
     if(!!taxGroup){
       this.onTaxGroupSelection.emit(taxGroup);
