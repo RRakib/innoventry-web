@@ -1,44 +1,23 @@
 <div>
-    <mat-grid-list cols="4" rowHeight="300px" gutterSize="5px" class="mt-1">
+    <mat-grid-list cols="4" rowHeight="280px" gutterSize="5px" class="mt-1">
         <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
             <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
                 {{card.title}}
                 <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
                     <div class="plan-price-tile">
-                        <span class="plan-price">{{ 2000 | currency: 'INR':true }}</span> / year
+                        <span class="plan-price">{{ card.price | currency: 'INR':true }}</span> / year
                     </div>
                 </div>
             </mat-grid-tile-header>
 
             <div>
                 <ul class="plan-features">
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> Unlimited Accounts & Products
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> GST Compliant
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> Inventory Transaction and Reports
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> All Features of Lite Edition
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> Tax Inc/Exc Invoicing
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> Automatic Backup
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> Multiple Companies
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> No Innoventry Branding on Invoices
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <mat-icon class="feature-tick">check</mat-icon> No Innoventry Branding on Invoices
-                    </li>
+                    <ng-container *ngFor="let feature of card.features;">
+                        <li class="d-flex align-items-center">
+                            <mat-icon class="feature-tick">check</mat-icon> 
+                            {{feature}}
+                        </li>
+                    </ng-container>                    
                 </ul>
             </div>
 

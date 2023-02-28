@@ -46,9 +46,9 @@
             {{ userName }} | {{ companyId }}
           </button>
           <mat-menu #profile="matMenu" xPosition="before">   
-            <!-- <button mat-menu-item color="primary" class="top-menu-link" [routerLink]="['/main/user/profile']">              
+            <button mat-menu-item color="primary" class="top-menu-link" [routerLink]="['/main/user/profile']">              
               <span>Business Plans</span>
-            </button>          -->
+            </button>         
             <button mat-menu-item color="primary" class="top-menu-link" (click)="openOldVersion()">              
               <span>Old Version</span>
             </button>
@@ -62,7 +62,19 @@
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <router-outlet></router-outlet>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+    
+
+
+    <!-- <footer>
+      <mat-toolbar class="md-hue-2 md-scroll-shrink">
+        <div layout="row" layout-align="center center" flex>
+          Powered by Webocity Technologies
+        </div>
+      </mat-toolbar>
+    </footer> -->
 
   </mat-sidenav-content>
 </mat-sidenav-container>
