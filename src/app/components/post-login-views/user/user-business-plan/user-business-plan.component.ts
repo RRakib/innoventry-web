@@ -34,7 +34,7 @@ export class UserBusinessPlanComponent implements OnInit {
       }
 
       return [
-        { title: 'Basic', cols: 1, rows: 2, price: this.basicPlanDetails.PlanPrice, features: this.basicPlanDetails.Features },
+        // { title: 'Basic', cols: 1, rows: 2, price: this.basicPlanDetails.PlanPrice, features: this.basicPlanDetails.Features },
         { title: 'Personal', cols: 1, rows: 2, price: this.personalPlanDetails.PlanPrice, features: this.personalPlanDetails.Features },
         { title: 'Standard', cols: 1, rows: 2, price: this.standardPlanDetails.PlanPrice, features: this.standardPlanDetails.Features },
         { title: 'Premium', cols: 1, rows: 2, price: this.premiumPlanDetails.PlanPrice, features: this.premiumPlanDetails.Features }

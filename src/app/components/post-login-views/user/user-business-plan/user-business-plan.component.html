@@ -1,25 +1,27 @@
 <div>
-    <mat-grid-list cols="4" rowHeight="280px" gutterSize="5px" class="mt-1">
+    <mat-grid-list cols="3" rowHeight="280px" gutterSize="5px" class="mt-1">
         <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-            <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
-                {{card.title}}
-                <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
-                    <div class="plan-price-tile">
-                        <span class="plan-price">{{ card.price | currency: 'INR':true }}</span> / year
+            <div class="">
+                <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
+                    {{card.title}}
+                    <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
+                        <div class="plan-price-tile">
+                            <span class="plan-price">{{ card.price | currency: 'INR':true }}</span> / year
+                        </div>
                     </div>
+                </mat-grid-tile-header>
+     
+                <div style="margin-top: 3rem;">
+                    <ul class="plan-features">
+                        <ng-container *ngFor="let feature of card.features;">
+                            <li class="d-flex align-items-center">
+                                <mat-icon class="feature-tick">check</mat-icon> 
+                                {{feature}}
+                            </li>
+                        </ng-container>                    
+                    </ul>
                 </div>
-            </mat-grid-tile-header>
-
-            <div>
-                <ul class="plan-features">
-                    <ng-container *ngFor="let feature of card.features;">
-                        <li class="d-flex align-items-center">
-                            <mat-icon class="feature-tick">check</mat-icon> 
-                            {{feature}}
-                        </li>
-                    </ng-container>                    
-                </ul>
-            </div>
+            </div>            
 
             <mat-grid-tile-footer [fxLayout]="'row'" fxflexfill fxLayoutAlign="center" class="mb-4">
                     <button mat-raised-button color="primary" [fxFlex]="50">
