@@ -417,7 +417,7 @@ export abstract class OrderTxComponent {
     if(!!selectedTaxGroup){
       this.itemForm.patchValue({
         taxGroup: selectedTaxGroup.id,
-        taxGroupName: selectedTaxGroup.displayName
+        taxGroupName: selectedTaxGroup.name
       });
 
       this.updateTaxAmount(selectedTaxGroup); 
@@ -447,7 +447,7 @@ export abstract class OrderTxComponent {
             if (type == 'ITEM') {
               this.itemForm.patchValue({
                 taxGroup: taxGroup.id,
-                taxGroupName: taxGroup.displayName
+                taxGroupName: taxGroup.name
               });
             }
           }
