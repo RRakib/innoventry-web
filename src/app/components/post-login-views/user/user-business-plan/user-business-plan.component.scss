@@ -1,5 +1,20 @@
 :host {
 
+  input:disabled {
+    color: black;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+  }
+
+  ::ng-deep .mat-form-field-label{
+    color: #3f51b5 !important;
+  }
+
+  ::ng-deep .mat-form-field-outline{
+    color: #3f51b5 !important;
+  }
 
   mat-grid-tile{
     background: #FFF;

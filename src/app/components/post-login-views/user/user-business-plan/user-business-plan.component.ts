@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 
 import { BusinessPlanFeatures } from 'src/app/components/post-login-views/user/user-business-plan/BusinessPlanFeatures';
+import { CompanyPlanServiceService, PCompanyPlanInfo } from 'src/server';
 
 @Component({
   selector: 'app-user-business-plan',
@@ -21,6 +22,9 @@ export class UserBusinessPlanComponent implements OnInit {
   private personalPlanDetails = BusinessPlanFeatures.PersonalPlanFeatures;
   private standardPlanDetails = BusinessPlanFeatures.StandardPlanFeatures;
   private premiumPlanDetails = BusinessPlanFeatures.PremiumPlanFeatures;
+
+  public companyPlanInfo : PCompanyPlanInfo;
+  public editionCount : number;
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -42,9 +46,15 @@ export class UserBusinessPlanComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private companyPlanService :  CompanyPlanServiceService) { }
 
   ngOnInit(): void {
+    this.companyPlanService.getCompanyPlanInfo().subscribe({
+      next: (data) => {
+        this.companyPlanInfo = data;
+        this.editionCount = !!this.companyPlanInfo.editions ? this.companyPlanInfo.editions.length: 0;
+      }
+    });
   }
 
 }

@@ -1,12 +1,146 @@
 <div>
-    <mat-grid-list cols="3" rowHeight="280px" gutterSize="5px" class="mt-1">
-        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-card [class]="'mt-1 mb-1'">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-subtitle>
+                Company Information                    
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Name</mat-label>
+                            <input matInput placeholder="Admin Name" [(ngModel)]="companyPlanInfo.adminName" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Email</mat-label>
+                            <input matInput placeholder="Admin Email" [(ngModel)]="companyPlanInfo.adminEmail" disabled>
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Mobile</mat-label>
+                            <input matInput placeholder="Admin Mobile" [(ngModel)]="companyPlanInfo.adminMobile" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Product Code</mat-label>
+                            <input matInput placeholder="Product Code" [(ngModel)]="companyPlanInfo.productCode" disabled>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Country</mat-label>
+                            <input matInput placeholder="Admin Country" [(ngModel)]="companyPlanInfo.adminCountry" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin State</mat-label>
+                            <input matInput placeholder="Product Code" [(ngModel)]="companyPlanInfo.adminState" disabled>
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Pincode</mat-label>
+                            <input matInput placeholder="Admin Pincode" [(ngModel)]="companyPlanInfo.adminPinCode" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Admin Billing Address</mat-label>
+                            <input matInput placeholder="Admin Billing Address" [(ngModel)]="companyPlanInfo.adminBillingAddress" disabled>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Plan Type</mat-label>
+                            <input matInput placeholder="Plan Type" [(ngModel)]="companyPlanInfo.plan" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Plan Valid Till</mat-label>
+                            <input matInput placeholder="Plan Validity" [value]="companyPlanInfo.validTill | date:'dd/MM/yyyy HH:mm'"  disabled>
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Renew Rate</mat-label>
+                            <input matInput placeholder="Renew Rate" [(ngModel)]="companyPlanInfo.renewRate" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-10px'" 
+                            [fxFlex]="50">
+                            <mat-label>Renew MRP</mat-label>
+                            <input matInput placeholder="Renew MRP" [(ngModel)]="companyPlanInfo.renewMrp" disabled>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" class="mb-1">
+                <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50" fxLayoutAlign="end">                    
+                    <button mat-raised-button class="button-group item_form-buttons"  color="primary">
+                        Renew Plan
+                    </button>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card [class]="'mt-1'">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-subtitle>
+                Explore Our Plan(s)
+            </mat-card-subtitle>
+        </mat-card-header>        
+    </mat-card>
+
+    <mat-grid-list [cols]="editionCount" rowHeight="280px" gutterSize="5px">
+        <mat-grid-tile *ngFor="let card of companyPlanInfo.editions" [colspan]="1" [rowspan]="2">
             <div class="">
                 <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
                     {{card.title}}
                     <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
                         <div class="plan-price-tile">
-                            <span class="plan-price">{{ card.price | currency: 'INR':true }}</span> / year
+                            <span class="plan-price">{{ card.rate | currency: 'INR':true }}</span> / year
                         </div>
                     </div>
                 </mat-grid-tile-header>
@@ -16,7 +150,7 @@
                         <ng-container *ngFor="let feature of card.features;">
                             <li class="d-flex align-items-center">
                                 <mat-icon class="feature-tick">check</mat-icon> 
-                                {{feature}}
+                                {{feature.title}}
                             </li>
                         </ng-container>                    
                     </ul>
@@ -25,7 +159,7 @@
 
             <mat-grid-tile-footer [fxLayout]="'row'" fxflexfill fxLayoutAlign="center" class="mb-4">
                     <button mat-raised-button color="primary" [fxFlex]="50">
-                        Buy
+                        Upgrade
                     </button>
             </mat-grid-tile-footer>
         </mat-grid-tile>
