@@ -11,6 +11,7 @@ import { PermissionsProvider } from 'src/app/services/permissions.provider';
 import { TopMenuListItemComponent } from './top-menu-list-item/top-menu-list-item.component';
 import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { EditReportService } from 'src/app/services/editReport.service';
+import { CompanyPlanServiceService } from 'src/server';
 
 @NgModule({
   declarations: [   
@@ -26,7 +27,8 @@ import { EditReportService } from 'src/app/services/editReport.service';
   ],
   providers: [AuthGuard, SecurityManagerServiceService, PermissionsProvider, 
     CommonUtils,
-    EditReportService],
+    EditReportService,
+    CompanyPlanServiceService],
   bootstrap: []
 })
 export class WelcomeModule { }

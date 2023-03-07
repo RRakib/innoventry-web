@@ -1,6 +1,10 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
+import { OverlayService } from 'src/app/services/overlay.service';
+import { environment } from 'src/environments/environment';
+
+import { CompanyPlanServiceService, PCompanyPlanInfo } from 'src/server';
 
 @Component({
   selector: 'app-user-business-plan',
@@ -10,39 +14,38 @@ import { map, Observable, shareReplay } from 'rxjs';
 export class UserBusinessPlanComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Basic', cols: 4, rows: 2 },
-        { title: 'Personal', cols: 4, rows: 2 },
-        { title: 'Standard', cols: 4, rows: 2 },
-        { title: 'Premium', cols: 4, rows: 2 }
 
-          // { title: 'Basic', cols: 2, rows: 1 },
-          // { title: 'Personal', cols: 2, rows: 1 },
-          // { title: 'Standard', cols: 2, rows: 1 },
-          // { title: 'Premium', cols: 2, rows: 1 }
-        ];
-      }
+  public companyPlanInfo : PCompanyPlanInfo;
+  public editionCount : number;
 
-      return [
-        { title: 'Basic', cols: 1, rows: 2 },
-        { title: 'Personal', cols: 1, rows: 2 },
-        { title: 'Standard', cols: 1, rows: 2 },
-        { title: 'Premium', cols: 1, rows: 2 }
-      ];
-    })
-  );
+  isFormLoaded : boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private companyPlanService :  CompanyPlanServiceService,
+    private overlayService : OverlayService) { }
 
   ngOnInit(): void {
+    this.overlayService.enableProgressSpinner();
+
+    this.companyPlanService.getCompanyPlanInfo().subscribe({
+      next: (data) => {
+        this.companyPlanInfo = data;
+        this.editionCount = !!this.companyPlanInfo.editions ? this.companyPlanInfo.editions.length: 0;
+
+        this.isFormLoaded = true;
+        this.overlayService.disableProgressSpinner();
+      }
+    });
+  }
+
+
+  upgradePlan(productCode : string | undefined) : void{
+    let upgradeURL = `${environment.upgradePlan}?company=${localStorage.getItem('companyId')}&plan=${productCode}`;
+    window.open(upgradeURL, '_blank')?.focus();    
   }
 
 }
