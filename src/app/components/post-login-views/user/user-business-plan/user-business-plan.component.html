@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isFormLoaded">
     <mat-card [class]="'mt-1 mb-1'">
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-subtitle>
@@ -116,7 +116,8 @@
 
             <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" class="mb-1">
                 <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50" fxLayoutAlign="end">                    
-                    <button mat-raised-button class="button-group item_form-buttons"  color="primary">
+                    <button mat-raised-button class="button-group item_form-buttons"  color="primary"
+                    (click)="upgradePlan(companyPlanInfo.productCode)">
                         Renew Plan
                     </button>
                 </div>
@@ -125,7 +126,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card [class]="'mt-1'">
+    <mat-card [class]="'mt-1'" *ngIf="editionCount > 0">
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-subtitle>
                 Explore Our Plan(s)
@@ -134,20 +135,20 @@
     </mat-card>
 
     <mat-grid-list [cols]="editionCount" rowHeight="280px" gutterSize="5px">
-        <mat-grid-tile *ngFor="let card of companyPlanInfo.editions" [colspan]="1" [rowspan]="2">
+        <mat-grid-tile *ngFor="let edition of companyPlanInfo.editions" [colspan]="(isHandset$ | async) ? editionCount : 1" [rowspan]="2">
             <div class="">
                 <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
-                    {{card.title}}
+                    {{edition.title}}
                     <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
                         <div class="plan-price-tile">
-                            <span class="plan-price">{{ card.rate | currency: 'INR':true }}</span> / year
+                            <span class="plan-price">{{ edition.rate | currency: 'INR':true }}</span> / year
                         </div>
                     </div>
                 </mat-grid-tile-header>
      
                 <div style="margin-top: 3rem;">
                     <ul class="plan-features">
-                        <ng-container *ngFor="let feature of card.features;">
+                        <ng-container *ngFor="let feature of edition.features;">
                             <li class="d-flex align-items-center">
                                 <mat-icon class="feature-tick">check</mat-icon> 
                                 {{feature.title}}
@@ -158,7 +159,7 @@
             </div>            
 
             <mat-grid-tile-footer [fxLayout]="'row'" fxflexfill fxLayoutAlign="center" class="mb-4">
-                    <button mat-raised-button color="primary" [fxFlex]="50">
+                    <button mat-raised-button color="primary" [fxFlex]="50" (click)="upgradePlan(edition.productCode)">
                         Upgrade
                     </button>
             </mat-grid-tile-footer>
