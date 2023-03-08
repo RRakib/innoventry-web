@@ -1,6 +1,6 @@
 .sidenav-container {
     height: 100%;
-    background: url(../../../../assets/images/background-image.png) repeat 0 0 #d6d6d6;
+    background: none !important;
 }
 
 .sidenav {
