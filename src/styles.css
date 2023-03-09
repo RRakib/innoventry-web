@@ -197,6 +197,12 @@ table.innoventry-table tr.mat-header-row {
     border-bottom: 1px solid grey;
 }
 
+.responsive-table thead th { 
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
+}
+
 table.innoventry-table tr:nth-child(odd){
     background: #efeeee;
 }
