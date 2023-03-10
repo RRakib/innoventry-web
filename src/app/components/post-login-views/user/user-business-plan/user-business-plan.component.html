@@ -1,5 +1,5 @@
 <div *ngIf="isFormLoaded">
-    <mat-card [class]="'mt-1 mb-1'">
+    <mat-card [class]="'mt-1 mb-1'" *ngIf="companyPlanInfo.plan !== 'free'">
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-subtitle>
                 Company Information                    
@@ -126,15 +126,23 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card [class]="'mt-1'" *ngIf="editionCount > 0">
+    <mat-card [class]="'mb-1'" *ngIf="companyPlanInfo.plan === 'free'">
+        <mat-card-header [class]="'mat-card-headers justify-content-center align-items-center'"
+            style="color: #f70202">
+            You are on Lite edition, Please buy any plan to use advanced features of Innoventry
+        </mat-card-header>
+    </mat-card>
+
+    <!-- <mat-card [class]="'mt-1'" *ngIf="editionCount > 0">
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-subtitle>
                 Explore Our Plan(s)
             </mat-card-subtitle>
         </mat-card-header>        
-    </mat-card>
+    </mat-card> -->
 
-    <mat-grid-list [cols]="editionCount" rowHeight="280px" gutterSize="5px">
+    <mat-grid-list [cols]="editionCount" rowHeight="280px" gutterSize="5px" [class]="companyPlanInfo.plan == 'free' ? 'mt-2' : 'mt-0'">
+
         <mat-grid-tile *ngFor="let edition of companyPlanInfo.editions" [colspan]="(isHandset$ | async) ? editionCount : 1" [rowspan]="2">
             <div class="">
                 <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
@@ -160,7 +168,7 @@
 
             <mat-grid-tile-footer [fxLayout]="'row'" fxflexfill fxLayoutAlign="center" class="mb-4">
                     <button mat-raised-button color="primary" [fxFlex]="50" (click)="upgradePlan(edition.productCode)">
-                        Upgrade
+                        {{navigationButton}}
                     </button>
             </mat-grid-tile-footer>
         </mat-grid-tile>

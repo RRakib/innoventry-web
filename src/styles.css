@@ -11,6 +11,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.body-with-background{
+    background: url(../src/assets/images/background-image.png) repeat 0 0 #fff;
+}
+
 .market-banner {
     background: url('../src/assets/images/logo/login.png') bottom center no-repeat #00458d;
     border-top-left-radius: 5px;
