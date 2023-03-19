@@ -80,6 +80,7 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     //this.dataSource.filter = filterValue.trim().toLowerCase();
     this.getItemsByCriteria.nameSearchText = filterValue;
+    this.getItemsByCriteria.startPageIndex = 0;
 
     this.itemServiceApi.getPItemMasterList(this.getItemsByCriteria).subscribe({
       next: (data) => {                

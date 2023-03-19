@@ -12,7 +12,8 @@
 }
 
 .logo{
-    padding-top: 1.5rem;
+    width: 230px;
+    height: 72px;
 }
 
 .mat-toolbar.mat-primary {
@@ -23,6 +24,16 @@
 
 .top-menu-button{
     padding: 5px;
+}
+
+.top-menu-link {    
+    height: 30px;
+    display: flex;
+    align-items: center;
+      
+    .routeIcon {
+      margin-right: 5px;
+    }
 }
 
 /* footer{

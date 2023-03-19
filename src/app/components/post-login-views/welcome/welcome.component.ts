@@ -12,12 +12,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { TopMenuConstants } from 'src/app/configs/TopMenuConstants';
 import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { environment } from 'src/environments/environment';
+import { CompanyPlanServiceService, PCompanyPlanInfo } from 'src/server';
 
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+  styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit, AfterViewInit{
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -38,15 +39,24 @@ export class WelcomeComponent implements OnInit, AfterViewInit{
   topNavItems : NavItem[];
   private topMenu : NavItem[];
 
+  public companyPlanInfo : PCompanyPlanInfo = {};
+
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, 
     private permissionProvider : PermissionsProvider,
     public navService: NavService,
-    private commonUtils : CommonUtils) {
+    private commonUtils : CommonUtils,
+    private companyPlanService :  CompanyPlanServiceService) {
     this.userName = localStorage.getItem("userName") || '';
     this.companyId = localStorage.getItem("companyId") || '';
    }
   ngOnInit(): void {
-    this.getMenu();    
+    this.getMenu();   
+    
+    this.companyPlanService.getCompanyPlanInfo().subscribe({
+      next: (data) => {
+        this.companyPlanInfo = data;       
+      }
+    });
   }
 
   ngAfterViewInit() {

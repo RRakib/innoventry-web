@@ -91,7 +91,7 @@ body {
 }
 
 .mat-list-base {
-    padding-top: 20px !important;
+    padding-top: 10px !important;
 }
 
 tr.mat-header-row {
@@ -260,7 +260,24 @@ mat-card.mat-card{
     margin: 0 1.5rem;
 }
 
+.no-card-shadow{
+    box-shadow: none !important;
+}
+
 .mat-grid-tile .mat-figure {
     justify-content: flex-start !important ;
     align-items: flex-start !important;
  }
+
+ /***/
+.warning{
+    background-color: #ffdb98;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.warning a.link{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #3f51b5;
+}
