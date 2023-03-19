@@ -3,12 +3,16 @@
 html,
 body {
     height: 100%;
-    background: url(../src/assets/images/background-image.png) repeat 0 0 #f9f9f9;
+    /* background: url(../src/assets/images/background-image.png) repeat 0 0 #fff; */
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.body-with-background{
+    background: url(../src/assets/images/background-image.png) repeat 0 0 #fff;
 }
 
 .market-banner {
@@ -34,8 +38,8 @@ body {
 }
 
 .innov-container {    
-    padding-right: 5px !important;
-    padding-left: 5px !important;
+    /* padding-right: 5px !important;
+    padding-left: 5px !important; */
 }
 
 .font14{
@@ -78,6 +82,25 @@ body {
     margin-top: 2px;
 }
 
+.mat-toolbar-multiple-rows {
+    min-height: 40px;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 40px;
+}
+
+.mat-list-base {
+    padding-top: 20px !important;
+}
+
+tr.mat-header-row {
+    border: 1px solid #3f51b5;
+}
+
+.mat-card {
+    border-radius: 0px !important;
+}
 .mat-card-header-text {
     margin: 0 0px !important;
 }
@@ -152,6 +175,7 @@ th {
 
 .mat-card-headers{
     justify-content: space-between;
+    height: 40px !important;
 }
 
 .mat-progress-spinner circle, .mat-spinner circle {
@@ -168,11 +192,19 @@ table.innoventry-table tr.mat-row, tr.mat-footer-row {
 
 table.innoventry-table tr.mat-header-row {
     height: 35px;
+    border: 1px solid #3f51b5;
 }
 .responsive-table{
     position: relative;
     max-height: 400px;
     overflow: auto;
+    border-bottom: 1px solid grey;
+}
+
+.responsive-table thead th { 
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
 }
 
 table.innoventry-table tr:nth-child(odd){
@@ -218,6 +250,7 @@ mat-card.mat-card{
     margin-bottom: 5px;
     font-weight: 600;
 }
+
 
 .fw-500{
     font-weight: 500 !important;

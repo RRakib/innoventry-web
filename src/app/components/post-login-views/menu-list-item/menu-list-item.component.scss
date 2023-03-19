@@ -21,7 +21,8 @@
 .mat-list-item {
   display: flex;
   width: auto; 
-  height: 40px;
+  height: auto;
+  min-height: 30px;
 
   .routeIcon {
     margin-right: 5px;

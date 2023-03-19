@@ -22,6 +22,7 @@ export class UserBusinessPlanComponent implements OnInit {
 
   public companyPlanInfo : PCompanyPlanInfo;
   public editionCount : number;
+  public navigationButton : string = 'Upgrade';
 
   isFormLoaded : boolean = false;
 
@@ -36,6 +37,9 @@ export class UserBusinessPlanComponent implements OnInit {
         this.companyPlanInfo = data;
         this.editionCount = !!this.companyPlanInfo.editions ? this.companyPlanInfo.editions.length: 0;
 
+        if(this.companyPlanInfo.plan == 'free') {
+          this.navigationButton = 'Buy Now';
+        }
         this.isFormLoaded = true;
         this.overlayService.disableProgressSpinner();
       }
