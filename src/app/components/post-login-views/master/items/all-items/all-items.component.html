@@ -1,6 +1,6 @@
-<div class="mat-elevation-z8">
-    
-    <mat-card>
+<!-- <div class="mat-elevation-z8"> -->
+<div class="">    
+    <mat-card class="no-card-shadow">
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 All Items
@@ -37,11 +37,7 @@
                 <mat-label>Search Item</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search item by name" #filterInput>
             </mat-form-field>
-        </mat-card-content>
-    </mat-card>
 
-    <mat-card class="p-0">
-        <mat-card-content>
             <div class="responsive-table">
                 <table mat-table class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">    
                     <ng-container matColumnDef="name">
@@ -99,8 +95,7 @@
                 (page)="pageChanged($event)"
                 showFirstLastButtons 
                 aria-label="Select page">
-            </mat-paginator> 
+            </mat-paginator>
         </mat-card-content>
     </mat-card>
-    
 </div>

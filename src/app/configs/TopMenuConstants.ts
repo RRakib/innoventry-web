@@ -168,6 +168,13 @@ export class TopMenuConstants {
               route: 'report/dayBook',
               children: [],
               permission: ['DAY_BOOK_REPORT']
+            },
+            {
+              displayName: 'Cash in hand',
+              iconName: '',
+              route: 'report/cashInHand',
+              children: [],
+              permission: []
             }
           ],
           permission: []
