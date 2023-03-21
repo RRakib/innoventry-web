@@ -122,8 +122,7 @@ export class NewItemComponent implements OnInit {
               openingStock: [this.item.openingStock],
               openingRate: [this.item.openingRate],
               itemgroupId: [this.item.itemgroupId, Validators.required],
-              itemgroupName: [this.item.itemgroupName, [Validators.required,
-                this.commonUtils.typingValidator()]],
+              itemgroupName: [this.item.itemgroupName, Validators.required],
               taxClassId: [this.item.taxClassId],
               taxClassName: [this.item.taxClassName],
               purchaseAccountLedgerId: [this.item.purchaseAccountLedgerId, Validators.required],
@@ -402,8 +401,8 @@ export class NewItemComponent implements OnInit {
 
   /** It is executed when user move out of the textbox */
   blurItemGroupSelection(event : any) : void{
-    if(!this.itemGroupSelected && this.itemForm.controls["groupName"].hasError('forbiddenNames')){
-      this.itemForm.controls["groupName"].setErrors({forbiddenNames: { value: 'Please click on any suggestion to select'}});    
+    if(!this.itemGroupSelected){
+      this.itemForm.controls["itemgroupName"].setErrors({forbiddenNames: { value: 'Please select any option.'}});
     }
   }
 }

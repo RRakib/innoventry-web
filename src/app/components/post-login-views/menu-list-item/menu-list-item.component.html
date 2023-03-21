@@ -1,7 +1,7 @@
 <!-- <a mat-list-item [ngStyle]="{'padding-left': (depth * 0.5) + 'rem'}" (click)="onItemSelected(item)" -->
 <a mat-list-item [ngStyle]="{'padding-left': depth + 'rem'}" (click)="onItemSelected(item)"
    [ngClass]="{'active': item.route ? router.isActive(item.route, true) : false, 'expanded': expanded}"
-   class="menu-list-item">
+   class="menu-list-item"  [class]="!!item.cssClass ? item.cssClass : ''">
   <mat-icon class="routeIcon">{{item.iconName}}</mat-icon>
   <span style="max-width: 10rem;">{{item.displayName}}</span>
   <span fxFlex *ngIf="item.children && item.children.length">
