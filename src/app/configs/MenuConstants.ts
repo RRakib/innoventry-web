@@ -7,13 +7,13 @@ export class MenuConstants {
       displayName: 'Master',
       iconName: 'group',
       route: 'main/master',
+      cssClass: 'mt-2 font125',
       children: [
         {
           displayName: 'All Item',
           iconName: '',
           route: 'allItems',
           children: []
-
         },
         {
           displayName: 'All Ledgers',
@@ -76,6 +76,7 @@ export class MenuConstants {
       displayName: 'Transaction',
       iconName: 'currency_rupee',
       route: 'main/transaction',
+      cssClass: 'mt-4 font125',
       children: [
         {
           displayName: 'Payment',
@@ -123,8 +124,9 @@ export class MenuConstants {
     },
     {
       displayName: 'Reports',
-      iconName: 'currency_rupee',
+      iconName: 'bar_chart',
       route: 'main/report',
+      cssClass: 'mt-4 font125',
       children: [
         {
           displayName: 'Balance Sheet',

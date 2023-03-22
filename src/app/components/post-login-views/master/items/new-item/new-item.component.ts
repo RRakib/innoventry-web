@@ -38,16 +38,19 @@ export class NewItemComponent implements OnInit {
   itemGroupSelected : boolean = false;
 
   // Sale accounts with auto-complete
-  ledgerGroups : ILedgerGroup[];
+  ledgerGroups : ILedgerGroup[];  
   saleAccounts : ILedger[];
+  saleAccountSelected : boolean = false;
   filteredSaleAccounts : Observable<ILedger[]>;
 
   // Purchase accounts with auto-complete
   purchaseAccounts : ILedger[];
+  purchaseAccountSelected : boolean = false;
   filteredPurchaseAccounts : Observable<ILedger[]>;
 
   // Tax Class with auto-complete
   taxClasses : ITaxClass[];
+  taxClassSelected : boolean = false;
   filteredTaxClass : Observable<ITaxClass[]>;
 
   allAttributeGroups : IAttributeGroup[] | undefined;
@@ -122,8 +125,7 @@ export class NewItemComponent implements OnInit {
               openingStock: [this.item.openingStock],
               openingRate: [this.item.openingRate],
               itemgroupId: [this.item.itemgroupId, Validators.required],
-              itemgroupName: [this.item.itemgroupName, [Validators.required,
-                this.commonUtils.typingValidator()]],
+              itemgroupName: [this.item.itemgroupName, Validators.required],
               taxClassId: [this.item.taxClassId],
               taxClassName: [this.item.taxClassName],
               purchaseAccountLedgerId: [this.item.purchaseAccountLedgerId, Validators.required],
@@ -253,6 +255,7 @@ export class NewItemComponent implements OnInit {
     let saleAccount  = this.saleAccounts.find((saleAccount) => saleAccount.name?.toLowerCase().includes(filterValue));
 
     if(!!saleAccount){
+      this.saleAccountSelected = true;
       this.itemForm.patchValue({
         ledgerId: saleAccount.id
       });
@@ -270,6 +273,7 @@ export class NewItemComponent implements OnInit {
     let purchaseAccount  = this.purchaseAccounts.find((itemGroup) => itemGroup.name?.toLowerCase().includes(filterValue));
 
     if(!!purchaseAccount){
+      this.purchaseAccountSelected = true;
       this.itemForm.patchValue({
         purchaseAccountLedgerId: purchaseAccount.id
       });
@@ -287,6 +291,7 @@ export class NewItemComponent implements OnInit {
     let taxClass  = this.taxClasses.find((itemGroup) => itemGroup.name?.toLowerCase().includes(filterValue));
 
     if(!!taxClass){
+      this.taxClassSelected = true;
       this.itemForm.patchValue({
         taxClassId: taxClass.id
       });
@@ -402,8 +407,26 @@ export class NewItemComponent implements OnInit {
 
   /** It is executed when user move out of the textbox */
   blurItemGroupSelection(event : any) : void{
-    if(!this.itemGroupSelected && this.itemForm.controls["groupName"].hasError('forbiddenNames')){
-      this.itemForm.controls["groupName"].setErrors({forbiddenNames: { value: 'Please click on any suggestion to select'}});    
+    if(!this.itemGroupSelected){
+      this.itemForm.controls["itemgroupName"].setErrors({forbiddenNames: { value: 'Please select any option.'}});
+    }
+  }
+
+  blurSaleAccountSelection(event : any) : void{
+    if(!this.saleAccountSelected){
+      this.itemForm.controls["ledgerName"].setErrors({forbiddenNames: { value: 'Please select any option.'}});
+    }
+  }
+
+  blurPurchaseAccountSelection(event : any) : void{
+    if(!this.purchaseAccountSelected){
+      this.itemForm.controls["purchaseAccountLedgerName"].setErrors({forbiddenNames: { value: 'Please select any option.'}});
+    }
+  }
+
+  blurTaxClassSelection(event : any) : void{
+    if(!this.taxClassSelected){
+      this.itemForm.controls["taxClassName"].setErrors({forbiddenNames: { value: 'Please select any option.'}});
     }
   }
 }

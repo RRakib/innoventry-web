@@ -126,9 +126,11 @@
                             aria-label="saleAccounts"
                             matInput                    
                             [matAutocomplete]="autoSaleAccounts"
-                            formControlName="ledgerName">
+                            formControlName="ledgerName"
+                            (blur)="blurSaleAccountSelection($event)">
                             <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoSaleAccounts="matAutocomplete" (optionSelected)="onSaleAccountSelectionChanged($event)">
+                        <mat-autocomplete autoActiveFirstOption #autoSaleAccounts="matAutocomplete" 
+                            (optionSelected)="onSaleAccountSelectionChanged($event)">
                         <mat-option *ngFor="let option of filteredSaleAccounts  | async" [value]="option.name">
                             {{option.name}}
                         </mat-option>
@@ -146,7 +148,8 @@
                             aria-label="purchaseAccounts"
                             matInput                    
                             [matAutocomplete]="autoPurchaseAccounts"
-                            formControlName="purchaseAccountLedgerName">
+                            formControlName="purchaseAccountLedgerName"
+                            (blur)="blurPurchaseAccountSelection($event)">
                             <mat-icon matSuffix class="search-icon">search</mat-icon>
                         <mat-autocomplete autoActiveFirstOption #autoPurchaseAccounts="matAutocomplete" (optionSelected)="onPurchaseAccountSelectionChanged($event)">
                         <mat-option *ngFor="let option of filteredPurchaseAccounts  | async" [value]="option.name">
@@ -164,7 +167,8 @@
                             aria-label="taxClass"
                             matInput                    
                             [matAutocomplete]="autoTaxClass"
-                            formControlName="taxClassName">
+                            formControlName="taxClassName"
+                            (blur)="blurTaxClassSelection($event)">
                             <mat-icon matSuffix class="search-icon">search</mat-icon>
                         <mat-autocomplete autoActiveFirstOption #autoTaxClass="matAutocomplete" (optionSelected)="onTaxClassSelectionChanged($event)">
                         <mat-option *ngFor="let option of filteredTaxClass  | async" [value]="option.name">
