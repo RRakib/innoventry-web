@@ -60,9 +60,14 @@
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-toolbar color="secondary" class="warning" *ngIf="companyPlanInfo.plan === 'free'">
-      <span>You are on Free edition, Click <a class="link" [routerLink]="['/main/user/profile']">here</a> to buy any plan to use advanced features of Innoventry.</span>
-    </mat-toolbar>
+    
+    <mat-card class="warning text-center" *ngIf="companyPlanInfo.plan === 'free'">
+      <mat-card-content>
+         <span>You are on Free edition, Click <a class="link" [routerLink]="['/main/user/profile']">here</a> to buy any plan to use advanced features of Innoventry.</span>        
+      </mat-card-content>
+    </mat-card>
+      
+    
 
     <div class="main-content">
       <router-outlet></router-outlet>

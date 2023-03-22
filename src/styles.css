@@ -46,6 +46,10 @@ body {
     font-size: 14px !important;
 }
 
+.font125{
+    font-size: 1.25rem !important;
+}
+
 .width100{
     width: 100%;
 }
