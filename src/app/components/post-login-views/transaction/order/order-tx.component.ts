@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin, map, Observable, shareReplay, Subscription } from "rxjs";
-import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
+import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IServiceMaster, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
 import { TaxableEntityServiceService } from "src/server/api/taxableEntityService.service";
 import { TransactionsProvider } from "src/app/services/transactionsProvider";
 import { LedgerAttributesServiceService } from "src/server/api/ledgerAttributesService.service";
@@ -29,6 +29,7 @@ export abstract class OrderTxComponent {
   public cashLedger : ILedger;
   public itemForm!: FormGroup; 
   public otherChargesDiscountForm! : FormGroup;
+  public servicesForm! : FormGroup;
   public headerTitle : string;
   isFormLoaded : boolean = false;
 
@@ -63,6 +64,10 @@ export abstract class OrderTxComponent {
   otherChargesDisplayedColumns = ['chargesName','value','amount'];
   selectedOtherChargeLineForEdit : IOtherChargesLine | undefined;
   otherChargeLineEditMode : boolean = false;
+
+
+  // Services Objects
+  retrievedServices : IServiceMaster[] = []; // From Server.
   
 
   itemLinesTotalAmount = new FormControl(0);
@@ -77,7 +82,8 @@ export abstract class OrderTxComponent {
     private itemService : ItemServiceService, private parentOverlayService : OverlayService,
     private stockAttributeGroupLineService : StockAttributeGroupLineServiceService,
     public matDialog: MatDialog,private currentTxType: number,
-    private taxConfigurationService : TaxConfigurationServiceService
+    private taxConfigurationService : TaxConfigurationServiceService,
+    private serviceApi : ServiceServiceService
     ) { 
   } 
 
@@ -910,6 +916,20 @@ export abstract class OrderTxComponent {
     this.otherChargesTotalAmount.setValue(otherChargesAmount);
     this.updateNetFinalAmount();
   }
+
+
+
+  /** 
+   * This method get all the configured services
+   */
+  public getServices() : void{
+    this.serviceApi.getObjectsSearchArg({startPageIndex : 0, genericSearch: false}).subscribe({
+      next: (data) => {
+          this.retrievedServices = !!data && !!data.objects && data.objects?.length > 0 ?  data.objects : [];
+      }
+    });
+  }
+
 
   /**
    * This function updates the net final amount.

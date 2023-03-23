@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -41,14 +41,15 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<SaleComponent>,
     public dialog: MatDialog, private childItemService : ItemServiceService, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService,
+    private childServiceApi : ServiceServiceService) {
 
     super(saleBreakpointObserver, childFormBuilder, 
       childstockLocationService, childTaxableEntityService,
       childTxProvider, childLedgerAttributesService, childBillingClassificationService,
       childOtherChargesService,_childSnackBar, ledgerService, childItemService, overlayService,
       childStockAttributeGroupLineService, dialog,
-      302, childTaxConfigurationService);
+      302, childTaxConfigurationService, childServiceApi);
 
     this.headerTitle = 'Sale';
   }
@@ -114,6 +115,9 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
         this.initializeOtherChargesDiscountForm();
         this.addedOtherCharges = !!this.saleOrderTx.otherChargesLines ? this.saleOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
+
+        // Inititalize Services Form and other properties.
+        this.getServices();
 
         this.updateItemLinesTotalAmount();
         this.otherChargesTotalAmount.setValue(!!this.saleOrderTx.otherChargesTotal ? this.saleOrderTx.otherChargesTotal : 0);
