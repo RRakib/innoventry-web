@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin, map, Observable, shareReplay, Subscription } from "rxjs";
-import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IServiceMaster, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
+import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IServiceLine, IServiceMaster, IStockLocation, ITaxGroup, ITaxLine, PItemMaster, PLedgerMaster, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
 import { TaxableEntityServiceService } from "src/server/api/taxableEntityService.service";
 import { TransactionsProvider } from "src/app/services/transactionsProvider";
 import { LedgerAttributesServiceService } from "src/server/api/ledgerAttributesService.service";
@@ -68,6 +68,17 @@ export abstract class OrderTxComponent {
 
   // Services Objects
   retrievedServices : IServiceMaster[] = []; // From Server.
+  serviceLines : IServiceLine[];
+  serviceLinesDataSource = new MatTableDataSource<IServiceLine>([]);
+  serviceLineDisplayedColumns = [ 
+  'taxableEntityName', 
+  'quantity',  
+  'rate',
+  'taxableAmountBeforeBillDiscount',
+  'taxGroupName',
+  'taxAmount',
+  'totalAmountBeforeBillDiscount'
+  ];
   
 
   itemLinesTotalAmount = new FormControl(0);
