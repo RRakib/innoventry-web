@@ -941,6 +941,57 @@ export abstract class OrderTxComponent {
     });
   }
 
+  /**
+   * This function initialize the other charges discount form.
+   */
+  public initializeServicesForm() {
+    this.servicesForm = this.formBuilder.group({      
+      jacksontype: new FormControl('ServiceLineImpl'),
+      id: new FormControl(),
+      taxableEntityId: new FormControl(''),
+      taxableEntityName: new FormControl(''),
+      quantity: new FormControl(),   
+      rate: new FormControl(),   
+      amount: new FormControl(),
+      percentage: new FormControl(),
+      deductTaxFromAmount : new FormControl(false),
+      taxableAmountBeforeBillDiscount: new FormControl(),      
+      taxGroup : new FormControl(),
+      taxGroupName : new FormControl({ value: '', disabled: true }),
+      taxAmount: new FormControl({value : '', disabled: true}),
+      totalAmountBeforeBillDiscount: new FormControl({value : '', disabled: true})
+    });
+  }
+
+  /**
+   * This method updates the taxable entity name i.e. service name into the group form.
+   */
+  changeServiceType() : void{
+    let taxableEntityId = this.servicesForm.controls["taxableEntityId"].value;
+    
+    let selectedService =  this.retrievedServices.find((service) => service.id == taxableEntityId);
+    console.log(selectedService);
+
+    if(!!selectedService) {
+      this.servicesForm.patchValue({
+        taxableEntityName : selectedService.name,
+        quantity: 1,
+        rate: selectedService.rate,
+        amount: selectedService.rate,
+        deductTaxFromAmount: false,
+        taxGroup: selectedService.taxClassId,
+        taxGroupName: selectedService.taxClassName,
+        totalAmountBeforeBillDiscount: selectedService.rate
+      });
+    }
+  }
+
+  /**
+   * This method updates the tax deduction logic as per the checkbox tick/untick
+   */
+  updateTaxDeductions() : void{
+    console.log(this.servicesForm.controls["deductTaxFromAmount"].value);
+  }
 
   /**
    * This function updates the net final amount.

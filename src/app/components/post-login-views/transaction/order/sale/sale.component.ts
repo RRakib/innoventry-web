@@ -132,6 +132,7 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
 
         // Inititalize Services Form and other properties.
         this.getServices();
+        this.initializeServicesForm();
 
         this.updateItemLinesTotalAmount();
         this.otherChargesTotalAmount.setValue(!!this.saleOrderTx.otherChargesTotal ? this.saleOrderTx.otherChargesTotal : 0);
