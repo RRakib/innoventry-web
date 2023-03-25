@@ -86,7 +86,7 @@
                     <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Unit</mat-label>
                         <input matInput placeholder="Enter Unit"
-                            #name name="unit" id="unit"
+                            #unit name="unit" id="unit"
                             formControlName="unit">
                     </mat-form-field>
                 </div>
@@ -95,14 +95,14 @@
                     <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Rate</mat-label>
                         <input matInput placeholder="Enter Rate"
-                            #name name="rate" id="rate"
+                            #rate name="rate" id="rate"
                             formControlName="rate">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>SAC Code</mat-label>
                         <input matInput placeholder="Enter SAC Code"
-                            #name name="sacCode" id="sacCode"
+                            #sacCode name="sacCode" id="sacCode"
                             formControlName="sacCode">
                     </mat-form-field>
                 </div>

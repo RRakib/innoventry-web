@@ -84,9 +84,7 @@ export class NewEditServiceComponent implements OnInit {
           }else {
             this.initializeServiceForm();        
           }
-        });  
-
-        this.isFormLoaded = true; 
+        });          
         this.overlayService.disableProgressSpinner();
       },
       error: () => {
@@ -133,7 +131,6 @@ export class NewEditServiceComponent implements OnInit {
       description: new FormControl(this.service.description),
       percentage : new FormControl(this.service.percentage)
     });
-
 
     this.filteredTaxClass = this.serviceForm.controls["taxClassName"].valueChanges.pipe(startWith(this.serviceForm.controls["taxClassName"].value), map(value => this._filterTaxClass(value || '')));
 

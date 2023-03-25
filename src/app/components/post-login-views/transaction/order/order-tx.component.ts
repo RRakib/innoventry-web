@@ -193,32 +193,28 @@ export abstract class OrderTxComponent {
               return billingGroup.transactionTypes?.some((txType) => txType.type == currentTxType);
             });
 
-            if(!!currentTxBillingGroup) {
-              billingGroup = currentTxBillingGroup
+            if(!!currentTxBillingGroup) {              
+              this.txProvider.billingGroup(currentTxBillingGroup);
             }else{
               this.billingGroupClassificationRequests().subscribe({
                 next: (data) => {
                   billingGroup = this.getDefaultBillingGroup(data[0], data[1]);                 
+                  this.txProvider.billingGroup(billingGroup);
                 }
               });
             }
-
-            this.txProvider.billingGroup(billingGroup);
           }
 
           this.billingClassificationService.findById(ledgerAttributes.billingClassificationId).subscribe({
             next: (data) => {
-              if(!!data) {
-                billingClassification = data;
+              if(!!data) {                
+                this.txProvider.billingClassification(data);            
               }else{
                 billingClassification = this.getDefaultBillingClassification();
+                this.txProvider.billingClassification(billingClassification);            
               }
             }
           });
-
-          if(!!billingClassification) {
-            this.txProvider.billingClassification(billingClassification);            
-          }
         }
       }
     });
