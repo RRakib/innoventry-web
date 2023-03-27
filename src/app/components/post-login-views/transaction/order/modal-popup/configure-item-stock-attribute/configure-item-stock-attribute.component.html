@@ -18,7 +18,7 @@
 
                                 <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'NUMBER'">
                                     <mat-form-field appearance="outline"
-                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
                                         [fxFlex]="100">
                                         <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
                                         <input matInput type="number" #value name="value" id="value" formControlName="value">
@@ -27,7 +27,7 @@
 
                                 <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'TEXT'">
                                     <mat-form-field appearance="outline"
-                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
                                         [fxFlex]="100">
                                         <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
                                         <input matInput  #value name="value" id="value" formControlName="value">
@@ -36,7 +36,7 @@
 
                                 <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'CHOICE'">
                                     <mat-form-field appearance="outline"
-                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
                                         [fxFlex]="100">
                                         <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
                                         <mat-select formControlName="value" name="value" (selectionChange)="getSelectedRefChoices(attributeForm)">
@@ -50,7 +50,7 @@
 
                                 <ng-container *ngIf="getFormGroupControlTypeValue(attributeForm) == 'REFERENCE_CHOICE'">
                                     <mat-form-field appearance="outline"
-                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
                                         [fxFlex]="100">
                                         <mat-label>{{getFormGroupControlTitleValue(attributeForm)}}</mat-label>
                                         <mat-select formControlName="value" name="value">

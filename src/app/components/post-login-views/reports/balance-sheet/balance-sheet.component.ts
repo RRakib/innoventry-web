@@ -65,7 +65,7 @@ export class BalanceSheetComponent implements OnInit {
     this.liabilitiesData = [];
     this.assetsData = [];
 
-    this.getBalancesheetReport();
+    //this.getBalancesheetReport();
   }
   getBalancesheetReport(): void {
 

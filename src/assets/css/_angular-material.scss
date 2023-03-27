@@ -1,0 +1,66 @@
+.mat-toolbar-multiple-rows {
+    min-height: 40px !important;
+}
+
+// .mat-toolbar.mat-primary {
+//     background: map-get($webapp-primary) !important;
+//     color: white;
+// }
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 40px !important;
+    padding: 0px !important;
+}
+
+.mat-list-base {
+    padding-top: 30px !important;
+}
+
+tr.mat-header-row {
+    border: 1px solid #3f51b5;
+}
+
+.mat-card {
+    border-radius: 0px !important;
+}
+.mat-card-header-text {
+    margin: 0 0px !important;
+}
+
+
+th.mat-header-cell {
+    color: #fff;
+    background-color: #3f51b5;
+}
+
+.mat-sort-header-container {
+    justify-content: center !important;
+}
+
+.mat-form-component{
+    font-size: 12px !important;
+}
+
+.mat-card-headers{
+    justify-content: space-between;
+    height: 40px !important;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: blue; 
+}
+
+mat-card.mat-card{
+    padding: 5px;
+}
+
+.mat-card-subtitle{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.mat-grid-tile .mat-figure {
+    justify-content: flex-start !important ;
+    align-items: flex-start !important;
+ }

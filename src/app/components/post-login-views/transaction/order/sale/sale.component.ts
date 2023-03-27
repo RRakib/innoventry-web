@@ -41,15 +41,14 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<SaleComponent>,
     public dialog: MatDialog, private childItemService : ItemServiceService, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService,
-    private childServiceApi : ServiceServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService) {
 
     super(saleBreakpointObserver, childFormBuilder, 
       childstockLocationService, childTaxableEntityService,
       childTxProvider, childLedgerAttributesService, childBillingClassificationService,
       childOtherChargesService,_childSnackBar, ledgerService, childItemService, overlayService,
       childStockAttributeGroupLineService, dialog,
-      302, childTaxConfigurationService, childServiceApi);
+      302, childTaxConfigurationService);
 
     this.headerTitle = 'Sale';
   }
@@ -129,10 +128,6 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
         this.initializeOtherChargesDiscountForm();
         this.addedOtherCharges = !!this.saleOrderTx.otherChargesLines ? this.saleOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
-
-        // Inititalize Services Form and other properties.
-        this.getServices();
-        this.initializeServicesForm();
 
         this.updateItemLinesTotalAmount();
         this.otherChargesTotalAmount.setValue(!!this.saleOrderTx.otherChargesTotal ? this.saleOrderTx.otherChargesTotal : 0);

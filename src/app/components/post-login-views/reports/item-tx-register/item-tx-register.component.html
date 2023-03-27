@@ -14,9 +14,9 @@
             <form [formGroup]="itemTxRegisterForm">
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
-                    [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
 
-                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'" fxFlex="40">
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'" fxFlex="40">
                         <item-box   [itemFormControl]="getItemFormControl('itemName')"
                             (onItemSelection)="onItemSelectionChange($event)">
                         </item-box>
@@ -26,13 +26,13 @@
                             [dateFormControl]="itemTxRegisterForm.controls['dateFrom'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="itemTxRegisterForm.controls['dateTo'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Transaction Type</mat-label>
                         <mat-select formControlName="transType" name="transType">
                           <mat-option value="All">ALL</mat-option>

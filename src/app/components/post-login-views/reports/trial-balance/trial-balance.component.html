@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header>
             <mat-card-title>
                 Trial Balance
@@ -18,7 +18,7 @@
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Ledger Group</mat-label>
                         <mat-select formControlName="filterLedgerGroupId" name="filterLedgerGroupId">
                           <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
@@ -27,7 +27,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>City</mat-label>
                         <mat-select formControlName="city" name="city">
                           <mat-option *ngFor="let city of cities" [value]="city.name">
@@ -36,7 +36,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'"
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'Summary As On'"
                             [dateFormControl]="reportForm.controls['date'] | convertToFormControl">

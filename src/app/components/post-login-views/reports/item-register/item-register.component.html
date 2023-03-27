@@ -14,9 +14,9 @@
             <form [formGroup]="itemRegisterForm">
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
-                    [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
 
-                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'" fxFlex="40">
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'" fxFlex="40">
                         <item-box   [itemFormControl]="getItemFormControl('itemName')"
                             (onItemSelection)="onItemSelectionChange($event)">
                         </item-box>
@@ -26,7 +26,7 @@
                             [dateFormControl]="itemRegisterForm.controls['startDate'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="itemRegisterForm.controls['endDate'] | convertToFormControl">
                         </i-mat-datepicker>

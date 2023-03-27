@@ -1,10 +1,11 @@
 <div>
-    <mat-form-field class="example-full-width" appearance="outline" [class]="'innov-matFormField mr-10px search-ledger-area'">
+    <mat-form-field class="example-full-width" appearance="outline" 
+        [class]="'innov-matFormField search-ledger-area'"
+        [fxFlex]="enableNewAddition ? 85 : 100">
         <mat-label>{{ ledgerBoxTitle }}</mat-label>
         <input type="text" placeholder="Select Ledger" aria-label="Ledger" matInput [matAutocomplete]="auto"
             [formControl]="autoCompleteInput"
             (blur)="blurLedgerNameSelection($event)">
-        <mat-icon matSuffix class="search-icon">search</mat-icon>
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onLedgerGroupSelectionChanged($event)">
             <mat-option *ngFor="let option of filteredLedgers  | async" [value]="option.name">
                 {{option.name}}
@@ -14,4 +15,8 @@
             {{ autoCompleteInput?.errors?.['forbiddenNames']?.value }}
         </mat-error>
     </mat-form-field>
+    <button mat-flat-button color="primary" class="p-1 mt-1 mb-1" [fxFlex]="15" *ngIf="enableNewAddition">
+        <mat-icon>account_circle</mat-icon>
+        <span>New</span>
+    </button>
 </div>

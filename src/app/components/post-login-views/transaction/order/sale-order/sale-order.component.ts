@@ -39,14 +39,14 @@ export class SaleOrderComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number },
     public dialogRef: MatDialogRef<SaleOrderComponent>, private childItemService : ItemServiceService, public dialog: MatDialog,
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService,
-    private childServiceApi : ServiceServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService
+    ) {
 
     super(sOBreakpointObserver, childFormBuilder,
       childstockLocationService, childTaxableEntityService,
       childTxProvider, childLedgerAttributesService, childBillingClassificationService, 
       childOtherChargesService, _childSnackBar, ledgerService, childItemService, 
-      overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService, childServiceApi);
+      overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService);
       
     this.headerTitle = 'Sale Order';
   }

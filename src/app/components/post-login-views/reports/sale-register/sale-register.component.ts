@@ -11,6 +11,7 @@ import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { DownloadService } from 'src/app/services/download.service';
 import { formatNumber } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale-register',
@@ -39,7 +40,7 @@ export class SaleRegisterComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,private customDateAdapterService  : CustomDateAdapterService,
     private inventoryTxReportServiceService : InventoryTxReportServiceService, private overlayService : OverlayService,
      private formBuilder: FormBuilder,  private commonUtils : CommonUtils, private editReportService : EditReportService,
-     private downloadService : DownloadService) {
+     private downloadService : DownloadService,private router: Router) {
     let txDate = new Date();
 
     this.saleRegisterForm = this.formBuilder.group({
@@ -193,6 +194,10 @@ export class SaleRegisterComponent implements OnInit {
 
   onRowEdit() : void { 
     this.commonUtils.editReport(this.selectedTxType, this.selectedTxId);
+  }
+
+  createNewSaleTx() : void{
+    this.router.navigate(['main/transaction/sale/new']);
   }
 
   download(type: string) : void {

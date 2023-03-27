@@ -15,6 +15,7 @@ import { ItemServiceService } from "src/server/api/itemService.service";
 import { OverlayService } from "src/app/services/overlay.service";
 import { MatDialog } from "@angular/material/dialog";
 import { OrderPaymentDetailComponent } from "./modal-popup/order-payment-detail/order-payment-detail.component";
+import { OrderServicesComponent } from "./modal-popup/order-services/order-services.component";
 
 export abstract class OrderTxComponent {
 
@@ -29,7 +30,7 @@ export abstract class OrderTxComponent {
   public cashLedger : ILedger;
   public itemForm!: FormGroup; 
   public otherChargesDiscountForm! : FormGroup;
-  public servicesForm! : FormGroup;
+  
   public headerTitle : string;
   isFormLoaded : boolean = false;
 
@@ -66,8 +67,7 @@ export abstract class OrderTxComponent {
   otherChargeLineEditMode : boolean = false;
 
 
-  // Services Objects
-  retrievedServices : IServiceMaster[] = []; // From Server.
+  // Services Objects  
   serviceLines : IServiceLine[];
   serviceLinesDataSource = new MatTableDataSource<IServiceLine>([]);
   serviceLineDisplayedColumns = [ 
@@ -79,6 +79,7 @@ export abstract class OrderTxComponent {
   'taxAmount',
   'totalAmountBeforeBillDiscount'
   ];
+  isTaxDeductionFromAmountEnabled : boolean = true;
   
 
   itemLinesTotalAmount = new FormControl(0);
@@ -93,8 +94,7 @@ export abstract class OrderTxComponent {
     private itemService : ItemServiceService, private parentOverlayService : OverlayService,
     private stockAttributeGroupLineService : StockAttributeGroupLineServiceService,
     public matDialog: MatDialog,private currentTxType: number,
-    private taxConfigurationService : TaxConfigurationServiceService,
-    private serviceApi : ServiceServiceService
+    private taxConfigurationService : TaxConfigurationServiceService
     ) { 
   } 
 
@@ -928,69 +928,17 @@ export abstract class OrderTxComponent {
     this.updateNetFinalAmount();
   }
 
-
-
-  /** 
-   * This method get all the configured services
-   */
-  public getServices() : void{
-    this.serviceApi.getObjectsSearchArg({startPageIndex : 0, genericSearch: false}).subscribe({
-      next: (data) => {
-          this.retrievedServices = !!data && !!data.objects && data.objects?.length > 0 ?  data.objects : [];
-      }
-    });
-  }
-
   /**
-   * This function initialize the other charges discount form.
+   * This function opens the services form
    */
-  public initializeServicesForm() {
-    this.servicesForm = this.formBuilder.group({      
-      jacksontype: new FormControl('ServiceLineImpl'),
-      id: new FormControl(),
-      taxableEntityId: new FormControl(''),
-      taxableEntityName: new FormControl(''),
-      quantity: new FormControl(),   
-      rate: new FormControl(),   
-      amount: new FormControl(),
-      percentage: new FormControl(),
-      deductTaxFromAmount : new FormControl(false),
-      taxableAmountBeforeBillDiscount: new FormControl(),      
-      taxGroup : new FormControl(),
-      taxGroupName : new FormControl({ value: '', disabled: true }),
-      taxAmount: new FormControl({value : '', disabled: true}),
-      totalAmountBeforeBillDiscount: new FormControl({value : '', disabled: true})
-    });
-  }
-
-  /**
-   * This method updates the taxable entity name i.e. service name into the group form.
-   */
-  changeServiceType() : void{
-    let taxableEntityId = this.servicesForm.controls["taxableEntityId"].value;
-    
-    let selectedService =  this.retrievedServices.find((service) => service.id == taxableEntityId);
-    console.log(selectedService);
-
-    if(!!selectedService) {
-      this.servicesForm.patchValue({
-        taxableEntityName : selectedService.name,
-        quantity: 1,
-        rate: selectedService.rate,
-        amount: selectedService.rate,
-        deductTaxFromAmount: false,
-        taxGroup: selectedService.taxClassId,
-        taxGroupName: selectedService.taxClassName,
-        totalAmountBeforeBillDiscount: selectedService.rate
-      });
-    }
-  }
-
-  /**
-   * This method updates the tax deduction logic as per the checkbox tick/untick
-   */
-  updateTaxDeductions() : void{
-    console.log(this.servicesForm.controls["deductTaxFromAmount"].value);
+  openServicesForm():  void{
+    const OrderServicesDialogRef = this.matDialog.open(OrderServicesComponent, { 
+      panelClass: 'custom-dialog-container', 
+      data : {
+        
+      },
+      //disableClose: true,      
+    }); 
   }
 
   /**

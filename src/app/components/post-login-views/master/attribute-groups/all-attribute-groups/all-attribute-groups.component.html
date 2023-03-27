@@ -27,7 +27,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-content>
             <div class="responsive-table">
                 <table mat-table  class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">
@@ -61,13 +61,14 @@
                     </tr>
 
                 </table>
-                <mat-paginator #paginator
-                    [pageSize]="200"
-                    [pageSizeOptions]="[100, 200, 500]"
-                    showFirstLastButtons 
-                    aria-label="Select page">
-                </mat-paginator>
-            </div>             
+            </div>     
+            
+            <mat-paginator #paginator
+                [pageSize]="200"
+                [pageSizeOptions]="[100, 200, 500]"
+                showFirstLastButtons 
+                aria-label="Select page">
+            </mat-paginator>        
         </mat-card-content>
     </mat-card>
 </div>

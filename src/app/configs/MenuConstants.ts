@@ -99,7 +99,7 @@ export class MenuConstants {
         {
           displayName: 'Sale',
           iconName: '',
-          route: 'newOrder/sale',
+          route: 'sale',
           children: []
         },
         {

@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header>
             <mat-card-title>
                 Outstandings Report
@@ -26,7 +26,7 @@
                     </div>
 
                     <mat-form-field appearance="outline"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Type</mat-label>
                         <mat-select formControlName="type" name="type">
@@ -48,7 +48,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>City</mat-label>
                         <mat-select formControlName="city" name="city">
                           <mat-option *ngFor="let city of cities" [value]="city.name">
@@ -69,7 +69,7 @@
                             formControlName="outstandingBalancefrom">
                     </mat-form-field>    
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Amount Max.</mat-label>
                         <input matInput placeholder="Amount Max."
                             #outstandingBalanceTo name="outstandingBalanceTo" 

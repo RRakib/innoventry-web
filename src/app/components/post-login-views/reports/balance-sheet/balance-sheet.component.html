@@ -24,7 +24,7 @@
               <div>            
                 <i-mat-datepicker [label]="'Start Date'" [dateFormControl]="startDate"></i-mat-datepicker>
               </div>
-              <div [class]="(isHandset$ | async) ? '' : 'ml-10px mr-10px'">
+              <div [class]="(isHandset$ | async) ? '' : 'ml-1 mr-1'">
                 <i-mat-datepicker [label]="'End Date'" [dateFormControl]="endDate"></i-mat-datepicker>
               </div>
               <div  fxflexfill fxLayout="column">
@@ -57,13 +57,13 @@
       <mat-card-content>
         <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'">
           
-          <div [fxFlex]="50" [class]="(isHandset$ | async) ? 'mb-10px' : ''">
+          <div [fxFlex]="50" [class]="(isHandset$ | async) ? 'mb-1' : ''">
             <i-tree-table [tableLabel]="'Liabilities'" [columnDefs]="columns" 
               [data]="liabilitiesData" [enableRowEdit]=false>
             </i-tree-table>
           </div>
           
-          <div [class]="(isHandset$ | async) ? 'mb-10px' : 'ml-10px'" [fxFlex]="50">
+          <div [class]="(isHandset$ | async) ? 'mb-1' : 'ml-1'" [fxFlex]="50">
             <i-tree-table [tableLabel]="'Assets'" [columnDefs]="columns" 
               [data]="assetsData" [enableRowEdit]=false>
             </i-tree-table>          

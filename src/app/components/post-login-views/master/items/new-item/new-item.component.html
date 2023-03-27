@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 New Item
@@ -16,13 +16,13 @@
         <mat-card-content  class="text-center" *ngIf="isFormLoaded">
             <form [formGroup]="itemForm">
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder="Enter Item Name"
                             #name name="name" id="name"
                             formControlName="name">
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Product Code</mat-label>
                         <input matInput placeholder="Enter Product Code"
                             #productCode name="productCode" id="productCode"
@@ -30,13 +30,13 @@
                     </mat-form-field>
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>HSN Code</mat-label>
                         <input matInput placeholder="Enter HSN Code"
                             #hsnCode name="hsnCode" id="hsnCode"
                             formControlName="hsnCode">
                     </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-10px" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Unit</mat-label>
                         <input type="text"
                             placeholder="Select Item Unit" 
@@ -54,7 +54,7 @@
                 </div>
                 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">                
-                    <mat-form-field class="innov-matFormField mr-10px" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Item Group</mat-label>
                         <input type="text"
                             placeholder="Select Item Group" 
@@ -76,7 +76,7 @@
                     </mat-form-field>
 
 
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>M.R.P.</mat-label>
                         <input matInput placeholder="Enter M.R.P."
                             #hsnCode name="mrp" id="mrp"
@@ -85,13 +85,13 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Selling Price</mat-label>
                         <input matInput placeholder="Enter Selling Price"
                             #sellingPrice name="sellingPrice" id="sellingPrice"
                             formControlName="sellingPrice">
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Opening Rate</mat-label>
                         <input matInput placeholder="Enter Opening Rate"
                             #openingRate name="openingRate" id="openingRate"
@@ -99,13 +99,13 @@
                     </mat-form-field>
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Minimum Stock</mat-label>
                         <input matInput placeholder="Enter Min. Stock"
                             #minStock name="minStock" id="minStock"
                             formControlName="minStock">
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Maximum Stock</mat-label>
                         <input matInput placeholder="Enter Max. Stock"
                             #maxStock name="maxStock" id="maxStock"
@@ -113,13 +113,13 @@
                     </mat-form-field>
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Opening Stock</mat-label>
                         <input matInput placeholder="Enter Opening Stock"
                             #openingStock name="openingStock" id="openingStock"
                             formControlName="openingStock">
                     </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-10px" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Sale Accounts</mat-label>
                         <input type="text"
                             placeholder="Select Sale Accounts" 
@@ -141,7 +141,7 @@
                     </mat-form-field>
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">                
-                    <mat-form-field class="innov-matFormField mr-10px" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Purchase Accounts</mat-label>
                         <input type="text"
                             placeholder="Select Purchase Accounts" 
@@ -160,7 +160,7 @@
                             {{ itemForm.get('purchaseAccountLedgerName')?.errors?.['forbiddenNames']?.value }}
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-10px" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Tax Class</mat-label>
                         <input type="text"
                             placeholder="Select Tax Class" 
@@ -182,7 +182,7 @@
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
                     
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Stock Attribute Group</mat-label>
                         <mat-select formControlName="itemAttributeGroupId" name="itemAttributeGroupId">
                           <mat-option *ngFor="let attributeGroup of allAttributeGroups" [value]="attributeGroup.id">
@@ -191,7 +191,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-10px"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Item Attribute Group</mat-label>
                         <mat-select formControlName="tradeItemGroupId" name="tradeItemGroupId">
                           <mat-option *ngFor="let attributeGroup of allAttributeGroups" [value]="attributeGroup.id">

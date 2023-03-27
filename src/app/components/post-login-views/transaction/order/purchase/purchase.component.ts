@@ -40,14 +40,13 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
     public dialogRef: MatDialogRef<PurchaseComponent>, 
     private childItemService : ItemServiceService, public dialog: MatDialog, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService,
-    private childServiceApi : ServiceServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService
+    ) {
 
     super(purchaseBreakpointObserver, childFormBuilder, childstockLocationService, 
       childTaxableEntityService, childTxProvider, childLedgerAttributesService,
       childBillingClassificationService,childOtherChargesService, _childSnackBar,
-      ledgerService, childItemService,overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService,
-      childServiceApi);
+      ledgerService, childItemService,overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService);
 
     this.headerTitle = 'Purchase';
   }

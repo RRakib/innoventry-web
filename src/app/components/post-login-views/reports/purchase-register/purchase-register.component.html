@@ -22,11 +22,11 @@
         <mat-card-content class="text-center">
             <form [formGroup]="purchaseRegisterForm">
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
-                    [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
                     
                     <div >
                         
-                        <Ledger-Box class="mr-10px" [fxFlex]="100"
+                        <Ledger-Box class="mr-1" [fxFlex]="100"
                             [ledgerFormControl]="purchaseRegisterForm.controls['ledgerName'] | convertToFormControl"
                             [ledgerBoxTitle]="'From Ledger'" (onLedgerSelection)="onFromLedgerSelection($event)">
                         </Ledger-Box>
@@ -38,12 +38,12 @@
                             [dateFormControl]="purchaseRegisterForm.controls['startDate'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="purchaseRegisterForm.controls['endDate'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
-                    <div fxflexfill fxLayout="column" [class]="'ml-10px mr-10px'">
+                    <div fxflexfill fxLayout="column" [class]="'ml-1 mr-1'">
                         <mat-checkbox formControlName="showItemDetails">Show Item Details</mat-checkbox>
 
                     </div>
