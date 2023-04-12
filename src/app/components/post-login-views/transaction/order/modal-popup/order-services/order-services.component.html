@@ -42,13 +42,24 @@
                             formControlName="rate">
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline"                                
+                    <mat-form-field *ngIf="isTaxDeductionFromAmountEnabled" appearance="outline"                                
                         [fxFlex]="33"
                         [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
-                            <mat-label>Amount {{ isTaxDeductionFromAmountEnabled ?  "(Inc. Tax)" : ""}}</mat-label>
+                            <mat-label>Amount (Inc. Tax)</mat-label>
                             <input matInput class="text-right" type="number" 
                                 placeholder="Enter Amount (Inc. Tax)"
                                 #amountIncTax name="amountIncTax"
+                                id="amount"
+                                formControlName="taxableAmountBeforeBillDiscount">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="!isTaxDeductionFromAmountEnabled" appearance="outline"                                
+                        [fxFlex]="33"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
+                            <mat-label>Amount</mat-label>
+                            <input matInput class="text-right" type="number" 
+                                placeholder="Enter Amount (Inc. Tax)"
+                                #amountIncTax name="amount"
                                 id="amount"
                                 formControlName="amount">
                     </mat-form-field>
@@ -73,7 +84,8 @@
                                 <input matInput class="text-right" type="number" 
                                     placeholder="Tax Amount"
                                     #taxAmount name="taxAmount"
-                                    id="taxAmount">
+                                    id="taxAmount"
+                                    formControlName="taxAmount">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline"
@@ -86,6 +98,15 @@
                                     id="totalAmount"
                                     formControlName="totalAmountBeforeBillDiscount">
                     </mat-form-field>
+                </div>
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
+                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'">
+                        Cancel
+                    </button>
+                    <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary" (click)="saveUpdateServiceLine()">                         
+                        Add
+                    </button>                    
                 </div>
             </div>   
         </form>        

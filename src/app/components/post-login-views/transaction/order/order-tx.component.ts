@@ -42,9 +42,9 @@ export abstract class OrderTxComponent {
   itemLineDisplayedColumns = ['itemProductCode', 
     'itemName', 
     'quantity',
-    'mrp', 
+    'rate', 
     'discount',
-    'rate',
+    'netRate',
     'taxableAmountBeforeBillDiscount',
     'taxGroupName',
     'taxAmount',
@@ -65,22 +65,6 @@ export abstract class OrderTxComponent {
   otherChargesDisplayedColumns = ['chargesName','value','amount'];
   selectedOtherChargeLineForEdit : IOtherChargesLine | undefined;
   otherChargeLineEditMode : boolean = false;
-
-
-  // Services Objects  
-  serviceLines : IServiceLine[];
-  serviceLinesDataSource = new MatTableDataSource<IServiceLine>([]);
-  serviceLineDisplayedColumns = [ 
-  'taxableEntityName', 
-  'quantity',  
-  'rate',
-  'taxableAmountBeforeBillDiscount',
-  'taxGroupName',
-  'taxAmount',
-  'totalAmountBeforeBillDiscount'
-  ];
-  isTaxDeductionFromAmountEnabled : boolean = true;
-  
 
   itemLinesTotalAmount = new FormControl(0);
   otherChargesTotalAmount = new FormControl(0);
@@ -104,6 +88,7 @@ export abstract class OrderTxComponent {
   public initializeItemForm() {
 
     this.itemForm = this.formBuilder.group({
+      isTaxDeductionFromAmountEnabled: new FormControl(true),
       itemId: new FormControl(''),
       itemName: new FormControl(''),
       itemProductCode: new FormControl({ value: '', disabled: true }),
@@ -112,7 +97,8 @@ export abstract class OrderTxComponent {
       unitName: new FormControl({ value: '', disabled: true }),
       mrp: new FormControl({ value: '', disabled: true }),
       discount: new FormControl(''),
-      rate: new FormControl({ value: '', disabled: true }),
+      rate: new FormControl(''),
+      netRate: new FormControl({ value: '', disabled: true }),
       taxGroup: new FormControl(''),
       taxGroupName: new FormControl(''),
       taxLines: [],      
@@ -327,7 +313,8 @@ export abstract class OrderTxComponent {
     let rate = this.itemForm.controls["mrp"].value - ((this.itemForm.controls["mrp"].value * this.itemForm.controls["discount"].value)/100);
 
     this.itemForm.patchValue({
-      rate: rate,      
+      rate: rate, 
+      netRate: rate,     
       taxableAmountBeforeBillDiscount: rate
     });
     
@@ -368,13 +355,13 @@ export abstract class OrderTxComponent {
       next: (data) => {
 
         if(!!data) { // Don't update values if form is reset
-          let rate = data * this.itemForm.controls["mrp"].value;
+          let rate = data * this.itemForm.controls["rate"].value;
           let discount = this.itemForm.controls["discount"].value;
   
           rate = rate - ((rate * discount) / 100);
   
           this.itemForm.patchValue({
-            rate: rate,            
+            netRate: rate,            
             taxableAmountBeforeBillDiscount: rate
           });
   
@@ -396,12 +383,12 @@ export abstract class OrderTxComponent {
       next: (data) => {
 
         if(!!data) {// Don't update values if form is reset
-          let rate = this.itemForm.controls["quantity"].value * this.itemForm.controls["mrp"].value;
+          let rate = this.itemForm.controls["quantity"].value * this.itemForm.controls["rate"].value;
 
           rate = rate - ((rate * data) / 100);
   
           this.itemForm.patchValue({
-            rate: rate,            
+            netRate: rate,            
             taxableAmountBeforeBillDiscount: rate
           });
   
@@ -935,10 +922,23 @@ export abstract class OrderTxComponent {
     const OrderServicesDialogRef = this.matDialog.open(OrderServicesComponent, { 
       panelClass: 'custom-dialog-container', 
       data : {
-        
+        isTaxDeductionEnabled : this.itemForm.controls["isTaxDeductionFromAmountEnabled"].value
       },
       //disableClose: true,      
     }); 
+
+    OrderServicesDialogRef.afterClosed().subscribe(result => {  
+      let itemLine : IItemLine = result["servicesFormRawValue"];     
+
+      itemLine.itemName = itemLine.taxableEntityName;
+
+      if(!this.itemLineEditMode) { //New Item Line added
+        this.itemLines = [...this.itemLines, itemLine];
+      }
+
+      this.updateFinalAmounts();
+      this.itemLinesDataSource.data = this.itemLines;
+    });
   }
 
   /**
