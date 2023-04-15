@@ -14,12 +14,13 @@ import { AttributeGroupServiceService, ChoiceListServiceService, InventoryTxRepo
 import { SelectItemStockAttributeComponent } from './order/modal-popup/select-item-stock-attribute/select-item-stock-attribute.component';
 import { OrderPaymentDetailComponent } from './order/modal-popup/order-payment-detail/order-payment-detail.component';
 import { OrderServicesComponent } from './order/modal-popup/order-services/order-services.component';
+import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charges-discounts/order-charges-discounts.component';
 
 
 @NgModule({
     declarations: [
         TransactionBaseViewComponent,        
-        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, OrderPaymentDetailComponent, OrderServicesComponent        
+        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, OrderPaymentDetailComponent, OrderServicesComponent, OrderChargesDiscountsComponent        
     ],
     imports: [
       CommonModule,    

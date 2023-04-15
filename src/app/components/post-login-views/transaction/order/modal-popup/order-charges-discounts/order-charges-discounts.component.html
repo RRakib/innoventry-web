@@ -1,0 +1,70 @@
+<form [formGroup]="otherChargesDiscountForm" *ngIf="isFormLoaded">
+    <mat-card>
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-subtitle>
+                Add Other Charges/Discount                    
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    
+                    <mat-form-field appearance="outline"
+                        [class]="'innov-matFormField'" 
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Other Charges/Discount</mat-label>
+                        <mat-select formControlName="chargesId" name="chargesId" (selectionChange)="changeOtherChargesType()">
+                          <mat-option *ngFor="let otherCharge of retrievedOtherCharges" [value]="otherCharge.id">
+                            {{otherCharge.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Charges/Discount Bill Amount</mat-label>
+                        <input matInput class="text-right" type="number" placeholder="Enter Charges/Discount Amount" #billAmount name="billAmount"
+                            id="billAmount" formControlName="billAmount">
+                    </mat-form-field>
+
+                </div>    
+                
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Value %</mat-label>
+                        <input matInput class="text-right" type="number" placeholder="Enter Value(%)" #displayedValue 
+                            name="displayedValue"
+                            id="displayedValue" 
+                            formControlName="displayedValue">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-label>Amount</mat-label>
+                        <input matInput class="text-right" type="number" placeholder="Enter Amount" #amount name="displayedAmount"
+                            id="displayedAmount" formControlName="displayedAmount">
+                    </mat-form-field>
+
+                </div>
+
+            </div>
+
+            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" class="mb-1">
+                <div>
+                    <button mat-raised-button class="button-group">
+                        Cancel
+                    </button>
+                    <button mat-raised-button class="button-group"  color="primary" (click)="addOrEditOtherChargesLine()">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

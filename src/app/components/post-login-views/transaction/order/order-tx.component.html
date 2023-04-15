@@ -100,18 +100,14 @@
 
     <form [formGroup]="itemForm">
         <mat-card [class]="'mb-1'">
-            <mat-card-header [class]="'mat-card-headers mb-2'">                
+            <mat-card-header [class]="'mat-card-headers'">                
                 <mat-card-subtitle class="d-flex flex-column">
-                    Items & Services  
+                    Items & Services                      
+                </mat-card-subtitle>
+                <div>                    
                     <mat-slide-toggle matSuffix color="primary" class="font14 fw-500" formControlName="isTaxDeductionFromAmountEnabled">
                         Deduct Tax From Amount
                     </mat-slide-toggle>                  
-                </mat-card-subtitle>
-                <div>                    
-                    <button mat-raised-button class="button-group item_form-buttons"  color="primary" (click)="openServicesForm()">
-                        <mat-icon>add_circle_outline</mat-icon>
-                        Add Services
-                    </button>                   
                 </div>
             </mat-card-header>
             <mat-card-content>
@@ -246,33 +242,38 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-3"></div>                    
-                </div>
-
-                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between" class="mb-1">
-                    <div [fxLayout]="'row'" class="table-action-buttons text-left"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill 
+                    [fxLayoutAlign]="(isHandset$ | async) ? 'start': 'space-between'" 
+                    class="mb-1">
+                    <div [fxLayout]="'row'" [class]="(isHandset$ | async) ? 'mb-1' : ''" fxLayoutAlign="start" >
                         <button mat-raised-button color="primary"
-                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
+                            class="width100"
                             [disabled]="selectedLineItemForEdit == undefined"
                             (click)="editItemLine()">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-raised-button color="warn" 
-                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'"
+                            class="width100 ml-1"
                             [disabled]="selectedLineItemForEdit == undefined"
                             (click)="deleteItemLine()">
                         <mat-icon>delete</mat-icon>
                         </button>
                     </div>
-                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50" fxLayoutAlign="end">
+                    <div [fxLayout]="'row'"  fxLayoutAlign="end">
                         <button mat-raised-button class="button-group item_form-buttons"  (click)="cancelAddItem()">
+                            <mat-icon>cancel</mat-icon>
                             Cancel
                         </button>
+                        <button mat-raised-button class="button-group item_form-buttons"  color="primary" (click)="openServicesForm()">                            
+                            <mat-icon>room_service</mat-icon>
+                            Add Services
+                        </button>
                         <button mat-raised-button class="button-group item_form-buttons"  color="primary"  (click)="showItemStockAttributes()">
+                            <mat-icon>edit_attributes</mat-icon>
                             Attributes
                         </button>
                         <button mat-raised-button class="button-group item_form-buttons"  color="primary" (click)="addOrEditItemLine()">
+                            <mat-icon>add_circle_outline</mat-icon>
                             Add Item
                         </button>
                     </div>
@@ -353,127 +354,72 @@
             </mat-card-content>           
         </mat-card>
     </form>
-
-    <form [formGroup]="otherChargesDiscountForm">
-        <mat-card [class]="'mb-1'">
-            <mat-card-header [class]="'mat-card-headers'">
-                <mat-card-subtitle>
-                    Add Other Charges/Discount                    
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-
-                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        
-                        <mat-form-field appearance="outline"
-                            [class]="'innov-matFormField'" 
-                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Other Charges/Discount</mat-label>
-                            <mat-select formControlName="chargesId" name="chargesId" (selectionChange)="changeOtherChargesType()">
-                              <mat-option *ngFor="let otherCharge of retrievedOtherCharges" [value]="otherCharge.id">
-                                {{otherCharge.name}}
-                              </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        
-                        <mat-form-field appearance="outline"
-                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
-                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Charges/Discount Bill Amount</mat-label>
-                            <input matInput class="text-right" type="number" placeholder="Enter Charges/Discount Amount" #billAmount name="billAmount"
-                                id="billAmount" formControlName="billAmount">
-                        </mat-form-field>
-
-                    </div>    
-                    
-                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-
-                        <mat-form-field appearance="outline"
-                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
-                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Value %</mat-label>
-                            <input matInput class="text-right" type="number" placeholder="Enter Value(%)" #displayedValue 
-                                name="displayedValue"
-                                id="displayedValue" 
-                                formControlName="displayedValue">
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline"
-                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1 ml-1'"
-                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Amount</mat-label>
-                            <input matInput class="text-right" type="number" placeholder="Enter Amount" #amount name="displayedAmount"
-                                id="displayedAmount" formControlName="displayedAmount">
-                        </mat-form-field>
-
-                    </div>
-
-                </div>
-
-                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between" class="mb-1">
-                    <div class="table-action-buttons">
-                        <button mat-raised-button color="primary" 
-                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
-                            [disabled]="selectedOtherChargeLineForEdit == undefined"
-                            (click)="editOtherChargeLine()">
-                            <mat-icon>edit</mat-icon>
-                          </button>
-                          <button mat-raised-button color="warn"
-                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
-                            [disabled]="selectedOtherChargeLineForEdit == undefined"
-                            (click)="deleteOtherChargeLine()">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                    </div>
-                    <div>
-                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="cancelOtherCharges()">
-                            Cancel
+    
+    <mat-card [class]="'mb-1'">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-subtitle>
+                Add Other Charges/Discount                    
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between" class="mb-1">
+                <div class="table-action-buttons">
+                    <button mat-raised-button color="primary" 
+                        [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
+                        [disabled]="selectedOtherChargeLineForEdit == undefined"
+                        (click)="editOtherChargeLine()">
+                        <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="addOrEditOtherChargesLine()">
-                            Add
+                        <button mat-raised-button color="warn"
+                        [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
+                        [disabled]="selectedOtherChargeLineForEdit == undefined"
+                        (click)="deleteOtherChargeLine()">
+                        <mat-icon>delete</mat-icon>
                         </button>
-                    </div>
                 </div>
-
-                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" class="responsive-table">
-
-                    <table mat-table class="innoventry-table" [dataSource]="otherChargesDataSource" matSort aria-label="Elements">
-                        <!-- Id Column -->
-                        <ng-container matColumnDef="chargesName">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                          <td mat-cell *matCellDef="let row">{{row.chargesName}}</td>
-                        </ng-container>
-                    
-                        <ng-container matColumnDef="value">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
-                          <td mat-cell *matCellDef="let row">{{row.value}}</td>
-                        </ng-container>
-                    
-                        <ng-container matColumnDef="amount">
-                          <th mat-header-cell [class]="'text-center'" *matHeaderCellDef mat-sort-header>Total Amount</th>
-                          <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.amount}}</td>
-                        </ng-container>
-
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" [attr.colspan]="otherChargesDisplayedColumns.length">
-                              No Other Charges/Discount Added
-                            </td>
-                        </tr>
-                    
-                        <tr mat-header-row *matHeaderRowDef="otherChargesDisplayedColumns"></tr>
-
-                        <tr mat-row *matRowDef="let row; columns: otherChargesDisplayedColumns;"
-                            [ngClass]="{'highlight': !!selectedOtherChargeLineForEdit && selectedOtherChargeLineForEdit.chargesId == row.chargesId}"
-                            (click)="setSelectedOtherChargeLine(row)">
-                        </tr>
-                      </table> 
-
+                <div>                       
+                    <button mat-raised-button class="button-group"  color="primary" (click)="openOtherChargesDiscountsModal()">
+                        Add Other Charges/Discounts
+                    </button>
                 </div>
+            </div>
 
-            </mat-card-content>
-        </mat-card>
-    </form>
+            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" class="responsive-table">
+
+                <table mat-table class="innoventry-table" [dataSource]="otherChargesDataSource" matSort aria-label="Elements">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="chargesName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.chargesName}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="value">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+                        <td mat-cell *matCellDef="let row">{{row.value}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell [class]="'text-center'" *matHeaderCellDef mat-sort-header>Total Amount</th>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.amount}}</td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="otherChargesDisplayedColumns.length">
+                            No Other Charges/Discount Added
+                        </td>
+                    </tr>
+                
+                    <tr mat-header-row *matHeaderRowDef="otherChargesDisplayedColumns"></tr>
+
+                    <tr mat-row *matRowDef="let row; columns: otherChargesDisplayedColumns;"
+                        [ngClass]="{'highlight': !!selectedOtherChargeLineForEdit && selectedOtherChargeLineForEdit.chargesId == row.chargesId}"
+                        (click)="setSelectedOtherChargeLine(row)">
+                    </tr>
+                    </table> 
+
+            </div>
+        </mat-card-content>
+    </mat-card>
     
 
     <mat-card>

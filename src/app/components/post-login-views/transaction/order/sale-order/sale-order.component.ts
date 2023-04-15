@@ -104,9 +104,7 @@ export class SaleOrderComponent extends OrderTxComponent  implements OnInit {
         this.itemLines = !!this.inwardPurchaseOrderTx.taxableLines ? this.inwardPurchaseOrderTx.taxableLines : [];
         this.itemLinesDataSource.data = this.itemLines;
 
-        // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
+        // Inititalize the Other Charges Form and other properties.        
         this.addedOtherCharges = !!this.inwardPurchaseOrderTx.otherChargesLines ? this.inwardPurchaseOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

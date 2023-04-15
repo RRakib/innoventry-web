@@ -115,9 +115,7 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
         this.itemLines = !!this.quotationOrderTx.taxableLines ? this.quotationOrderTx.taxableLines : [];
         this.itemLinesDataSource.data = this.itemLines;
 
-        // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
+        // Inititalize the Other Charges Form and other properties.        
         this.addedOtherCharges = !!this.quotationOrderTx.otherChargesLines ? this.quotationOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

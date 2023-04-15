@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, map, shareReplay } from 'rxjs';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { IServiceMaster, ITax, ITaxGroup, ServiceServiceService, TaxGroupServiceService, TaxableEntityServiceService } from 'src/server';
+import { IItemLine, IServiceMaster, ITax, ITaxGroup, ServiceServiceService, TaxGroupServiceService, TaxableEntityServiceService } from 'src/server';
 
 @Component({
   selector: 'app-order-services',
@@ -35,12 +35,13 @@ export class OrderServicesComponent implements OnInit {
     private txProvider: TransactionsProvider,
     public orderServicesCompRef: MatDialogRef<OrderServicesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { 
-      isTaxDeductionEnabled : boolean
+      isTaxDeductionEnabled : boolean,
+      serviceLine: IItemLine
     }) {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     // Inititalize Services Form and other properties.
     this.taxGroupServiceService.getObjects().subscribe({
       next: (data) => {
@@ -73,21 +74,30 @@ export class OrderServicesComponent implements OnInit {
   public initializeServicesForm() {
     this.servicesForm = this.formBuilder.group({      
       jacksontype: new FormControl('ServiceLineImpl'),
-      id: new FormControl(),
-      taxableEntityId: new FormControl(''),
-      taxableEntityName: new FormControl(''),
-      quantity: new FormControl(),   
-      rate: new FormControl(),   
+      id: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.id : null),
+      taxableEntityId: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.itemId : ''),
+      taxableEntityName: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.itemName : ''),
+      quantity: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.quantity : 1),   
+      rate: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.rate : 0),   
       netRate: new FormControl(),
-      amount: new FormControl(),
-      taxableAmount: new FormControl(),
+      amount: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.totalAmountBeforeBillDiscount : 0),
+      taxableAmount: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.taxableAmountBeforeBillDiscount : 0),
       percentage: new FormControl(),
-      taxableAmountBeforeBillDiscount: new FormControl({value : '', disabled: true}),      
-      taxGroup : new FormControl(),
-      taxGroupName : new FormControl({ value: '', disabled: true }),
-      taxAmount: new FormControl({ value: '', disabled: true }),
-      totalAmountBeforeBillDiscount: new FormControl({ value: '', disabled: true })
+      taxableAmountBeforeBillDiscount: new FormControl({value : !!this.data.serviceLine ? this.data.serviceLine.totalAmountBeforeBillDiscount : '', disabled: true}),      
+      taxGroup : new FormControl(!!this.data.serviceLine ? this.data.serviceLine.taxGroup : null),
+      taxGroupName : new FormControl({ value: !!this.data.serviceLine ? this.data.serviceLine.taxGroupName : '', disabled: true }),
+      taxAmount: new FormControl({ value: !!this.data.serviceLine ? this.data.serviceLine.taxAmount : null, disabled: true }),
+      totalAmountBeforeBillDiscount: new FormControl({ value: !!this.data.serviceLine ? this.data.serviceLine.totalAmountBeforeBillDiscount : 0, disabled: true })
     });
+
+    this.servicesForm.patchValue({
+      netRate: this.servicesForm.controls["rate"].value * this.servicesForm.controls["quantity"].value
+    });
+
+    if(!!this.data.serviceLine) {
+      let taxableEntityId = this.servicesForm.controls["taxableEntityId"].value;    
+      this.selectedService =  this.retrievedServices.find((service) => service.id == taxableEntityId);
+    }
 
 
     this.servicesForm.controls['quantity'].valueChanges.subscribe((data) => {
@@ -259,7 +269,9 @@ export class OrderServicesComponent implements OnInit {
    * This is a callback method.
    */
   saveUpdateServiceLine(): void{
-    this.orderServicesCompRef.close({servicesFormRawValue : this.servicesForm.getRawValue()});
+    this.orderServicesCompRef.close({
+      servicesFormRawValue : this.servicesForm.getRawValue()
+    });
   }
 
 }
