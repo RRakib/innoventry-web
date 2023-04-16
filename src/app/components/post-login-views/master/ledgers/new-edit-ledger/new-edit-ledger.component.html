@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 New {{ledgerType | titlecase }}
@@ -14,7 +14,7 @@
         <mat-card-content  class="text-center" *ngIf="isFormLoaded">
             <form [formGroup]="ledgerForm">
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder="Enter Ledger Name"
                             #name name="name" id="name"
@@ -30,7 +30,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">                    
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Ledger Group</mat-label>
                         <mat-select formControlName="ledgerGroupId" name="ledgerGroupId">
                           <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
@@ -40,7 +40,7 @@
                     </mat-form-field>
 
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" fxFlex="50">                    
-                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" 
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" 
                             [fxFlex]="80">
                             <mat-label>Opening Balance</mat-label>
                             <input type="number" matInput placeholder="Enter Opening Balance"
@@ -60,7 +60,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">  
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Bank Name</mat-label>
                         <input matInput placeholder="Enter Bank Name"
                             #name name="bankName" id="bankName"
@@ -76,7 +76,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">  
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>IFSC Code</mat-label>
                         <input matInput placeholder="Enter Bank IFSC Code"
                             #name name="bankIfscCode" id="bankIfscCode"
@@ -92,7 +92,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>GSTIN</mat-label>
                         <input matInput placeholder="Enter GSTIN"
                             #name name="gstin" id="gstin"
@@ -111,7 +111,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">  
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>PAN Number</mat-label>
                         <input matInput placeholder="Enter PAN Number"
                             #name name="panNumber" id="panNumber"
@@ -128,7 +128,7 @@
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">                        
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField  mr-10px'"
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField  mr-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Country</mat-label>
                             <mat-select formControlName="countryName" name="countryName">
@@ -151,7 +151,7 @@
 
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                    <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>City</mat-label>
                         <input type="text"
                             placeholder="Select City" 
@@ -177,7 +177,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"> 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Alternate Mobile Number</mat-label>
                         <input matInput placeholder="Enter Alt. Mobile Number"
                             #name name="alternateNo1" id="alternateNo1"

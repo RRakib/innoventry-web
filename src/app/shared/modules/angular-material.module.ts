@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -42,6 +43,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatCheckboxModule,
     LayoutModule,
+    MatTabsModule,
     MatToolbarModule,
     MatRadioModule,
     MatSidenavModule,

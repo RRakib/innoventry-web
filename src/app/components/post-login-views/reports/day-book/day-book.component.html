@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-  <mat-card class="mb-1 pb-2">
+  <mat-card class="mb-1">
     <mat-card-header>
       <mat-card-title>
         Day Book
@@ -28,12 +28,12 @@
           <div>            
             <i-mat-datepicker [label]="'Start Date'" [dateFormControl]="fromDate"></i-mat-datepicker>
           </div>
-          <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+          <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
             <i-mat-datepicker [label]="'End Date'" [dateFormControl]="toDate"></i-mat-datepicker>
           </div>
 
-          <div  [class]="(isHandset$ | async) ? '' : 'ml-10px'">
-            <mat-form-field appearance="outline"[class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField mr-10px'">
+          <div  [class]="(isHandset$ | async) ? '' : 'ml-1'">
+            <mat-form-field appearance="outline"[class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField mr-1'">
               <mat-label>Format</mat-label>
               <mat-select>
                 <mat-option>

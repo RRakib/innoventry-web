@@ -14,8 +14,8 @@
             <form [formGroup]="saleSummaryForm" *ngIf="isFormLoaded">
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
-                    [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
-                    <div class="mr-10px">
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
+                    <div class="mr-1">
                         <Ledger-Box [fxFlex]="100"
                             [ledgerFormControl]="saleSummaryForm.controls['ledgerName'] | convertToFormControl"
                             [ledgerBoxTitle]="'From Ledger'" (onLedgerSelection)="onFromLedgerSelection($event)">
@@ -27,7 +27,7 @@
                             [dateFormControl]="saleSummaryForm.controls['dateFrom'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="saleSummaryForm.controls['dateTo'] | convertToFormControl">
                         </i-mat-datepicker>

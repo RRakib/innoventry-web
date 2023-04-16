@@ -23,5 +23,9 @@
 }
 
 .item_form-buttons{
-    padding: 0 5px !important;
+    padding: 0 5px !important;    
+}
+
+.mat-raised-button.item_form-buttons{
+    min-width: 0px !important;
 }

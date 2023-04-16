@@ -17,13 +17,13 @@
                         </item-box>
                     </div>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'Start Date'"
                             [dateFormControl]="reportForm.controls['dateFrom'] | convertToFormControl">
                         </i-mat-datepicker>
                     </div>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'End Date'"
                             [dateFormControl]="reportForm.controls['dateTo'] | convertToFormControl">
                         </i-mat-datepicker>

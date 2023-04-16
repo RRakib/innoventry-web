@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>
           Daywise LedgerGroup Balance
@@ -23,7 +23,7 @@
         <form [formGroup]="dayWiseLedgerGroupReportForm" *ngIf="isFormLoaded">
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
 
-                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>Ledger Group</mat-label>
                     <mat-select formControlName="ledgerGroup" name="ledgerGroup">
                       <mat-option *ngFor="let group of ledgerGroups" [value]="group.id">
@@ -35,7 +35,7 @@
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'"  
                     [fxFlex]="(isHandset$ | async) ? 100 : 50"  fxLayoutAlign="space-around">
 
-                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'">
                         <i-mat-datepicker [label]="'Start Date'"
                             [dateFormControl]="dayWiseLedgerGroupReportForm.controls['dateFrom'] | convertToFormControl"></i-mat-datepicker>
                     </div>

@@ -1,0 +1,82 @@
+.innov-matFormField{
+    font-size: 0.8rem;
+}
+
+.menu-list-item{
+    min-height: 30px !important;
+    height: auto !important;
+}
+
+table {
+    width: 100%;
+}
+
+td,
+th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+table.innoventry-table tr.mat-row, tr.mat-footer-row {
+    height: 25px;
+}
+
+table.innoventry-table tr.mat-header-row {
+    height: 35px;
+    border: 1px solid #3f51b5;
+}
+.responsive-table{
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+    border-bottom: 1px solid grey;
+}
+
+.responsive-table thead th { 
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
+}
+
+table.innoventry-table tr:nth-child(odd){
+    background: #efeeee;
+}
+
+table.innoventry-table td, table.db-tree-view td {
+    border: 1px solid #bfbdbd;
+}
+
+
+/***/
+.warning{
+    background-color: #ffdb98;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.warning a.link{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #3f51b5;
+}
+
+
+.table-action-buttons{
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+
+.angular-tree-grid-header{    
+    background-color: #3f51b5 !important;
+}
+
+tr.angular-tree-grid-header > th{
+    color: #fff !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+}
+
+db-tree-cell-view{
+    font-size: 14px !important;
+}

@@ -16,7 +16,7 @@
             <mat-card-content  class="text-center" *ngIf="isFormLoaded">
                 <form [formGroup]="attributeGroupForm">
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Enter Attribute Name"
                                 #name name="name" id="name"
@@ -42,10 +42,10 @@
             </mat-card-content>
         </mat-card>
     
-        <mat-card class="mb-1">
+        <mat-card>
             <mat-card-content>
-                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between">                    
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 60 : 100">
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between" class="align-items-center">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 60 : 100">
                         <mat-label>Select Attribute</mat-label>
                         <input type="text" placeholder="Select Attribute to Add" aria-label="attribute" matInput 
                             [matAutocomplete]="auto"
@@ -58,7 +58,7 @@
                         </mat-autocomplete>
                     </mat-form-field>
 
-                    <div class="mt-10px" [fxLayout]="'row'"[fxFlex]="(isHandset$ | async) ? 40 : 0">
+                    <div [fxLayout]="'row'"[fxFlex]="(isHandset$ | async) ? 40 : 0">
                         <button mat-raised-button class="button-group"  color="primary" (click)="addAttribute()">
                             <mat-icon>add_box</mat-icon>
                         </button>

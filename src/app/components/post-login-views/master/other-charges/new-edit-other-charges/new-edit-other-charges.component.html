@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 OtherCharge/Discount
@@ -23,7 +23,7 @@
                         </mat-radio-group>
 
 
-                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Enter Name"
                                 #name name="name" id="name"
@@ -44,7 +44,7 @@
 
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Value</mat-label>
                         <input matInput placeholder="Enter value"
                             #name name="value" id="value"

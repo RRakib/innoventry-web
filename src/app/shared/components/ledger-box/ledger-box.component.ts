@@ -25,6 +25,9 @@ export class LedgerBoxComponent implements OnInit, OnChanges {
 
   @Input("ledgerFormControl")
   autoCompleteInput : FormControl = new FormControl();
+
+  @Input("enableNewAddition")
+  enableNewAddition: boolean = false;
   
   @Output("onLedgerSelection") 
   onLedgerSelection = new EventEmitter<PLedgerMaster>();

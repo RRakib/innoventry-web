@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 Stock Summary
@@ -21,7 +21,7 @@
                         </mat-radio-group>
 
                         <mat-form-field
-                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
                             appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Item Group</mat-label>
                             <input type="text" placeholder="Select Item Group" aria-label="itemGroup" matInput
@@ -41,7 +41,7 @@
 
                     </div>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'Summary As On'"
                             [dateFormControl]="stockSummaryForm.controls['summaryAsOn'] | convertToFormControl">
                         </i-mat-datepicker>
@@ -56,7 +56,7 @@
                             id="qtyGreaterThan" formControlName="qtyGreaterThan">
                     </mat-form-field>
                     <mat-form-field appearance="outline"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Quantity Lesser Than</mat-label>
                         <input matInput type="number" placeholder="Qunatity Lesser Than" #productCode

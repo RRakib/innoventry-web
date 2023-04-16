@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 New Attribute
@@ -15,7 +15,7 @@
         <mat-card-content  class="text-center" *ngIf="isFormLoaded">
             <form [formGroup]="attributeForm">
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder="Enter Attribute Name"
                             #name name="name" id="name"
@@ -33,7 +33,7 @@
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Type</mat-label>
                         <mat-select formControlName="type" name="type" (selectionChange)="changeAttributeType()">
                           <mat-option *ngFor="let attributeType of attributeTypes | keyvalue" [value]="attributeType.value">
@@ -61,7 +61,7 @@
                 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
                     <div fxflexfill fxLayoutAlign="start" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <section class="mr-10px">
+                        <section class="mr-1">
                             <mat-checkbox formControlName="mandatory">Mandatory</mat-checkbox>              
                         </section>
                         <section>

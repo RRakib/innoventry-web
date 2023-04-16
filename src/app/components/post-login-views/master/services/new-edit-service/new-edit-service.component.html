@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 New Service
@@ -17,7 +17,7 @@
             <form [formGroup]="serviceForm">
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder="Enter Service Name"
                             #name name="name" id="name"
@@ -34,7 +34,7 @@
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
 
-                    <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Tax Class</mat-label>
                         <input type="text"
                             placeholder="Select Tax Class" 
@@ -74,7 +74,7 @@
 
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Service Group</mat-label>
                         <mat-select formControlName="serviceGroupId" name="serviceGroupId" (selectionChange)="changeServiceGroup()">
                           <mat-option *ngFor="let serviceGroup of serviceGroups" [value]="serviceGroup.id">
@@ -92,7 +92,7 @@
                 </div>
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Rate</mat-label>
                         <input matInput placeholder="Enter Rate"
                             #rate name="rate" id="rate"

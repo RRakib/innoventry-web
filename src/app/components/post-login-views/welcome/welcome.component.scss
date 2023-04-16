@@ -5,6 +5,7 @@
 
 .sidenav {
     width: 250px;
+    background-color: #f6f6ff;
 }
 
 .sidenav .mat-toolbar {
@@ -19,7 +20,7 @@
 .mat-toolbar.mat-primary {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 10;
 }
 
 .top-menu-button{

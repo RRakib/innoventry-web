@@ -20,12 +20,12 @@
       </mat-card-title>
     </mat-card-header>   
     <mat-card-content class="text-center">
-      <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+      <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
 
         <div>            
           <i-mat-datepicker [label]="'Start Date'" [dateFormControl]="startDate"></i-mat-datepicker>
         </div>
-        <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+        <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
           <i-mat-datepicker [label]="'End Date'" [dateFormControl]="endDate"></i-mat-datepicker>
         </div>
 

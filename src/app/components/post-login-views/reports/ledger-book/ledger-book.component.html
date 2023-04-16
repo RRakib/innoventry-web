@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-  <mat-card class="mb-10px">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>
         Ledger Book
@@ -22,20 +22,20 @@
     <mat-card-content>
       <form [formGroup]="ledgerReportForm">
         <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
-          [class]="(isHandset$ | async) ? 'pb-10' : 'search-criteria'">
+          [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
 
-          <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+          <div [class]="(isHandset$ | async) ? '' : 'mr-1'">
             <Ledger-Box
               [ledgerFormControl]="ledgerReportForm.controls['ledgerName'] | convertToFormControl"
               (onLedgerSelection)="onLedgerSelection($event)"></Ledger-Box>
           </div>
 
-          <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+          <div [class]="(isHandset$ | async) ? '' : 'mr-1'">
             <i-mat-datepicker [label]="'Start Date'"
               [dateFormControl]="ledgerReportForm.controls['dateFrom'] | convertToFormControl"></i-mat-datepicker>
           </div>
 
-          <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+          <div [class]="(isHandset$ | async) ? '' : 'mr-1'">
             <i-mat-datepicker [label]="'End Date'"
               [dateFormControl]="ledgerReportForm.controls['dateTo'] | convertToFormControl"></i-mat-datepicker>
           </div>

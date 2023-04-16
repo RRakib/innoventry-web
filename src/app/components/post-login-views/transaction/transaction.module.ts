@@ -10,15 +10,17 @@ import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ConfigureItemStockAttributeComponent } from './order/modal-popup/configure-item-stock-attribute/configure-item-stock-attribute.component';
-import { AttributeGroupServiceService, ChoiceListServiceService, ItemLineServiceService, PaymentModeServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { AttributeGroupServiceService, ChoiceListServiceService, InventoryTxReportServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { SelectItemStockAttributeComponent } from './order/modal-popup/select-item-stock-attribute/select-item-stock-attribute.component';
 import { OrderPaymentDetailComponent } from './order/modal-popup/order-payment-detail/order-payment-detail.component';
+import { OrderServicesComponent } from './order/modal-popup/order-services/order-services.component';
+import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charges-discounts/order-charges-discounts.component';
 
 
 @NgModule({
     declarations: [
         TransactionBaseViewComponent,        
-        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, OrderPaymentDetailComponent        
+        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, OrderPaymentDetailComponent, OrderServicesComponent, OrderChargesDiscountsComponent        
     ],
     imports: [
       CommonModule,    
@@ -29,7 +31,8 @@ import { OrderPaymentDetailComponent } from './order/modal-popup/order-payment-d
       AngularMaterialModule,
       TransactionRoutingModule
     ],
-    providers: [       
+    providers: [  
+      InventoryTxReportServiceService,     
       ItemServiceService,
       ItemLineServiceService,
       AttributeGroupServiceService,
@@ -38,7 +41,8 @@ import { OrderPaymentDetailComponent } from './order/modal-popup/order-payment-d
       LedgerAttributesServiceService,
       PaymentModeServiceService,
       StockAttributeGroupLineServiceService,
-      TaxConfigurationServiceService 
+      TaxConfigurationServiceService,
+      ServiceServiceService
     ],
     bootstrap: []
   })

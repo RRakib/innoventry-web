@@ -43,14 +43,14 @@
     
                     <div class="mb-1" [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
                         formGroupName="choiceSelectionForm">
-                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="100">
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="100">
                             <mat-label>Choice Value</mat-label>
                             <input matInput placeholder="Enter Choice Value"
                                 #name name="value" id="value"
                                 formControlName="value">
                         </mat-form-field>
     
-                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-10px'" [fxFlex]="100">
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="100">
                             <mat-label>Reference Choice List</mat-label>
                         <mat-select name="referenceChoiceList" formControlName="subChoiceListId" name="subChoiceListId">
                                 <mat-option *ngFor="let option of allChoiceList" [value]="option.id">

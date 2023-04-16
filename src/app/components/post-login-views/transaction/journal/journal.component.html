@@ -16,7 +16,7 @@
                     </div>
 
                     <mat-form-field appearance="outline"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 33">
                         <mat-label>Voucher No.</mat-label>
                         <input matInput placeholder="Enter Voucher No." #vouchernumber name="vouchernumber"
@@ -24,7 +24,7 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="outline"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 33">
                         <mat-label>Reference No.</mat-label>
                         <input matInput placeholder="Enter Reference No." #referenceNo name="referenceNo"
@@ -40,7 +40,7 @@
                     </div>
 
                     <mat-form-field appearance="outline"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Cheque No.</mat-label>
                         <input matInput placeholder="Enter Cheque No." #chequeNo name="chequeNo"
@@ -69,7 +69,7 @@
                     </Ledger-Box>
 
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'">
                         <mat-label>Credit/Debit Amount</mat-label>
                         <input matInput placeholder="Enter Amount (Toggle to switch Tx. type)"
                             #lineAmount name="lineAmount" id="lineAmount" 
@@ -79,7 +79,7 @@
                         </mat-slide-toggle>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'"
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 30">
                         <mat-label>Description</mat-label>
                         <input matInput placeholder="Enter Description"
@@ -89,13 +89,13 @@
 
                     <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : 'align-items-center'">                    
                                                 
-                            <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : 'ml-10px'" color="primary"
+                            <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : 'ml-1'" color="primary"
                                 (click)="addJounralEntry()">
                                 <mat-icon>save</mat-icon>   
                                 {{ isEntryEditModeEnabled ? 'Edit' : 'Add' }}
                             </button>                            
                         
-                            <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-10px' : 'ml-10px'" (click)="cancelEditMode()" [disabled]="!isEntryEditModeEnabled">
+                            <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelEditMode()" [disabled]="!isEntryEditModeEnabled">
                                 <mat-icon>cancel</mat-icon> Cancel
                             </button>  
                         
@@ -158,7 +158,7 @@
                     </mat-paginator>  -->
                 </div>
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="space-between">
-                    <div class="pb-10">
+                    <div class="pb-1">
                         <b>Total Credit</b> : {{totalCredit | number : '1.2-2'}}
                         |
                         <b>Total Debit</b> : {{totalDebit | number : '1.2-2'}}

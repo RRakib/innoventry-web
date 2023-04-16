@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'custom-theme';
+
+html,
+body {
+    height: 100%;
+    /* background: url(../src/assets/images/background-image.png) repeat 0 0 #fff; */
+}
+
+body { 
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.body-with-background{
+    background: url(../src/assets/images/background-image.png) repeat 0 0 #fff;
+}
+
+.market-banner {
+    background: url('../src/assets/images/logo/login.png') bottom center no-repeat #00458d;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.registration-banner {
+    background: url('../src/assets/images/logo/registration.png') bottom center no-repeat #00458d;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.market-text {
+    color: #fff;
+    font-family: 'open_sansregular';
+    font-size: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 20px;
+    line-height: 50px;
+}
+
+.innov-container {    
+  
+}
+
+.width100{
+    width: 100%;
+}
+
+.title-underline {
+    width: 100%;
+    height: 2px;
+    background: #ff6700;
+    margin-top: 2px;
+}
+
+.more-button {
+    position: absolute !important;
+    top: 5px;
+    right: 10px;
+}
+
+
+span.expand-icon-container span.inbuild-icon {
+    font-size: 20px !important;
+}
+
+.i-chip-box.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.i-chip .cdk-drop-list-dragging {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.calendar-component{
+    font-size: 12px !important;
+}
+
+.highlight{  
+    background: #8699ff !important;
+}
+
+.showbutton {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.button-group{    
+    margin-left: 8px !important;
+    height: 35px;
+}
+
+.toolbar-button{
+    min-width: 0px !important;
+    padding: 0px 5px !important; 
+    margin: 0 0px 0 10px !important;
+}
+
+.custom-dialog-container .mat-dialog-container {  
+    padding: 0px !important;
+    overflow-y: auto;
+    max-height: 75vh !important;
+}
+
+.fw-500{
+    font-weight: 500 !important;
+}
+
+.label-value-spacer{
+    margin: 0 1.5rem;
+}
+
+.no-card-shadow{
+    box-shadow: none !important;
+}
+

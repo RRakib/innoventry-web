@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SaleRegisterComponent } from '../reports/sale-register/sale-register.component';
 import { JournalComponent } from './journal/journal.component';
 import { PurchaseComponent } from './order/purchase/purchase.component';
 import { QuotationComponent } from './order/quotation/quotation.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
             { path: 'edit-receipt/:receiptId', component: ReceiptComponent},
             { path: 'journal', component: JournalComponent},
             { path: 'edit-journal/:journalId', component: JournalComponent},
-            { path: 'newOrder/sale', component: SaleComponent},
+            { path: 'sale', component: SaleRegisterComponent},
+            { path: 'sale/new', component: SaleComponent},
             { path: 'newOrder/purchase', component: PurchaseComponent},
             { path: 'newOrder/saleOrder', component: SaleOrderComponent},
             { path: 'newOrder/quotation', component: QuotationComponent}

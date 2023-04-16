@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -106,12 +106,17 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
 
         //Initialize the item form on load and other properties.
         this.initializeItemForm();
-        this.itemLines = !!this.saleOrderTx.taxableLines ? this.saleOrderTx.taxableLines : [];
+
+        if(!!this.saleOrderTx.taxableLines){
+          this.itemLines = this.updateItemLineProperties(this.saleOrderTx.taxableLines);
+
+        }else{
+          this.itemLines = [];
+        }
+
         this.itemLinesDataSource.data = this.itemLines;
 
-        // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
+        // Inititalize the Other Charges Form and other properties.                
         this.addedOtherCharges = !!this.saleOrderTx.otherChargesLines ? this.saleOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

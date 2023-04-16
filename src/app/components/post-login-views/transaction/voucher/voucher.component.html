@@ -1,6 +1,5 @@
 <div class="mat-elevation-z8">
-
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 {{ headerTitle }}
@@ -24,7 +23,7 @@
                         (onLedgerSelection)="onFromLedgerSelection($event)">
                     </Ledger-Box>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'Date'" [dateFormControl]="voucherForm.controls['transactiondate'] | convertToFormControl"></i-mat-datepicker>
                     </div>
                     
@@ -36,7 +35,7 @@
                             #vouchernumber name="vouchernumber" id="vouchernumber" 
                             formControlName="vouchernumber">
                     </mat-form-field>
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Reference No.</mat-label>
                         <input matInput placeholder="Enter Reference No."
                             #referenceNo name="referenceNo" id="referenceNo"
@@ -49,7 +48,7 @@
                         <input matInput placeholder="Enter Ref. Invoice No."
                             #referenceInvoiceNo name="referenceInvoiceNo" id="referenceNo">
                     </mat-form-field>
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Amount</mat-label>
                         <input matInput placeholder="Enter Amount"
                             #amount name="amount" id="amount"
@@ -66,7 +65,7 @@
                         (onLedgerSelection)="onByLedgerSelection($event)">
                     </Ledger-Box>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Description</mat-label>
                         <input matInput placeholder="Enter Description"
                             #description name="description" id="description"
@@ -82,7 +81,7 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50"
-                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-10px'">
+                        [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'">
                         <mat-label>Cheque Date</mat-label>
                         <input matInput [matDatepicker]="pickerChequeDate">         
                         <mat-datepicker-toggle matSuffix [for]="pickerChequeDate"></mat-datepicker-toggle>

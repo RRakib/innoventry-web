@@ -22,7 +22,7 @@
       <mat-card-content class="text-center">
         <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : 'search-criteria'">
           <!-- <div>
-            <mat-form-field appearance="outline"  [class]="(isHandset$ | async) ? ' full-width-table' : 'mr-10px'">
+            <mat-form-field appearance="outline"  [class]="(isHandset$ | async) ? ' full-width-table' : 'mr-1'">
               <mat-label>Choose a date</mat-label>
               <input matInput [matDatepicker]="pickerFrom" [(ngModel)]="summaryDate">         
               <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
@@ -30,7 +30,7 @@
             </mat-form-field>   
           </div> -->
 
-          <div [class]="(isHandset$ | async) ? '' : 'ml-10px'">
+          <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
             <i-mat-datepicker [label]="'Choose a date'" [dateFormControl]="summaryDate"></i-mat-datepicker>
           </div>
 

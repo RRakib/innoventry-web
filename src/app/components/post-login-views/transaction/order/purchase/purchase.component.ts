@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { IPurchaseOrderTx, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { IPurchaseOrderTx, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -40,7 +40,8 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
     public dialogRef: MatDialogRef<PurchaseComponent>, 
     private childItemService : ItemServiceService, public dialog: MatDialog, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService
+    ) {
 
     super(purchaseBreakpointObserver, childFormBuilder, childstockLocationService, 
       childTaxableEntityService, childTxProvider, childLedgerAttributesService,
@@ -106,8 +107,6 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
         this.itemLinesDataSource.data = this.itemLines;
 
         // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
         this.addedOtherCharges = !!this.purchaseOrderTx.otherChargesLines ? this.purchaseOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

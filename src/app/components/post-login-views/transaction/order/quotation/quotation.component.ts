@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { IContact, IQuotationTx, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { IContact, IQuotationTx, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -115,9 +115,7 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
         this.itemLines = !!this.quotationOrderTx.taxableLines ? this.quotationOrderTx.taxableLines : [];
         this.itemLinesDataSource.data = this.itemLines;
 
-        // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
+        // Inititalize the Other Charges Form and other properties.        
         this.addedOtherCharges = !!this.quotationOrderTx.otherChargesLines ? this.quotationOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

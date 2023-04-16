@@ -1,0 +1,113 @@
+<mat-card [class]="'mb-1'" *ngIf="isServicesListed">
+    <mat-card-header [class]="'mat-card-headers'">
+        <mat-card-subtitle>
+            Add Service                    
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="servicesForm">
+            <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start">
+
+                <mat-form-field appearance="outline"
+                    [class]="'innov-matFormField'" 
+                    [fxFlex]="100">
+                    <mat-label>Service</mat-label>
+                    <mat-select name="serviceId" formControlName="taxableEntityId" name="taxableEntityId" (selectionChange)="changeServiceType()">
+                        <mat-option *ngFor="let service of retrievedServices" [value]="service.id">
+                            {{service.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start">
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                        [fxFlex]="33">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput class="text-right" type="number" 
+                            placeholder="Enter Quantity"
+                            #quantity name="quantity"
+                            id="quantity"
+                            formControlName="quantity">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                        [fxFlex]="33">
+                        <mat-label>Rate {{ data.isTaxDeductionEnabled ?  "(Inc. Tax)" : ""}}</mat-label>
+                        <input matInput class="text-right" type="number"                            
+                            #rateIncTax name="rateIncTax"
+                            id="rateIncTax"
+                            formControlName="rate">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="data.isTaxDeductionEnabled" appearance="outline"                                
+                        [fxFlex]="33"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
+                            <mat-label>Amount (Inc. Tax)</mat-label>
+                            <input matInput class="text-right" type="number" 
+                                placeholder="Enter Amount (Inc. Tax)"
+                                #amountIncTax name="amountIncTax"
+                                id="amount"
+                                formControlName="taxableAmountBeforeBillDiscount">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="!data.isTaxDeductionEnabled" appearance="outline"                                
+                        [fxFlex]="33"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
+                            <mat-label>Amount</mat-label>
+                            <input matInput class="text-right" type="number" 
+                                placeholder="Enter Amount (Inc. Tax)"
+                                #amountIncTax name="amount"
+                                id="amount"
+                                formControlName="amount">
+                    </mat-form-field>
+                </div>               
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start">
+                    <mat-form-field appearance="outline"
+                                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                                [fxFlex]="33">
+                                <mat-label>Tax</mat-label>
+                                <input matInput class="text-right"
+                                    placeholder="Tax"
+                                    #tax name="tax"
+                                    id="tax"
+                                    formControlName="taxGroupName">
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline"
+                                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                                [fxFlex]="33">
+                                <mat-label>Tax Amount</mat-label>
+                                <input matInput class="text-right" type="number" 
+                                    placeholder="Tax Amount"
+                                    #taxAmount name="taxAmount"
+                                    id="taxAmount"
+                                    formControlName="taxAmount">
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline"
+                                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                                [fxFlex]="33">
+                                <mat-label>Total Amount</mat-label>
+                                <input matInput class="text-right" type="number" 
+                                    placeholder="Total Amount"
+                                    #tax name="totalAmount"
+                                    id="totalAmount"
+                                    formControlName="totalAmountBeforeBillDiscount">
+                    </mat-form-field>
+                </div>
+
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
+                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'">
+                        Cancel
+                    </button>
+                    <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary" (click)="saveUpdateServiceLine()">                         
+                        Add
+                    </button>                    
+                </div>
+            </div>   
+        </form>        
+    </mat-card-content>
+</mat-card>

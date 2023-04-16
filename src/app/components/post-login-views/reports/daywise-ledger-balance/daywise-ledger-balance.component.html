@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>
           Daywise Ledger Balance
@@ -23,7 +23,7 @@
         <form [formGroup]="dayWiseLedgerReportForm" *ngIf="isFormLoaded">
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
 
-                <div [class]="(isHandset$ | async) ? '' : 'mr-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                <div [class]="(isHandset$ | async) ? '' : 'mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <Ledger-Box
                     [ledgerFormControl]="dayWiseLedgerReportForm.controls['ledgerName'] | convertToFormControl"
                     (onLedgerSelection)="onLedgerSelection($event)"></Ledger-Box>
@@ -32,7 +32,7 @@
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'"  
                     [fxFlex]="(isHandset$ | async) ? 100 : 50"  fxLayoutAlign="space-between">
 
-                    <div [class]="(isHandset$ | async) ? '' : 'mr-10px'">
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'">
                         <i-mat-datepicker [label]="'Start Date'"
                             [dateFormControl]="dayWiseLedgerReportForm.controls['dateFrom'] | convertToFormControl"></i-mat-datepicker>
                     </div>

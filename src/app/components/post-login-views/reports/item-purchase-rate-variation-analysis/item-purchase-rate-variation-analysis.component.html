@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
                 Item Purchase Rate Variation Analysis
@@ -17,7 +17,7 @@
                         </i-mat-datepicker>
                     </div>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'End Date'"
                             [dateFormControl]="reportForm.controls['dateTo'] | convertToFormControl">
                         </i-mat-datepicker>
@@ -45,7 +45,7 @@
                             </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'"
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
                      [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Variation(%)</mat-label>
                         <input matInput placeholder="Enter Variation(%)"

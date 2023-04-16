@@ -1,5 +1,3 @@
-@import '../../../../custom-theme.scss';
-
 
 :host {
   display: flex;
@@ -8,12 +6,12 @@
   width: 100%;
 
   .mat-list-item.active {
-    background-color: map-get($webapp-primary, 50);
+    // background-color: $primary  
   }
   &:hover,
   &:focus {
     >.mat-list-item:not(.expanded) {
-      background-color: map-get($webapp-primary, 100) !important;
+      // background-color: $primary !important;
     }
   }
 }

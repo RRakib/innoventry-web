@@ -1,6 +1,6 @@
 
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header>
             <mat-card-title>
                 Item Sale Summary
@@ -26,7 +26,7 @@
                         </i-mat-datepicker>
                     </div>
 
-                    <div [class]="(isHandset$ | async) ? '' : 'ml-10px'"
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'"
                         [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <i-mat-datepicker [label]="'End Date'"
                             [dateFormControl]="itemSaleSummaryReportForm.controls['dateTo'] | convertToFormControl">

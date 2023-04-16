@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { TransactionsProvider } from 'src/app/services/transactionsProvider';
-import { IPOTx, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { IPOTx, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { BillingClassificationServiceService } from 'src/server/api/billingClassificationService.service';
 import { ItemServiceService } from 'src/server/api/itemService.service';
 import { LedgerAttributesServiceService } from 'src/server/api/ledgerAttributesService.service';
@@ -39,7 +39,8 @@ export class SaleOrderComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number },
     public dialogRef: MatDialogRef<SaleOrderComponent>, private childItemService : ItemServiceService, public dialog: MatDialog,
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService
+    ) {
 
     super(sOBreakpointObserver, childFormBuilder,
       childstockLocationService, childTaxableEntityService,
@@ -103,9 +104,7 @@ export class SaleOrderComponent extends OrderTxComponent  implements OnInit {
         this.itemLines = !!this.inwardPurchaseOrderTx.taxableLines ? this.inwardPurchaseOrderTx.taxableLines : [];
         this.itemLinesDataSource.data = this.itemLines;
 
-        // Inititalize the Other Charges Form and other properties.
-        this.getOtherCharges();
-        this.initializeOtherChargesDiscountForm();
+        // Inititalize the Other Charges Form and other properties.        
         this.addedOtherCharges = !!this.inwardPurchaseOrderTx.otherChargesLines ? this.inwardPurchaseOrderTx.otherChargesLines : [];
         this.otherChargesDataSource.data = this.addedOtherCharges;
 

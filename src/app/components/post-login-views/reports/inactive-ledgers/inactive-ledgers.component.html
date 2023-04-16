@@ -1,6 +1,6 @@
 
 <div class="mat-elevation-z8">
-    <mat-card class="mb-10px">
+    <mat-card>
         <mat-card-header>
             <mat-card-title>
                 Inactive Ledgers
@@ -32,7 +32,7 @@
                         </i-mat-datepicker>
                     </div>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-10px'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                         <mat-label>Ledger Group</mat-label>
                         <mat-select formControlName="ledgerGroupId" name="ledgerGroupId">
                           <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
