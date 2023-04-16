@@ -44,7 +44,7 @@ export abstract class OrderTxComponent {
     'quantity',
     'rate', 
     'discount',
-    'netRate',
+    // 'netRate',
     'taxableAmountBeforeBillDiscount',
     'taxGroupName',
     'taxAmount',
@@ -805,7 +805,8 @@ export abstract class OrderTxComponent {
       panelClass: 'custom-dialog-container', 
       data : {
         isTaxDeductionEnabled : this.itemForm.controls["isTaxDeductionFromAmountEnabled"].value,
-        serviceLine : this.selectedLineItemForEdit
+        serviceLine : this.selectedLineItemForEdit,
+        itemLinesTotalAmount: this.getAllIItemLineAmount()
       },
       disableClose: true,      
     }); 
@@ -836,6 +837,15 @@ export abstract class OrderTxComponent {
       this.updateFinalAmounts();
       this.itemLinesDataSource.data = this.itemLines;
     });
+  }
+
+  private getAllIItemLineAmount(): number | undefined{
+    return this.itemLines.filter((iL) => iL.jacksontype == 'ItemLineImpl')
+        .map(iL => iL.taxableAmountBeforeBillDiscount)
+        .reduce((a,b) => {
+          return (!!a ? a : 0) + (!!b ? b : 0);
+        }
+      );   
   }
 
   /**

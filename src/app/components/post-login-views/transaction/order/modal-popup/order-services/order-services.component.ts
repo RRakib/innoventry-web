@@ -26,8 +26,6 @@ export class OrderServicesComponent implements OnInit {
   isServicesListed : boolean = false;
   selectedService : IServiceMaster | undefined;
 
-  isTaxDeductionFromAmountEnabled : boolean = true;
-  
   constructor(private breakpointObserver: BreakpointObserver,private formBuilder : FormBuilder,
     private serviceApi : ServiceServiceService,
     private taxGroupServiceService: TaxGroupServiceService,
@@ -36,7 +34,8 @@ export class OrderServicesComponent implements OnInit {
     public orderServicesCompRef: MatDialogRef<OrderServicesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { 
       isTaxDeductionEnabled : boolean,
-      serviceLine: IItemLine
+      serviceLine: IItemLine,
+      itemLinesTotalAmount: number
     }) {
 
   }
@@ -81,9 +80,8 @@ export class OrderServicesComponent implements OnInit {
       rate: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.rate : 0),   
       netRate: new FormControl(),
       amount: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.totalAmountBeforeBillDiscount : 0),
-      taxableAmount: new FormControl(!!this.data.serviceLine ? this.data.serviceLine.taxableAmountBeforeBillDiscount : 0),
       percentage: new FormControl(),
-      taxableAmountBeforeBillDiscount: new FormControl({value : !!this.data.serviceLine ? this.data.serviceLine.totalAmountBeforeBillDiscount : '', disabled: true}),      
+      taxableAmountBeforeBillDiscount: new FormControl({value : !!this.data.serviceLine ? this.data.serviceLine.taxableAmountBeforeBillDiscount : '', disabled: true}),      
       taxGroup : new FormControl(!!this.data.serviceLine ? this.data.serviceLine.taxGroup : null),
       taxGroupName : new FormControl({ value: !!this.data.serviceLine ? this.data.serviceLine.taxGroupName : '', disabled: true }),
       taxAmount: new FormControl({ value: !!this.data.serviceLine ? this.data.serviceLine.taxAmount : null, disabled: true }),
@@ -102,18 +100,28 @@ export class OrderServicesComponent implements OnInit {
 
     this.servicesForm.controls['quantity'].valueChanges.subscribe((data) => {
       if(this.selectedService && this.selectedService.rate) {
+        let rate = this.servicesForm.controls["rate"].value;
+        if(this.selectedService.percentage) {
+          rate =( rate * this.data.itemLinesTotalAmount)/100;
+        }
+
         this.servicesForm.patchValue({
-          netRate:this.servicesForm.controls["rate"].value * data,
-          totalAmountBeforeBillDiscount: this.servicesForm.controls["rate"].value * data
+          netRate: rate * data,
+          totalAmountBeforeBillDiscount: rate * data
         });
-        this.updateTax(this.servicesForm.controls["rate"].value * data);
+        this.updateTax(rate * data);
       }      
     });
 
     this.servicesForm.controls['rate'].valueChanges.subscribe((data) => {
       if(this.selectedService && this.selectedService.rate) {
+        
+        if(this.selectedService.percentage) {
+          data =( data * this.data.itemLinesTotalAmount)/100;
+        }
+
         this.servicesForm.patchValue({     
-          netRate:this.servicesForm.controls["quantity"].value * data,     
+          netRate: this.servicesForm.controls["quantity"].value * data,     
           totalAmountBeforeBillDiscount:  data * this.servicesForm.controls['quantity'].value
         });
         this.updateTax(data * this.servicesForm.controls['quantity'].value);
@@ -139,13 +147,12 @@ export class OrderServicesComponent implements OnInit {
     this.selectedService =  this.retrievedServices.find((service) => service.id == taxableEntityId);
     
 
-    if(!!this.selectedService) {
+    if(!!this.selectedService && this.selectedService.rate) {
       this.servicesForm.patchValue({
         taxableEntityName : this.selectedService.name,
         quantity: 1,
         rate: this.selectedService.rate,
-        amount: this.calculateAmount(this.selectedService),       
-        totalAmountBeforeBillDiscount: this.selectedService.rate
+        amount: this.calculateAmount(this.selectedService)
       });
     }
   }
@@ -160,15 +167,18 @@ export class OrderServicesComponent implements OnInit {
                 taxGroup: taxGroupObj.id,
                 taxGroupName: taxGroupObj.name        
               });
-              this.updateTax(selectedService.rate);
+
+              if(selectedService.percentage) {
+                this.updateTax(selectedService.rate * this.data.itemLinesTotalAmount / 100);
+              }else{
+                this.updateTax(selectedService.rate);
+              }
+              
             }
       });
     }
   }
 
-  calculateTotalAmount(netRate: number | undefined): number {
-    return 0;
-  }
 
   updateTax(netRate: number) {
 
@@ -208,15 +218,15 @@ export class OrderServicesComponent implements OnInit {
         if (diff != 0) {
           amount = amount + diff;
         }
-
-        this.servicesForm.controls['taxableAmount'].setValue(amount.toFixed(2));
+        
         this.servicesForm.controls['taxableAmountBeforeBillDiscount'].setValue(amount.toFixed(2));
         this.servicesForm.controls['taxAmount'].setValue(taxAmount.toFixed(2));
+        this.servicesForm.controls['totalAmountBeforeBillDiscount'].setValue(netRate.toFixed(2));
       } else {
         let amount: number = netRate;
         let taxAmount = this.getTaxAmount(amount);
         let totalAmount = amount + taxAmount;
-        this.servicesForm.controls['amount'].setValue((totalAmount).toFixed(2));
+        this.servicesForm.controls['amount'].setValue((netRate).toFixed(2));
         this.servicesForm.controls['totalAmountBeforeBillDiscount'].setValue((totalAmount).toFixed(2));
         this.servicesForm.controls['taxAmount'].setValue(taxAmount.toFixed(2));
 

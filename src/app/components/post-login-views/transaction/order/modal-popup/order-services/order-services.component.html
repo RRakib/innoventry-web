@@ -34,15 +34,14 @@
                     <mat-form-field appearance="outline"
                         [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
                         [fxFlex]="33">
-                        <mat-label>Rate {{ isTaxDeductionFromAmountEnabled ?  "(Inc. Tax)" : ""}}</mat-label>
-                        <input matInput class="text-right" type="number" 
-                            placeholder="Enter Rate (Inc. Tax)"
+                        <mat-label>Rate {{ data.isTaxDeductionEnabled ?  "(Inc. Tax)" : ""}}</mat-label>
+                        <input matInput class="text-right" type="number"                            
                             #rateIncTax name="rateIncTax"
                             id="rateIncTax"
                             formControlName="rate">
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="isTaxDeductionFromAmountEnabled" appearance="outline"                                
+                    <mat-form-field *ngIf="data.isTaxDeductionEnabled" appearance="outline"                                
                         [fxFlex]="33"
                         [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
                             <mat-label>Amount (Inc. Tax)</mat-label>
@@ -53,7 +52,7 @@
                                 formControlName="taxableAmountBeforeBillDiscount">
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="!isTaxDeductionFromAmountEnabled" appearance="outline"                                
+                    <mat-form-field *ngIf="!data.isTaxDeductionEnabled" appearance="outline"                                
                         [fxFlex]="33"
                         [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'">
                             <mat-label>Amount</mat-label>
