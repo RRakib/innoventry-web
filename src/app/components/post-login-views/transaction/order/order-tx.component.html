@@ -296,23 +296,23 @@
 
                         <ng-container matColumnDef="quantity">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
-                            <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
+                            <td mat-cell *matCellDef="let row">{{row.quantity | number : '1.2-2'}}</td>
                           </ng-container>
                     
                         <ng-container matColumnDef="rate">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
-                          <td mat-cell *matCellDef="let row">{{row.rate}}</td>
+                          <td mat-cell *matCellDef="let row">{{row.rate | number : '1.2-2'}}</td>
                         </ng-container>
                     
                         <ng-container matColumnDef="discount">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount(%)</th>
-                          <td mat-cell *matCellDef="let row">{{row.discount}}</td>
+                          <td mat-cell *matCellDef="let row">{{row.discount | number : '1.2-2'}}</td>
                         </ng-container>
                     
                         <!-- Name Column -->
                         <ng-container matColumnDef="taxableAmountBeforeBillDiscount">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-                          <td mat-cell *matCellDef="let row">{{row.taxableAmountBeforeBillDiscount}}</td>
+                          <td mat-cell *matCellDef="let row">{{row.taxableAmountBeforeBillDiscount | number : '1.2-2'}}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="taxGroupName">
@@ -322,12 +322,12 @@
 
                         <ng-container matColumnDef="taxAmount">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax Amount</th>
-                            <td mat-cell *matCellDef="let row">{{row.taxAmount}}</td>
+                            <td mat-cell *matCellDef="let row">{{row.taxAmount | number : '1.2-2'}}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="totalAmountBeforeBillDiscount">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount</th>
-                            <td mat-cell *matCellDef="let row">{{row.totalAmountBeforeBillDiscount}}</td>
+                            <td mat-cell *matCellDef="let row">{{row.totalAmountBeforeBillDiscount | number : '1.2-2'}}</td>
                         </ng-container>
 
                         <tr class="mat-row" *matNoDataRow>
@@ -390,12 +390,12 @@
                 
                     <ng-container matColumnDef="value">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
-                        <td mat-cell *matCellDef="let row">{{row.value}}</td>
+                        <td mat-cell *matCellDef="let row">{{row.value | number : '1.2-2'}}</td>
                     </ng-container>
                 
                     <ng-container matColumnDef="amount">
                         <th mat-header-cell [class]="'text-center'" *matHeaderCellDef mat-sort-header>Total Amount</th>
-                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.amount}}</td>
+                        <td mat-cell [class]="'text-right'" *matCellDef="let row">{{row.amount | number : '1.2-2'}}</td>
                     </ng-container>
 
                     <tr class="mat-row" *matNoDataRow>
@@ -431,7 +431,7 @@
                         Total Amount
                     </div>
                     <div>
-                        {{itemLinesTotalAmount.value}}
+                        {{itemLinesTotalAmount.value | number : '1.2-2'}}
                     </div>
                 </div>
             </div>
@@ -441,7 +441,7 @@
                         Other charges/Discount
                     </div>
                     <div>
-                        {{otherChargesTotalAmount.value}}
+                        {{otherChargesTotalAmount.value | number : '1.2-2'}}
                     </div>
                 </div>                
             </div>
@@ -451,7 +451,7 @@
                         Net Amount
                     </div>
                     <div>
-                        {{netFinalAmount.value}}
+                        {{netFinalAmount.value | number : '1.2-2'}}
                     </div>
                 </div>                
             </div>

@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin, map, Observable, shareReplay, Subscription } from "rxjs";
-import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItem, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IServiceLine, IServiceMaster, IStockLocation, ITaxGroup, ITaxLine, ITaxableLine, PItemMaster, PLedgerMaster, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
+import { GetObjectsArgument, IBillingClassification, IBillingGroup, IContact, IItem, IItemLine, ILedger, IOtherCharges, IOtherChargesLine, IServiceLine, IServiceMaster, IStockLocation, ITax, ITaxGroup, ITaxLine, ITaxableLine, PItemMaster, PLedgerMaster, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from "src/server";
 import { TaxableEntityServiceService } from "src/server/api/taxableEntityService.service";
 import { TransactionsProvider } from "src/app/services/transactionsProvider";
 import { LedgerAttributesServiceService } from "src/server/api/ledgerAttributesService.service";
@@ -55,12 +55,11 @@ export abstract class OrderTxComponent {
 
   selectedLineItemForEdit : IItemLine | undefined;
   itemLineEditMode : boolean = false;
+  selectedItemtaxGroup: ITaxGroup;
   
 
-  //Other Charges/Discount objects
-  
-  addedOtherCharges : IOtherChargesLine[] = []; // Added by user.
-  
+  //Other Charges/Discount objects  
+  addedOtherCharges : IOtherChargesLine[] = []; // Added by user.  
   otherChargesDataSource = new MatTableDataSource<IOtherChargesLine>([]);
   otherChargesDisplayedColumns = ['chargesName','value','amount'];
   selectedOtherChargeLineForEdit : IOtherChargesLine | undefined;
@@ -293,8 +292,7 @@ export abstract class OrderTxComponent {
 
     this.itemForm.patchValue({
       rate: rate, 
-      netRate: rate,     
-      taxableAmountBeforeBillDiscount: rate
+      netRate: rate
     });
     
     if(!!selectedItem.taxClassId) {
@@ -340,8 +338,7 @@ export abstract class OrderTxComponent {
           rate = rate - ((rate * discount) / 100);
   
           this.itemForm.patchValue({
-            netRate: rate,            
-            taxableAmountBeforeBillDiscount: rate
+            netRate: rate
           });
   
           if (!!this.itemForm.controls["taxGroup"].value) {
@@ -367,8 +364,7 @@ export abstract class OrderTxComponent {
           rate = rate - ((rate * data) / 100);
   
           this.itemForm.patchValue({
-            netRate: rate,            
-            taxableAmountBeforeBillDiscount: rate
+            netRate: rate
           });
   
           if (!!this.itemForm.controls["taxGroup"].value) {
@@ -394,12 +390,14 @@ export abstract class OrderTxComponent {
   public onTaxGroupSelectionChanged(selectedTaxGroup : ITaxGroup) {
 
     if(!!selectedTaxGroup){
+      this.selectedItemtaxGroup = selectedTaxGroup;
+
       this.itemForm.patchValue({
         taxGroup: selectedTaxGroup.id,
         taxGroupName: selectedTaxGroup.name
       });
 
-      this.updateTaxAmount(selectedTaxGroup); 
+      this.updateTax(selectedTaxGroup); 
     }
 
   } 
@@ -424,14 +422,16 @@ export abstract class OrderTxComponent {
         next: (taxGroup) => {
           if (taxGroup) {
             if (type == 'ITEM') {
+              this.selectedItemtaxGroup = taxGroup;
+
               this.itemForm.patchValue({
                 taxGroup: taxGroup.id,
                 taxGroupName: taxGroup.name
               });
+
+              this.updateTax(taxGroup);
             }
           }
-  
-          this.updateTaxAmount(taxGroup);
         }
       });  
     }else{
@@ -439,6 +439,97 @@ export abstract class OrderTxComponent {
     }
     
   }  
+
+
+  updateTax(taxGroup: ITaxGroup) {
+
+    let totalTaxValue : number = 0;
+
+    let quantity = this.itemForm.controls['quantity'].value;
+    if (quantity != 0) {
+      if (this.itemForm.controls["isTaxDeductionFromAmountEnabled"].value) {
+        let totalAmount = this.itemForm.controls["netRate"].value;
+        let totalAmountTemp = this.itemForm.controls["netRate"].value;
+
+        if (taxGroup && taxGroup.taxList) {
+          totalTaxValue = !!taxGroup.taxRate ? taxGroup.taxRate : 0;
+          for (let tax of taxGroup.taxList) {
+            if (tax.fixed && tax.value && tax.taxOnTaxList) {
+              totalAmountTemp = totalAmountTemp -  tax.value;
+              for (let taxOnTax of tax.taxOnTaxList) {
+                taxOnTax.value = !!taxOnTax.value ? taxOnTax.value : 0;
+                totalAmountTemp = parseFloat((totalAmountTemp - (tax.value * taxOnTax.value / 100)).toFixed(2));
+              }
+            }
+
+          }
+        }
+        let amountWithoutTax: number = parseFloat((totalAmountTemp * 100 / (100 + totalTaxValue)).toFixed(2));
+        let taxAmount: number;
+        let amount: number;
+        let diff: number
+        taxAmount = this.getTaxAmount(amountWithoutTax);
+        amount = amountWithoutTax;
+        amount = parseFloat((amount).toFixed(2));
+        diff = parseFloat((totalAmount - (taxAmount + amount)).toFixed(2));
+        if (diff != 0) {
+          amount = amount + diff;
+        }
+        
+        this.itemForm.controls['taxableAmountBeforeBillDiscount'].setValue(amount.toFixed(2));
+        this.itemForm.controls['taxAmount'].setValue(taxAmount.toFixed(2));
+        this.itemForm.controls['totalAmountBeforeBillDiscount'].setValue(totalAmount.toFixed(2));
+      } else {
+        let amount: number = this.itemForm.controls["netRate"].value;
+        let taxAmount = this.getTaxAmount(amount);
+        let totalAmount = amount + taxAmount;
+        this.itemForm.controls['taxableAmountBeforeBillDiscount'].setValue((amount).toFixed(2));
+        this.itemForm.controls['totalAmountBeforeBillDiscount'].setValue((totalAmount).toFixed(2));
+        this.itemForm.controls['taxAmount'].setValue(taxAmount.toFixed(2));
+
+      }
+    } else {
+      // this.commonUtils.showToastMessage('Quantity must have positive numeric value')
+    }
+
+  }
+
+
+  getTaxAmount(amountWithoutTax: number, taxGroup?: ITaxGroup) {
+    let taxList : ITax[] | undefined;
+
+    let tg = this.itemForm.controls['taxGroup'].value
+    if (tg) {
+      taxGroup = this.selectedItemtaxGroup;
+    }
+    let taxAmount = 0;
+
+    if (taxGroup != null) {
+      taxList = !!taxGroup.taxList ? taxGroup.taxList : [];
+
+      for (let tax of taxList) {
+        let taxLineAmount = 0;
+        let qty = this.itemForm.controls['quantity'].value;
+        tax.value = !!tax.value ? tax.value : 0
+        if (tax.fixed) {          
+          taxLineAmount = tax.value * parseFloat(qty);
+        }
+        else {
+          taxLineAmount = parseFloat((amountWithoutTax * tax.value / 100).toFixed(2));
+        }
+
+        taxAmount = taxAmount + taxLineAmount;
+
+        if(!!tax.taxOnTaxList) {
+          for (let taxOnTax of tax.taxOnTaxList) {
+            taxOnTax.value = !!taxOnTax.value ? taxOnTax.value : 0;
+            taxAmount = taxAmount + parseFloat((taxLineAmount * taxOnTax.value / 100).toFixed(2));
+          }
+        }
+      }
+    }
+    return taxAmount;
+  }
 
   /**
    * This method executed in following conditions :
@@ -572,10 +663,15 @@ export abstract class OrderTxComponent {
       this.stockCountStatement = '';
         
       this.itemLinesDataSource.data = this.itemLines;
-      this.itemForm.reset();
+      this.itemForm.reset();     
 
       this.itemForm.controls["itemName"].removeValidators(Validators.required);      
       this.itemForm.controls["itemName"].updateValueAndValidity();
+
+      // Hard code set the flag as true.
+      this.itemForm.patchValue({
+        isTaxDeductionFromAmountEnabled: true
+      })
     }
        
   }
