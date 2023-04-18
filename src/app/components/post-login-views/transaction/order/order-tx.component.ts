@@ -341,17 +341,32 @@ export abstract class OrderTxComponent {
             netRate: rate
           });
   
-          if (!!this.itemForm.controls["taxGroup"].value) {
-            // This patches the tax group id,name in item form which will be further used to calculate the tax amount.
-            this.updateTaxGroupLinkedToItemAndTaxAmount(selectedItem.taxClassId, "ITEM");
-          }else{
-            this.itemForm.patchValue({
-              taxAmount: 0,              
-              totalAmountBeforeBillDiscount : rate
-            });
-          }
+          this.updateTaxesAfterValueChanges(selectedItem, rate);
         }
         
+      }
+    });
+
+     this.itemForm.controls["rate"].valueChanges.subscribe({
+      next: (data) => {
+        let rate = 0;
+        
+        if(!!data) { // Don't update values if form is reset
+          rate  = data * this.itemForm.controls["quantity"].value;
+          let discount = this.itemForm.controls["discount"].value;
+
+          rate = rate - ((rate  * discount) / 100);
+
+          this.itemForm.patchValue({
+            netRate: rate
+          });           
+        }else{
+          this.itemForm.patchValue({
+            netRate: rate
+          }); 
+        }
+        
+        this.updateTaxesAfterValueChanges(selectedItem, rate);
       }
     });
 
@@ -367,19 +382,23 @@ export abstract class OrderTxComponent {
             netRate: rate
           });
   
-          if (!!this.itemForm.controls["taxGroup"].value) {
-            // This patches the tax group id,name in item form which will be further used to calculate the tax amount.
-            this.updateTaxGroupLinkedToItemAndTaxAmount(selectedItem.taxClassId, "ITEM");
-          }else{
-            this.itemForm.patchValue({
-              taxAmount: 0,              
-              totalAmountBeforeBillDiscount : rate
-            });
-          }
+          this.updateTaxesAfterValueChanges(selectedItem, rate);
         }
         
       }
     });
+  }
+
+  private updateTaxesAfterValueChanges(selectedItem: PItemMaster, rate: number) {
+    if (!!this.itemForm.controls["taxGroup"].value) {
+      // This patches the tax group id,name in item form which will be further used to calculate the tax amount.
+      this.updateTaxGroupLinkedToItemAndTaxAmount(selectedItem.taxClassId, "ITEM");
+    } else {
+      this.itemForm.patchValue({
+        taxAmount: 0,
+        totalAmountBeforeBillDiscount: rate
+      });
+    }
   }
 
   /**
