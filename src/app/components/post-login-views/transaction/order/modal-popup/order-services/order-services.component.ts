@@ -99,7 +99,7 @@ export class OrderServicesComponent implements OnInit {
 
 
     this.servicesForm.controls['quantity'].valueChanges.subscribe((data) => {
-      if(this.selectedService && this.selectedService.rate) {
+      if(this.selectedService) {
         let rate = this.servicesForm.controls["rate"].value;
         if(this.selectedService.percentage) {
           rate =( rate * this.data.itemLinesTotalAmount)/100;
@@ -114,8 +114,7 @@ export class OrderServicesComponent implements OnInit {
     });
 
     this.servicesForm.controls['rate'].valueChanges.subscribe((data) => {
-      if(this.selectedService && this.selectedService.rate) {
-        
+      if(this.selectedService){
         if(this.selectedService.percentage) {
           data =( data * this.data.itemLinesTotalAmount)/100;
         }
@@ -125,8 +124,9 @@ export class OrderServicesComponent implements OnInit {
           totalAmountBeforeBillDiscount:  data * this.servicesForm.controls['quantity'].value
         });
         this.updateTax(data * this.servicesForm.controls['quantity'].value);
-      }      
-    });
+        } 
+      }
+    );
 
     // this.servicesForm.controls['totalAmountBeforeBillDiscount'].valueChanges.subscribe((data) => {
     //   if(this.selectedService && this.selectedService.rate) {
