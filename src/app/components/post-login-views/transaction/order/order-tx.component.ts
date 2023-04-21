@@ -299,6 +299,9 @@ export abstract class OrderTxComponent {
       // This patches the tax group id,name in item form which will be further used to calculate the tax amount.
       this.updateTaxGroupLinkedToItemAndTaxAmount(selectedItem.taxClassId,"ITEM");      
     }else{
+      this.itemForm.patchValue({
+        taxableAmountBeforeBillDiscount : rate
+      });
       this.updateTaxAmount(undefined);
     }
 

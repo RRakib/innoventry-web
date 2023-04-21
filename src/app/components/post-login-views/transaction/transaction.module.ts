@@ -17,10 +17,13 @@ import { OrderServicesComponent } from './order/modal-popup/order-services/order
 import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charges-discounts/order-charges-discounts.component';
 
 
+
 @NgModule({
     declarations: [
         TransactionBaseViewComponent,        
-        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, OrderPaymentDetailComponent, OrderServicesComponent, OrderChargesDiscountsComponent        
+        ConfigureItemStockAttributeComponent, SelectItemStockAttributeComponent, 
+        OrderPaymentDetailComponent, OrderServicesComponent, 
+        OrderChargesDiscountsComponent        
     ],
     imports: [
       CommonModule,    
@@ -30,6 +33,9 @@ import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charge
       SharedModule,
       AngularMaterialModule,
       TransactionRoutingModule
+    ],
+    exports: [
+      
     ],
     providers: [  
       InventoryTxReportServiceService,     

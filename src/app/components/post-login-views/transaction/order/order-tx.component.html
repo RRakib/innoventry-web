@@ -1,10 +1,18 @@
 <div *ngIf="isFormLoaded">
     <mat-card class="no-card-shadow">
-        <mat-card-header [class]="'mat-card-headers align-items-center'">
+        <mat-card-header [class]="'mat-card-headers align-items-center mb-1'">
             <mat-card-title>
                 {{ headerTitle}}
                 <div class="title-underline"></div>
-            </mat-card-title>                
+            </mat-card-title> 
+            <div>
+                <button mat-raised-button class="button-group" [fxFlex]="50">
+                    Cancel
+                </button>
+                <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="addPaymentDetails()">
+                    Save
+                </button>
+            </div>               
         </mat-card-header>   
 
         <mat-card-content>
@@ -457,32 +465,18 @@
                                     </div>
                                 </div>                
                             </div>
-                
-                            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" class="mt-5">               
-                                <div>
-                                    <button mat-raised-button class="button-group" [fxFlex]="50">
-                                        Cancel
-                                    </button>
-                                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="addPaymentDetails()">
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
+                            
                         </mat-card-content>
                     </mat-card>  
 
                 </mat-tab>
-                <mat-tab label="DESCRIPTION">DESCRIPTION</mat-tab>
-                <mat-tab label="TRANSPORT DETAILS">TRANSPORT DETAILS</mat-tab>
-            </mat-tab-group>        
+                <!-- <mat-tab label="DESCRIPTION">DESCRIPTION</mat-tab> -->
+                <mat-tab label="TRANSPORT DETAILS">
+                    <app-order-transport-detail></app-order-transport-detail>
+                </mat-tab>
+            </mat-tab-group>     
         </mat-card-content>
         
     </mat-card>
 
-    
-    
-
-    
-    
-       
 </div>
