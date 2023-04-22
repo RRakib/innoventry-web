@@ -129,6 +129,19 @@ export class MenuConstants {
       cssClass: 'mt-4 font125',
       children: [
         {
+          displayName: 'Item Reports',
+          iconName: '',
+          route: '',
+          children: [
+            {
+              displayName: 'Item Attribute Search',
+              iconName: '',
+              route: 'itemAttributeSearchSummary',
+              children: []
+            }
+          ]
+        },
+        {
           displayName: 'Balance Sheet',
           iconName: '',
           route: 'balanceSheet',

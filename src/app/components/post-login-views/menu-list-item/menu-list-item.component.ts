@@ -60,7 +60,8 @@ export class MenuListItemComponent implements OnInit {
       let parentMenu = MenuConstants.MENUS.filter((parent) => {
         // find() will give -1, if no car was found that matched 
         //    car.make === 'BWM'
-        return parent.children?.find((child) => child.displayName === item.displayName);
+        return parent.children?.find((child) => child.displayName === item.displayName ? child : 
+          child.children?.find((child1) => child1.displayName == item.displayName));
       });
 
       this.isHandset$.subscribe({

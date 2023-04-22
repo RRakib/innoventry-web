@@ -8,7 +8,7 @@ import { CashInHandComponent } from './cash-in-hand/cash-in-hand.component';
 import { ReportsBaseViewComponent } from './reports-base-view/reports-base-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverstockReportComponent } from './overstock-report/overstock-report.component';
-import { AttributeGroupServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
 import { LedgerBookComponent } from './ledger-book/ledger-book.component';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -60,6 +60,7 @@ import { ItemPurchaseRateVariationAnalysisReportServiceService } from 'src/serve
 import { ItemPurchaseRateAnalysisComponent } from './item-purchase-rate-analysis/item-purchase-rate-analysis.component';
 import { ItemPurchaseRateAnalysisServiceService } from 'src/server/api/itemPurchaseRateAnalysisService.service';
 import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
+import { ItemAttributeSearchComponent } from './item-reports/item-attribute-search/item-attribute-search.component';
 
 @NgModule({
   declarations: [ 
@@ -86,7 +87,8 @@ import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
     ItemTxRegisterComponent,
     ItemPurchaseRateVariationAnalysisComponent,
     ItemPurchaseRateAnalysisComponent,
-    TrialBalanceComponent    
+    TrialBalanceComponent,
+    ItemAttributeSearchComponent    
   ],
   imports: [
     CommonModule,
@@ -99,6 +101,7 @@ import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
     
   ],
   providers: [
+    AttributeServiceService,
     AttributeGroupServiceService,
     CashInHandReportServiceService,
     ChoiceListServiceService,
@@ -120,6 +123,7 @@ import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
     ItemTransactionRegisterReportServiceService,
     ItemPurchaseRateAnalysisServiceService,
     ItemPurchaseRateVariationAnalysisReportServiceService,
+    ItemAttributeSearchReportServiceService,
     BillingClassificationServiceService,
     LedgerAttributesServiceService,
     LedgerReportServiceService,
