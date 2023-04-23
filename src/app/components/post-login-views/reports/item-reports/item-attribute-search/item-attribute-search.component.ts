@@ -6,8 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map, shareReplay } from 'rxjs';
 import { ItemAttributeSearchReportLineModel } from 'src/app/models/ItemAttributeSearchReportLineModel';
 import { CustomDateAdapterService } from 'src/app/services/date-adaptor';
+import { DownloadService } from 'src/app/services/download.service';
 import { OverlayService } from 'src/app/services/overlay.service';
-import { AttributeServiceService, IAttribute, IItem, ItemAttributeSearchReportArgument, ItemAttributeSearchReportLine, ItemAttributeSearchReportServiceService, ItemServiceService, PItemMaster } from 'src/server';
+import { AttributeServiceService, IAttribute, IItem, ItemAttributeSearchReportArgument, ItemAttributeSearchReportLine, ItemAttributeSearchReportServiceGetReportAsFile, ItemAttributeSearchReportServiceService, ItemServiceService, PItemMaster } from 'src/server';
 
 @Component({
   selector: 'app-item-attribute-search',
@@ -50,7 +51,7 @@ export class ItemAttributeSearchComponent implements OnInit, AfterViewInit {
   constructor(private breakpointObserver: BreakpointObserver, private overlayService : OverlayService,
     private formBuilder : FormBuilder, private customDateAdapterService : CustomDateAdapterService,
     private itemService : ItemServiceService, private attributeServiceApi : AttributeServiceService,
-    private itemAttributeSearchApi : ItemAttributeSearchReportServiceService) { }
+    private itemAttributeSearchApi : ItemAttributeSearchReportServiceService, private downloadService : DownloadService) { }
 
   ngOnInit(): void {
 
@@ -127,6 +128,30 @@ export class ItemAttributeSearchComponent implements OnInit, AfterViewInit {
 
           this.dataSource.data = this.reportLines;
         }       
+      }
+    });
+  }
+
+  resetForm() : void {
+    this.itemAttributeSearchForm.reset();
+  }
+
+  download(type: string) : void {
+
+    let model: ItemAttributeSearchReportServiceGetReportAsFile = {};
+    model.type = type as ItemAttributeSearchReportServiceGetReportAsFile.TypeEnum;
+    model.arg = this.itemAttributeSearchArg;
+  
+    this.itemAttributeSearchApi.getReportAsFile(model).subscribe({
+      next: (data) => { 
+        if(!!data.url) {
+  
+          let fileType =  model.type == ItemAttributeSearchReportServiceGetReportAsFile.TypeEnum.PDF 
+                          ? 'application/pdf' 
+                          : 'application/vnd.ms-excel';
+  
+          this.downloadService.downloadFileFromURL(data.url, fileType , data.filename);
+        }
       }
     });
   }

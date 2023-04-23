@@ -1,175 +1,183 @@
-<mat-card class="mb-1">
-    <mat-card-content>
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+<form [formGroup]="orderTxForm">
+    <mat-card class="mb-1">
+        <mat-card-content>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
 
-            <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <i-mat-datepicker [label]="'Date'"></i-mat-datepicker>
+                <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <i-mat-datepicker [label]="'Date'"></i-mat-datepicker>
+                </div>
+
+                <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <i-mat-datepicker [label]="'Shipment Date'"
+                    [dateFormControl]="orderTxForm.controls['shipmentDate'] | convertToFormControl"></i-mat-datepicker>
+                </div>
             </div>
 
-            <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <i-mat-datepicker [label]="'Shipment Date'"></i-mat-datepicker>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 50" [contactBoxTitle]="'Transporter Name'"
+                    [contactFormControl]="getOrderFormControl('transporter')"                    
+                    (onContactSelection)="onTransporterSelectionChange($event)">
+                </Contact-Box>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Transporter Mob. No.</mat-label>
+                    <input matInput placeholder="Enter Transporter Mobile No." #transMobNo name="transMobNo"
+                        id="transMobNo" formControlName="transporterMobNo">
+                </mat-form-field>
             </div>
-        </div>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 50" [contactBoxTitle]="'Transporter Name'">
-            </Contact-Box>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Transporter ID/GSTIN</mat-label>
+                    <input matInput placeholder="Enter Transporter ID/GSTIN" #transId name="transId" id="transId"
+                        formControlName="transporterId">
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Transporter Mob. No.</mat-label>
-                <input matInput placeholder="Enter Transporter Mobile No." #transMobNo name="transMobNo"
-                    id="transMobNo">
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Transport Type</mat-label>
+                    <mat-select name="type" formControlName="transportMode">
+                        <mat-option [value]="1">Road</mat-option>
+                        <mat-option [value]="2">Rail</mat-option>
+                        <mat-option [value]="3">Air</mat-option>
+                        <mat-option [value]="4">Ship</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Transporter ID/GSTIN</mat-label>
-                <input matInput placeholder="Enter Transporter ID/GSTIN" #transId name="transId" id="transId">
-            </mat-form-field>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Vehicle Type</mat-label>
+                    <mat-select name="type" formControlName="vehicleType">
+                        <mat-option value="Regular">Regular</mat-option>
+                        <mat-option value="ODC">ODC</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Transport Type</mat-label>
-                <mat-select name="type">
-                    <mat-option>Road</mat-option>
-                    <mat-option>Rail</mat-option>
-                    <mat-option>Air</mat-option>
-                    <mat-option>Ship</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Transport Distance</mat-label>
+                    <input matInput placeholder="Enter Transport Distance" #transDist name="transDist" id="transDist"
+                        formControlName="transDistance">
+                </mat-form-field>
+            </div>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Vehicle Type</mat-label>
-                <mat-select name="type">
-                    <mat-option>Regular</mat-option>
-                    <mat-option>ODC</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Vehicle No.</mat-label>
+                    <input matInput placeholder="Enter Vehicle No." #vehicleNo name="vehicleNo" id="vehicleNo"
+                        formControlName="vehicleNumber">
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Transport Distance</mat-label>
-                <input matInput placeholder="Enter Transport Distance" #transDist name="transDist" id="transDist">
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>Shipment ID(GR No.)</mat-label>
+                    <input matInput placeholder="Enter Shipment ID(GR No.)" #shipmentId name="shipmentId"
+                        id="shipmentId" formControlName="shipmentId">
+                </mat-form-field>
+            </div>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Vehicle No.</mat-label>
-                <input matInput placeholder="Enter Vehicle No." #vehicleNo name="vehicleNo" id="vehicleNo">
-            </mat-form-field>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 50" [contactBoxTitle]="'Supervisor Name'"
+                    [contactFormControl]="getOrderFormControl('supervisorName')"                    
+                    (onContactSelection)="onSuperVisorSelectionChange($event)">
+                </Contact-Box>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Shipment ID(GR No.)</mat-label>
-                <input matInput placeholder="Enter Shipment ID(GR No.)" #shipmentId name="shipmentId" id="shipmentId">
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>E-Way Bill No.</mat-label>
+                    <input matInput placeholder="Enter E-Way Bill No." #ewayBillNo name="ewayBillNo" id="ewayBillNo"
+                        formControlName="ewayBillNo">
+                </mat-form-field>
+            </div>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>Supervisor Name</mat-label>
-                <input matInput placeholder="Enter Supervisor Name" #superVisorName name="superVisorName"
-                    id="superVisorName">
-            </mat-form-field>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
+                    <mat-label>Enter Shipment Description</mat-label>
+                    <textarea matInput placeholder="Enter Shipment Description" formControlName="shipmentDescription"></textarea>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>E-Way Bill No.</mat-label>
-                <input matInput placeholder="Enter E-Way Bill No." #ewayBillNo name="ewayBillNo" id="ewayBillNo">
-            </mat-form-field>
-        </div>
+    <mat-card [class]="'mb-1'">
+        <mat-card-header [class]="'mat-card-headers'">
+            <mat-card-subtitle class="d-flex flex-column">
+                Shipping Details
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                    <mat-label>Address 1</mat-label>
+                    <input matInput placeholder="Enter Address 1" #address1 name="address1" id="address1"
+                        formControlName="shippingAddress">
+                </mat-form-field>
 
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-            <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
-                <mat-label>Enter Shipment Description</mat-label>
-                <textarea matInput placeholder="Enter Shipment Description"></textarea>
-            </mat-form-field>
-        </div>
-    </mat-card-content>
-</mat-card>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                    <mat-label>Address 2</mat-label>
+                    <input matInput placeholder="Enter Address 2" #address2 name="address2" id="address2"
+                    formControlName="shippingAddress2">
+                </mat-form-field>
 
-<mat-card [class]="'mb-1'">
-    <mat-card-header [class]="'mat-card-headers'">
-        <mat-card-subtitle class="d-flex flex-column">
-            Shipping Details
-        </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 33">
-                <mat-label>Address 1</mat-label>
-                <input matInput placeholder="Enter Address 1" #address1 name="address1"
-                    id="address1">
-            </mat-form-field>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                    <mat-label>Address 3</mat-label>
+                    <input matInput placeholder="Enter Address 3" #address3 name="address3" id="address3"
+                    formControlName="shippingAddress3">
+                </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 33">
-                <mat-label>Address 2</mat-label>
-                <input matInput placeholder="Enter Address 2" #address2 name="address2" id="address2">
-            </mat-form-field>
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>State</mat-label>
+                    <mat-select name="stateId" formControlName="shippingAddressState">
+                        <mat-option *ngFor="let state of states" [value]="state">
+                            {{state}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 33">
-                <mat-label>Address 3</mat-label>
-                <input matInput placeholder="Enter Address 3" #address3 name="address3" id="address3">
-            </mat-form-field>
-        </div>
-
-        <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
-                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>State</mat-label>
-                            <mat-select name="stateId">
-                                <mat-option *ngFor="let state of states" [value]="state.stateId">
-                                    {{state.stateName}}
-                                </mat-option>   
-                            </mat-select>
-            </mat-form-field>   
-
-            <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'" appearance="outline" 
-                 [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                <mat-label>City</mat-label>
-                <input type="text"
-                    placeholder="Select City" 
-                    aria-label="city"
-                    matInput                    
-                    [matAutocomplete]="autoCity">
+                <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                    <mat-label>City</mat-label>
+                    <input type="text" placeholder="Select City" aria-label="city" matInput
+                        [matAutocomplete]="autoCity" formControlName="shippingAddressCity">
                     <mat-icon matSuffix class="search-icon">search</mat-icon>
-                <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredCities  | async" [value]="option.cityName">
-                        {{option.cityName}}
-                    </mat-option>
-                </mat-autocomplete>                                              
-            </mat-form-field>
+                    <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredCities  | async" [value]="option.cityName">
+                            {{option.cityName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                [fxFlex]="(isHandset$ | async) ? 100 : 33">
-                <mat-label>Pincode</mat-label>
-                <input matInput placeholder="Enter Pincode" #Pincode name="Pincode" id="Pincode">
-            </mat-form-field>
-        </div>
-    </mat-card-content>
-</mat-card>
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [fxFlex]="(isHandset$ | async) ? 100 : 33">
+                    <mat-label>Pincode</mat-label>
+                    <input matInput placeholder="Enter Pincode" #Pincode name="Pincode" id="Pincode"
+                    formControlName="shippingAddressPinCode">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

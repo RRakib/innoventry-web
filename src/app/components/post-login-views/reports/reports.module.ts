@@ -8,7 +8,7 @@ import { CashInHandComponent } from './cash-in-hand/cash-in-hand.component';
 import { ReportsBaseViewComponent } from './reports-base-view/reports-base-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverstockReportComponent } from './overstock-report/overstock-report.component';
-import { AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { AreaServiceService, AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
 import { LedgerBookComponent } from './ledger-book/ledger-book.component';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -101,6 +101,7 @@ import { ItemAttributeSearchComponent } from './item-reports/item-attribute-sear
     
   ],
   providers: [
+    AreaServiceService,
     AttributeServiceService,
     AttributeGroupServiceService,
     CashInHandReportServiceService,
