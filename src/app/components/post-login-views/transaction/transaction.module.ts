@@ -16,8 +16,6 @@ import { OrderPaymentDetailComponent } from './order/modal-popup/order-payment-d
 import { OrderServicesComponent } from './order/modal-popup/order-services/order-services.component';
 import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charges-discounts/order-charges-discounts.component';
 
-
-
 @NgModule({
     declarations: [
         TransactionBaseViewComponent,        

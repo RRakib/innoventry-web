@@ -134,11 +134,54 @@ export class MenuConstants {
           route: '',
           children: [
             {
+              displayName: 'Item Register',
+              iconName: '',
+              route: 'itemRegister',
+              children: []
+            }, 
+            {
               displayName: 'Item Attribute Search',
               iconName: '',
               route: 'itemAttributeSearchSummary',
               children: []
+            },
+            {
+              displayName: 'Item Transaction Register',
+              iconName: '',
+              route: 'itemTxRegister',
+             children: []
+            },
+            {
+              displayName: 'Item Stock Location Register',
+              iconName: '',
+              route: 'itemStockLocationRegister',
+              children: []
+            },
+            {
+              displayName: 'Item Register for Ledger',
+              iconName: '',
+              route: 'itemRegisterForLedger',
+              children: []
+            },            
+            {
+              displayName: 'Item Purchase Rate Analysis',
+              iconName: '',
+              route: 'itemPrRateAnalysis',
+              children: []
+            },             
+            {
+              displayName: 'Item Purchase Rate Variation Analysis',
+              iconName: '',
+              route: 'itemPrRateVarAnalysis',
+              children: []
+            },        
+            {
+              displayName: 'Item Sale Summary',
+              iconName: '',
+              route: 'itemSaleSummary',
+              children: []
             }
+            
           ]
         },
         {
@@ -178,36 +221,6 @@ export class MenuConstants {
           route: 'inactiveLedgers',
           children: []
         },
-        {
-          displayName: 'Item Register',
-          iconName: '',
-          route: 'itemRegister',
-          children: []
-        }, 
-        {
-          displayName: 'Item Purchase Rate Analysis',
-          iconName: '',
-          route: 'itemPrRateAnalysis',
-          children: []
-        },             
-        {
-          displayName: 'Item Purchase Rate Variation Analysis',
-          iconName: '',
-          route: 'itemPrRateVarAnalysis',
-          children: []
-        },        
-        {
-          displayName: 'Item Sale Summary',
-          iconName: '',
-          route: 'itemSaleSummary',
-          children: []
-        },
-        {
-          displayName: 'Item Transaction Register',
-          iconName: '',
-          route: 'itemTxRegister',
-         children: []
-        }, 
         {
           displayName: 'Ledger Book',
           iconName: '',

@@ -8,7 +8,7 @@ import { CashInHandComponent } from './cash-in-hand/cash-in-hand.component';
 import { ReportsBaseViewComponent } from './reports-base-view/reports-base-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverstockReportComponent } from './overstock-report/overstock-report.component';
-import { AreaServiceService, AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import { AreaServiceService, AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, ItemRegisterForLedgerReportServiceService, ItemWiseStockLocationRegisterServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
 import { LedgerBookComponent } from './ledger-book/ledger-book.component';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -61,6 +61,8 @@ import { ItemPurchaseRateAnalysisComponent } from './item-purchase-rate-analysis
 import { ItemPurchaseRateAnalysisServiceService } from 'src/server/api/itemPurchaseRateAnalysisService.service';
 import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
 import { ItemAttributeSearchComponent } from './item-reports/item-attribute-search/item-attribute-search.component';
+import { ItemRegisterForLedgerComponent } from './item-reports/item-register-for-ledger/item-register-for-ledger.component';
+import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-location-register/item-stock-location-register.component';
 
 @NgModule({
   declarations: [ 
@@ -88,7 +90,9 @@ import { ItemAttributeSearchComponent } from './item-reports/item-attribute-sear
     ItemPurchaseRateVariationAnalysisComponent,
     ItemPurchaseRateAnalysisComponent,
     TrialBalanceComponent,
-    ItemAttributeSearchComponent    
+    ItemAttributeSearchComponent,
+    ItemRegisterForLedgerComponent,
+    ItemStockLocationRegisterComponent    
   ],
   imports: [
     CommonModule,
@@ -125,6 +129,8 @@ import { ItemAttributeSearchComponent } from './item-reports/item-attribute-sear
     ItemPurchaseRateAnalysisServiceService,
     ItemPurchaseRateVariationAnalysisReportServiceService,
     ItemAttributeSearchReportServiceService,
+    ItemRegisterForLedgerReportServiceService,
+    ItemWiseStockLocationRegisterServiceService,
     BillingClassificationServiceService,
     LedgerAttributesServiceService,
     LedgerReportServiceService,

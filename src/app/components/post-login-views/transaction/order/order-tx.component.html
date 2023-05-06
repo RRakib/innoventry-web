@@ -470,7 +470,9 @@
                     </mat-card>  
 
                 </mat-tab>
-                <!-- <mat-tab label="DESCRIPTION">DESCRIPTION</mat-tab> -->
+                <mat-tab label="DESCRIPTION">
+                    <app-order-description [orderTxForm]="orderTxForm"></app-order-description>
+                </mat-tab>
                 <mat-tab label="TRANSPORT DETAILS">
                     <app-order-transport-detail [orderTxForm]="orderTxForm"></app-order-transport-detail>
                 </mat-tab>

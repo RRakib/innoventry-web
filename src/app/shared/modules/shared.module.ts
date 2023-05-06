@@ -41,6 +41,8 @@ import { StockLocationServiceService } from 'src/server/api/stockLocationService
 import { OtherChargesServiceService } from 'src/server/api/otherChargesService.service';
 import { DownloadService } from 'src/app/services/download.service';
 import { OrderTransportDetailComponent } from "src/app/components/post-login-views/transaction/order/order-tabs/order-transport-detail/order-transport-detail.component";
+import { OrderDescriptionComponent } from 'src/app/components/post-login-views/transaction/order/order-tabs/order-description/order-description.component';
+import { TermsServiceService } from 'src/server';
 
 
 @NgModule({
@@ -63,7 +65,8 @@ import { OrderTransportDetailComponent } from "src/app/components/post-login-vie
         PurchaseComponent,   
         SaleOrderComponent, 
         QuotationComponent,
-        OrderTransportDetailComponent
+        OrderTransportDetailComponent,
+        OrderDescriptionComponent
     ],
     imports: [
         CommonModule,
@@ -103,6 +106,7 @@ import { OrderTransportDetailComponent } from "src/app/components/post-login-vie
         TaxClassServiceService,
         TaxGroupServiceService,
         TaxableEntityServiceService,
+        TermsServiceService,
         TransactionsProvider,
         StockLocationServiceService,
         OtherChargesServiceService    
