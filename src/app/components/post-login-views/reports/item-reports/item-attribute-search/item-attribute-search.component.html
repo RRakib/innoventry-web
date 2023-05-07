@@ -1,0 +1,160 @@
+<div>
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-title>
+                Item Attribute Report
+                <div class="title-underline"></div>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-center" *ngIf="isFormLoaded">
+            <form [formGroup]="itemAttributeSearchForm">
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+                    [class]="(isHandset$ | async) ? '' : ''">
+
+                    <div [class]="(isHandset$ | async) ? '' : 'mr-1'" fxFlex="25">
+                        <item-box [itemFormControl]="getItemFormControl('itemName')"
+                            (onItemSelection)="onItemSelectionChange($event)">
+                        </item-box>
+                    </div>
+
+                    <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 25">
+                        <mat-label>Item Code</mat-label>
+                        <input matInput placeholder="Enter Item Code" #itemCode name="itemCode" id="itemCode"
+                            formControlName="itemCode">
+                    </mat-form-field>
+
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : ''"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
+
+                        <mat-form-field appearance="outline"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Attribute</mat-label>
+                            <mat-select name="attribute" formControlName="attributeId"
+                                (selectionChange)="changeSelectedAttribute()">
+                                <mat-option *ngFor="let attribute of attributeList" [value]="attribute.id">
+                                    {{attribute.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Attribute Value</mat-label>
+                            <input matInput placeholder="Enter Attribute Value" #attrValue name="attrValue"
+                                id="attrValue" formControlName="attributeValue">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between"
+                    [class]="(isHandset$ | async) ? '' : ''">
+                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill>
+                        <div>
+                            <i-mat-datepicker [label]="'Start Date'"
+                                [dateFormControl]="itemAttributeSearchForm.controls['startDate'] | convertToFormControl">
+                            </i-mat-datepicker>
+                        </div>
+                        <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
+                            <i-mat-datepicker [label]="'End Date'"
+                                [dateFormControl]="itemAttributeSearchForm.controls['endDate'] | convertToFormControl">
+                            </i-mat-datepicker>
+                        </div>
+                    </div>
+                    <div [class]="(isHandset$ | async) ? '' : 'showbutton'">
+                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="resetForm()">
+                            Reset
+                        </button>
+                        <button mat-raised-button class="button-group" color="primary" [fxFlex]="50"
+                            (click)="getReport()">
+                            Show
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <div class="mb-1" fxLayoutAlign="end">
+                <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" [disabled]="true">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-raised-button class="toolbar-button" matTooltip="Delete Item" [disabled]="true">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-raised-button class="toolbar-button" [matMenuTriggerFor]="printMenu"
+                    aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </div>
+
+            <div class="responsive-table">
+                <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                        <td mat-cell [class]="'text-left'" *matCellDef="let row">
+                            {{row.date | date:'mediumDate'}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ledgerName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Party Name</th>
+                        <td mat-cell [class]="'text-left'" *matCellDef="let row">{{row.ledgerName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="txType">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                        <td mat-cell *matCellDef="let row">{{row.txType}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="voucherNo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher No.</th>
+                        <td mat-cell [class]="'text-center'" *matCellDef="let row">{{row.voucherNo}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="itemName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Name</th>
+                        <td mat-cell [class]="'text-center'" *matCellDef="let row">{{row.itemName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="itemProductCode">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Product Code</th>
+                        <td mat-cell [class]="'text-center'" *matCellDef="let row">{{row.itemProductCode}}</td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                            No Records Found.
+                        </td>
+                    </tr>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+
+            <mat-paginator #paginator [pageSize]="200" [pageSizeOptions]="[100, 200, 500]" showFirstLastButtons
+                aria-label="Select page">
+            </mat-paginator>            
+        </mat-card-content>
+    </mat-card>
+</div>

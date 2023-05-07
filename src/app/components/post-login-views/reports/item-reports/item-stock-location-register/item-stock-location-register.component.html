@@ -1,0 +1,84 @@
+<div>
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-title>
+                Item Stock Location Register
+                <div class="title-underline"></div>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-center">
+            <form [formGroup]="searchForm">
+                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start"
+                [class]="(isHandset$ | async) ? 'align-items-center' : 'align-items-center'"> 
+                    <div [fxFlex]="(isHandset$ | async) ? 100 : 40">
+                        <item-box  [itemFormControl]="getItemFormControl('itemName')"
+                             (onItemSelection)="onItemSelectionChange($event)">
+                        </item-box>
+                    </div>                    
+                    
+                    <div [fxFlex]="(isHandset$ | async) ? 100 : 20" [class]="(isHandset$ | async) ? '' : 'ml-1'">
+                        <button mat-raised-button class="button-group" color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 20" (click)="getReport()">
+                            Show
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <div class="mb-1" fxLayoutAlign="end">
+                <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" [disabled]="true">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-raised-button class="toolbar-button" matTooltip="Delete Item" [disabled]="true">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-raised-button class="toolbar-button" [matMenuTriggerFor]="printMenu"
+                    aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </div>
+
+            <div class="responsive-table">
+                <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">                    
+
+                    <ng-container matColumnDef="stckLocation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock Location</th>
+                        <td mat-cell [class]="'text-left'" *matCellDef="let row">{{row.stckLocation}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="stock">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
+                        <td mat-cell *matCellDef="let row">{{row.stock}}</td>
+                    </ng-container>                    
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                            No Records Found.
+                        </td>
+                    </tr>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+
+            <mat-paginator #paginator [pageSize]="200" [pageSizeOptions]="[100, 200, 500]" showFirstLastButtons
+                aria-label="Select page">
+            </mat-paginator>            
+        </mat-card-content>
+    </mat-card>
+</div>

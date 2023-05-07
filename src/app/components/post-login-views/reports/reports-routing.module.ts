@@ -24,6 +24,9 @@ import { SaleRegisterComponent } from './sale-register/sale-register.component';
 import { StockSummaryComponent } from './stock-summary/stock-summary.component';
 import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
 import { UnderstockReportComponent } from './understock-report/understock-report.component';
+import { ItemAttributeSearchComponent } from './item-reports/item-attribute-search/item-attribute-search.component';
+import { ItemRegisterForLedgerComponent } from './item-reports/item-register-for-ledger/item-register-for-ledger.component';
+import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-location-register/item-stock-location-register.component';
 
 
 const routes: Routes = [
@@ -52,7 +55,13 @@ const routes: Routes = [
             { path: 'inactiveLedgers', component: InactiveLedgersComponent},
             { path: 'itemSaleSummary', component: ItemSaleSummaryComponent},
             { path: 'daywiseLedgerBalanceSummary', component: DaywiseLedgerBalanceComponent},
-            { path: 'daywiseLedgerGroupBalanceSummary', component: DaywiseLedgerGroupBalanceComponent}
+            { path: 'daywiseLedgerGroupBalanceSummary', component: DaywiseLedgerGroupBalanceComponent},
+
+            /** Item Reports Routes */
+            { path: 'itemAttributeSearchSummary', component: ItemAttributeSearchComponent},
+            { path: 'itemStockLocationRegister', component: ItemStockLocationRegisterComponent },
+            { path: 'itemRegisterForLedger', component: ItemRegisterForLedgerComponent}
+
         ]
 
     }

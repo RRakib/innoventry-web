@@ -64,3 +64,14 @@ mat-card.mat-card{
     justify-content: flex-start !important ;
     align-items: flex-start !important;
  }
+
+ .mat-tab-label {
+    height: 20px !important;
+    padding: 0px 10px !important;    
+    min-width: 100px !important; 
+
+    &.mat-tab-label-active{
+        background: #e0e0e0;
+        border-radius: 3px
+    }
+ }

@@ -98,7 +98,32 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
           paymentLines: new FormControl(!!this.saleOrderTx.paymentLines ? this.saleOrderTx.paymentLines : []),
           billName: new FormControl(!!this.saleOrderTx.printName ? this.saleOrderTx.printName : data.name),
           billAmount: new FormControl(!!this.saleOrderTx.billAmount ? this.saleOrderTx.billAmount : 0),
-          returnAmount: new FormControl(!!this.saleOrderTx.returnAmount ? this.saleOrderTx.returnAmount : 0)
+          returnAmount: new FormControl(!!this.saleOrderTx.returnAmount ? this.saleOrderTx.returnAmount : 0),
+
+          /** Order Transport FormControls */
+          ewayBillDate: new FormControl(!!this.saleOrderTx.ewayBillDate ? this.saleOrderTx.ewayBillDate 
+            : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
+          shipmentDate: new FormControl(!!this.saleOrderTx.shipmentDate ? this.saleOrderTx.shipmentDate 
+            : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
+          transporter: new FormControl(!!this.saleOrderTx.transporter ? this.saleOrderTx.transporter : ''),
+          transporterMobNo: new FormControl(!!this.saleOrderTx.transporterMobNo ? this.saleOrderTx.transporterMobNo : ''),
+          transportMode: new FormControl(!!this.saleOrderTx.transportMode ? this.saleOrderTx.transportMode : null),
+          transporterId:  new FormControl(!!this.saleOrderTx.transporterId ? this.saleOrderTx.transporterId : ''),
+          vehicleType:  new FormControl(!!this.saleOrderTx.vehicleType ? this.saleOrderTx.vehicleType : ''),
+          transDistance: new FormControl(!!this.saleOrderTx.transDistance ? this.saleOrderTx.transDistance : ''),
+          vehicleNumber: new FormControl(!!this.saleOrderTx.vehicleNumber ? this.saleOrderTx.vehicleNumber : ''),
+          shipmentId: new FormControl(!!this.saleOrderTx.shipmentId ? this.saleOrderTx.shipmentId : ''),
+          shipmentDescription: new FormControl(!!this.saleOrderTx.shipmentDescription ? this.saleOrderTx.shipmentDescription : ''),
+          supervisorId:  new FormControl(!!this.saleOrderTx.supervisorId ? this.saleOrderTx.supervisorId : ''),
+          supervisorName: new FormControl(!!this.saleOrderTx.supervisorName ? this.saleOrderTx.supervisorName : ''),
+          ewayBillNo:  new FormControl(!!this.saleOrderTx.ewayBillNo ? this.saleOrderTx.ewayBillNo : ''),
+          shippingAddress:  new FormControl(!!this.saleOrderTx.shippingAddress ? this.saleOrderTx.shippingAddress : ''),
+          shippingAddress2:  new FormControl(!!this.saleOrderTx.shippingAddress2 ? this.saleOrderTx.shippingAddress2 : ''),
+          shippingAddress3:  new FormControl(!!this.saleOrderTx.shippingAddress3 ? this.saleOrderTx.shippingAddress3 : ''),
+          shippingAddressState:  new FormControl(!!this.saleOrderTx.shippingAddressState ? this.saleOrderTx.shippingAddressState : ''),
+          shippingAddressCity:  new FormControl(!!this.saleOrderTx.shippingAddressCity ? this.saleOrderTx.shippingAddressCity : ''),
+          shippingAddressPinCode:  new FormControl(!!this.saleOrderTx.shippingAddressPinCode ? this.saleOrderTx.shippingAddressPinCode : '')
+
         });
 
         //Get billing group associated with Transaction or Default(Cash) Ledger.
@@ -210,6 +235,29 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
       tx.otherChargesTotal = this.otherChargesTotalAmount.value;
       tx.paymentLines = this.orderTxForm.controls["paymentLines"].value;
       tx.returnAmount = this.orderTxForm.controls["returnAmount"].value;
+
+
+      /** Order Transport details info save/update */
+      tx.ewayBillDate= this.orderTxForm.controls["ewayBillDate"].value;
+      tx.shipmentDate= this.orderTxForm.controls["shipmentDate"].value;
+      tx.transporter= this.orderTxForm.controls["transporter"].value;
+      tx.transporterMobNo= this.orderTxForm.controls["transporterMobNo"].value;
+      tx.transportMode= this.orderTxForm.controls["transportMode"].value;
+      tx.transporterId=  this.orderTxForm.controls["transporterId"].value;
+      tx.vehicleType=  this.orderTxForm.controls["vehicleType"].value;
+      tx.transDistance= this.orderTxForm.controls["transDistance"].value;
+      tx.vehicleNumber= this.orderTxForm.controls["vehicleNumber"].value;
+      tx.shipmentId= this.orderTxForm.controls["shipmentId"].value;
+      tx.shipmentDescription= this.orderTxForm.controls["shipmentDescription"].value;
+      tx.supervisorId=  this.orderTxForm.controls["supervisorId"].value;
+      tx.supervisorName= this.orderTxForm.controls["supervisorName"].value;
+      tx.ewayBillNo=  this.orderTxForm.controls["ewayBillNo"].value;
+      tx.shippingAddress=  this.orderTxForm.controls["shippingAddress"].value;
+      tx.shippingAddress2=  this.orderTxForm.controls["shippingAddress2"].value;
+      tx.shippingAddress3=  this.orderTxForm.controls["shippingAddress3"].value;
+      tx.shippingAddressState=  this.orderTxForm.controls["shippingAddressState"].value;
+      tx.shippingAddressCity=  this.orderTxForm.controls["shippingAddressCity"].value;
+      tx.shippingAddressPinCode= this.orderTxForm.controls["shippingAddressPinCode"].value;
       
       if(!!tx.id) {
         this.saleOrderTxService.update(tx).subscribe({
