@@ -122,7 +122,42 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
           shippingAddress3:  new FormControl(!!this.saleOrderTx.shippingAddress3 ? this.saleOrderTx.shippingAddress3 : ''),
           shippingAddressState:  new FormControl(!!this.saleOrderTx.shippingAddressState ? this.saleOrderTx.shippingAddressState : ''),
           shippingAddressCity:  new FormControl(!!this.saleOrderTx.shippingAddressCity ? this.saleOrderTx.shippingAddressCity : ''),
-          shippingAddressPinCode:  new FormControl(!!this.saleOrderTx.shippingAddressPinCode ? this.saleOrderTx.shippingAddressPinCode : '')
+          shippingAddressPinCode:  new FormControl(!!this.saleOrderTx.shippingAddressPinCode ? this.saleOrderTx.shippingAddressPinCode : ''),
+
+          /** Order Description FormControls */
+          description : new FormControl(!!this.saleOrderTx.description ? this.saleOrderTx.description : ''),
+          modeOrTermsOfPayment: new FormControl(!!this.saleOrderTx.modeOrTermsOfPayment ? this.saleOrderTx.modeOrTermsOfPayment : ''),
+          otherReferences: new FormControl(!!this.saleOrderTx.otherReferences ? this.saleOrderTx.otherReferences : ''),
+          buyersOrderNo: new FormControl(!!this.saleOrderTx.buyersOrderNo ? this.saleOrderTx.buyersOrderNo : ''),
+          dated: new FormControl(!!this.saleOrderTx.dated 
+            ? this.dateAdapterService.createDate(new Date(this.saleOrderTx.dated).getFullYear(),
+            new Date(this.saleOrderTx.dated).getMonth() , 
+            new Date(this.saleOrderTx.dated).getDate())
+            : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
+          challanNo: new FormControl(!!this.saleOrderTx.challanNo ? this.saleOrderTx.challanNo : ''),
+          challanDated: new FormControl(!!this.saleOrderTx.challanDated 
+            ? this.dateAdapterService.createDate(new Date(this.saleOrderTx.challanDated).getFullYear(),
+            new Date(this.saleOrderTx.challanDated).getMonth() , 
+            new Date(this.saleOrderTx.challanDated).getDate())
+            : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
+          deliveryDate: new FormControl(!!this.saleOrderTx.deliveryDate 
+            ? this.dateAdapterService.createDate(new Date(this.saleOrderTx.deliveryDate).getFullYear(),
+            new Date(this.saleOrderTx.deliveryDate).getMonth() , 
+            new Date(this.saleOrderTx.deliveryDate).getDate())
+            : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
+          termsOfDelivery: new FormControl(!!this.saleOrderTx.termsOfDelivery ? this.saleOrderTx.termsOfDelivery : ''),
+          deliveryAddress: new FormControl(!!this.saleOrderTx.deliveryAddress ? this.saleOrderTx.deliveryAddress : ''),
+          deliveryAddress2: new FormControl(!!this.saleOrderTx.deliveryAddress2 ? this.saleOrderTx.deliveryAddress2 : ''),
+          deliveryAddress3: new FormControl(!!this.saleOrderTx.deliveryAddress3 ? this.saleOrderTx.deliveryAddress3 : ''),
+          deliveryAddressState: new FormControl(!!this.saleOrderTx.deliveryAddressState ? this.saleOrderTx.deliveryAddressState : ''),
+          deliveryAddressCity: new FormControl(!!this.saleOrderTx.deliveryAddressCity ? this.saleOrderTx.deliveryAddressCity : ''),
+          deliveryAddressPinCode: new FormControl(!!this.saleOrderTx.deliveryAddressPinCode ? this.saleOrderTx.deliveryAddressPinCode : ''),
+
+
+          billingAddress:  new FormControl(!!this.saleOrderTx.billingAddress ? this.saleOrderTx.billingAddress : ''),
+          billingAddress2:  new FormControl(!!this.saleOrderTx.billingAddress2 ? this.saleOrderTx.billingAddress2 : ''),
+          billingAddress3:  new FormControl(!!this.saleOrderTx.billingAddress3 ? this.saleOrderTx.billingAddress3 : ''),
+          billingAddressState: new FormControl(!!this.saleOrderTx.billingAddressState ? this.saleOrderTx.billingAddressState : ''),
 
         });
 

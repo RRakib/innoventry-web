@@ -31,40 +31,44 @@ export class OrderTransportDetailComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.dataBaseService.getStateList("INDIA").subscribe({
-      next: (data) => {
-        this.states = data;
-        this.areaService.getCityList("INDIA", this.orderTxForm.controls["shippingAddressState"].value).subscribe({
-          next: (data) => {
-            this.cities = data;
-            this.filteredCities = this.orderTxForm.controls["shippingAddressCity"].valueChanges.pipe(
-              startWith(this.orderTxForm.controls["shippingAddressCity"].value), map(value => this._filterCities(value || '')));
-          }
-        });
-      }
-    });
 
-    this.orderTxForm.controls["shippingAddressState"].valueChanges.subscribe({
-      next: (data) =>{
-        this.areaService.getCityList("INDIA", data).subscribe({
-          next: (data) => {
-            this.cities = data;
-            this.filteredCities = this.orderTxForm.controls["shippingAddressCity"].valueChanges.pipe(
-              startWith(this.orderTxForm.controls["shippingAddressCity"].value), map(value => this._filterCities(value || '')));
-          }
-        });
-      }
-    });
-
-    this.parentLedgerService.getLedger(this.orderTxForm.controls["supervisorId"].value).subscribe({
-      next: (data) => {
-        if(!!data) {
-          this.orderTxForm.patchValue({            
-            supervisorName: data.name   
-          })
-        }     
-      }
-    });
+    console.log("from order transport detial component");
+    if(!!this.orderTxForm) {
+      this.dataBaseService.getStateList("INDIA").subscribe({
+        next: (data) => {
+          this.states = data;
+          this.areaService.getCityList("INDIA", this.orderTxForm.controls["shippingAddressState"].value).subscribe({
+            next: (data) => {
+              this.cities = data;
+              this.filteredCities = this.orderTxForm.controls["shippingAddressCity"].valueChanges.pipe(
+                startWith(this.orderTxForm.controls["shippingAddressCity"].value), map(value => this._filterCities(value || '')));
+            }
+          });
+        }
+      });
+  
+      this.orderTxForm.controls["shippingAddressState"].valueChanges.subscribe({
+        next: (data) =>{
+          this.areaService.getCityList("INDIA", data).subscribe({
+            next: (data) => {
+              this.cities = data;
+              this.filteredCities = this.orderTxForm.controls["shippingAddressCity"].valueChanges.pipe(
+                startWith(this.orderTxForm.controls["shippingAddressCity"].value), map(value => this._filterCities(value || '')));
+            }
+          });
+        }
+      });
+  
+      this.parentLedgerService.getLedger(this.orderTxForm.controls["supervisorId"].value).subscribe({
+        next: (data) => {
+          if(!!data) {
+            this.orderTxForm.patchValue({            
+              supervisorName: data.name   
+            })
+          }     
+        }
+      });
+    }    
   }
 
   getOrderFormControl(name: string) : FormControl{

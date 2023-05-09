@@ -19,11 +19,12 @@ import { HttpAuthInterceptor } from './services/http.interceptor';
 import { DatabaseServiceService } from 'src/server/api/databaseService.service';
 import { AuthGuard } from './services/auth.guard';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent           
+    RegistrationComponent              
   ],
   imports: [
     BrowserModule,
