@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, map, startWith } from 'rxjs';
 
 @Component({
@@ -19,6 +19,9 @@ export class IAutocompleteBoxComponent implements OnInit, OnChanges {
   @Input("optionFormControl")
   autoCompleteInput : FormControl = new FormControl();
 
+  @Input("isCustomOptionAllowed")
+  isCustomOptionAllowed: boolean = false;
+
   filteredOptions:  Observable<any[]>;
 
   selectedOption : any | undefined;
@@ -26,15 +29,12 @@ export class IAutocompleteBoxComponent implements OnInit, OnChanges {
   @Output("onOptionSelection") 
   onOptionSelection = new EventEmitter<any>();
 
+  @ViewChild('auto') 
+  autocomplete: MatAutocomplete;
+
   constructor() { }
 
   ngOnInit(): void {
-    this.autoCompleteInput.valueChanges.subscribe({
-      next: (data) => {
-        this.selectedOption = undefined;
-      }
-    });
-
     this.filteredOptions = this.autoCompleteInput.valueChanges.pipe(startWith(this.autoCompleteInput.value), map(value => this._filterOptions(value)));
   }
 
@@ -43,7 +43,7 @@ export class IAutocompleteBoxComponent implements OnInit, OnChanges {
    * This works in edit mode on page load **only**
    * @param changes 
    */
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {    
     this.selectedOption = undefined;
     this.filteredOptions = this.autoCompleteInput.valueChanges.pipe(startWith(this.autoCompleteInput.value), map(value => this._filterOptions(value)));
   }
@@ -59,8 +59,21 @@ export class IAutocompleteBoxComponent implements OnInit, OnChanges {
   }
 
   public blurOptionTyped(event : any) : void{
-    if(this.selectedOption == undefined) {
-      this.onOptionSelection.emit(this.autoCompleteInput.value);
+    this.selectedOption = undefined;
+    if(this.autocomplete.isOpen){
+      // When autocomplete is opened    
+      if(!this.isCustomOptionAllowed) {
+        this.autoCompleteInput.setValue(''); 
+      }
+    }else{
+      // When autocomplete is closed
+      let availableOptions : any[] =  this.allOptions.find(option => option.name!.toLowerCase().includes(this.autoCompleteInput.value.toLowerCase())); 
+
+      if(availableOptions == undefined  || availableOptions.length == 0) {  
+        if(!this.isCustomOptionAllowed) {
+          this.autoCompleteInput.setValue(''); 
+        }     
+      }
     }
   }
 

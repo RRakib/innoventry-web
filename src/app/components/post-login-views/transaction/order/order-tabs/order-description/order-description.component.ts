@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, forkJoin, map, shareReplay, startWith } from 'rxjs';
 import { IdName } from 'src/app/models/IdName';
-import { AreaServiceService, ContactServiceService, DatabaseServiceService, IContact, IContactAddress, ILedger, ITerms, LedgerServiceService, PCity, TermsServiceService } from 'src/server';
+import { AreaServiceService, DatabaseServiceService, IContact, IContactAddress, ILedger, ITerms, LedgerServiceService, PCity, TermsServiceService } from 'src/server';
 
 @Component({
   selector: 'app-order-description',
@@ -38,6 +38,15 @@ export class OrderDescriptionComponent implements OnInit {
     this.onPageLoadHttpRequests(this.orderTxForm.controls["ledgerId"].value).subscribe({
       next:  (data) => {
         this.availableTerms = data[0]; 
+        if(this.orderTxForm.controls["termsId"].value) {
+          let selectedTerm = this.availableTerms.filter((lT) => lT.id == this.orderTxForm.controls["termsId"].value);
+          if(!!selectedTerm && selectedTerm.length == 1) {
+            this.orderTxForm.patchValue({
+              termsId : selectedTerm[0].id,
+              termsName: selectedTerm[0].name
+            });
+          }
+        }
 
         let ledger : ILedger = data[1];
         if(!!ledger && !!ledger.contact) {
@@ -45,16 +54,12 @@ export class OrderDescriptionComponent implements OnInit {
           this.addressList = this.convertAddressList(ledger.contact.addressList);
         }
 
-        this.states = data[2];
-        console.log(this.states);
+        this.states = data[2];        
 
-        this.areaService.getCityList("INDIA", this.orderTxForm.controls["deliveryAddressState"].value).subscribe({
-          next: (data) => {
-            this.cities = data;
-            this.filteredDeliveryCities = this.orderTxForm.controls["deliveryAddressCity"].valueChanges.pipe(
-              startWith(this.orderTxForm.controls["deliveryAddressCity"].value), map(value => this._filterDeliveryCities(value || '')));
-          }
-        });
+        this.getCityList();
+
+        this.stateChangeSubscribers();
+    
       }
     });   
 
@@ -70,6 +75,50 @@ export class OrderDescriptionComponent implements OnInit {
         });
       }
     }); 
+  }
+
+  private getCityList() {
+    this.areaService.getCityList("INDIA", this.orderTxForm.controls["deliveryAddressState"].value).subscribe({
+      next: (data) => {
+        this.cities = data;
+        this.filteredDeliveryCities = this.orderTxForm.controls["deliveryAddressCity"].valueChanges.pipe(
+          startWith(this.orderTxForm.controls["deliveryAddressCity"].value), map(value => this._filterDeliveryCities(value || '')));
+      }
+    });
+
+    this.areaService.getCityList("INDIA", this.orderTxForm.controls["billingAddressState"].value).subscribe({
+      next: (data) => {
+        this.cities = data;
+        this.filteredBillingCities = this.orderTxForm.controls["billingAddressCity"].valueChanges.pipe(
+          startWith(this.orderTxForm.controls["billingAddressCity"].value), map(value => this._filterBillingCities(value || '')));
+      }
+    });
+  }
+
+  private stateChangeSubscribers() {
+    this.orderTxForm.controls["deliveryAddressState"].valueChanges.subscribe({
+      next: (data) => {
+        this.areaService.getCityList("INDIA", data).subscribe({
+          next: (data) => {
+            this.cities = data;
+            this.filteredDeliveryCities = this.orderTxForm.controls["deliveryAddressCity"].valueChanges.pipe(
+              startWith(this.orderTxForm.controls["deliveryAddressCity"].value), map(value => this._filterDeliveryCities(value || '')));
+          }
+        });
+      }
+    });
+
+    this.orderTxForm.controls["billingAddressState"].valueChanges.subscribe({
+      next: (data) => {
+        this.areaService.getCityList("INDIA", data).subscribe({
+          next: (data) => {
+            this.cities = data;
+            this.filteredDeliveryCities = this.orderTxForm.controls["billingAddressCity"].valueChanges.pipe(
+              startWith(this.orderTxForm.controls["billingAddressCity"].value), map(value => this._filterBillingCities(value || '')));
+          }
+        });
+      }
+    });
   }
 
   public onPageLoadHttpRequests(ledgerId : number): Observable<any[]> {    
@@ -121,14 +170,41 @@ export class OrderDescriptionComponent implements OnInit {
 
     if(filterValue.length == 0) {
       this.orderTxForm.patchValue({
-        shippingAddressCity: ''
+        deliveryAddressCity: ''
       });
     }
     return this.cities.filter(option => option.cityName!.toLowerCase().includes(filterValue));
   }
 
-  onTermSelection(term : ITerms | string) : void{   
-    console.log(typeof term);
+  private _filterBillingCities(value: string): PCity[] {
+
+    //filter value will be null in new and actual value in edit mode.
+    const filterValue = !!value ? value.toLowerCase() : '';
+
+    if(filterValue.length == 0) {
+      this.orderTxForm.patchValue({
+        billingAddressCity: ''
+      });
+    }
+    return this.cities.filter(option => option.cityName!.toLowerCase().includes(filterValue));
+  }
+
+  onTermSelection(term : any) : void{   
+    if(!!term && !!term.id) {
+      let selectedTerm : ITerms[] = this.availableTerms.filter((localTerm) => localTerm.name == term.name);
+      
+      if(!!selectedTerm && selectedTerm.length == 1) {
+        this.orderTxForm.patchValue({
+          termsId : selectedTerm[0].id,
+          termsName: selectedTerm[0].name
+        });
+      }else{
+        this.orderTxForm.patchValue({
+          termsId : '',
+          termsName: ''
+        });
+      }
+    }
   }
 
 }

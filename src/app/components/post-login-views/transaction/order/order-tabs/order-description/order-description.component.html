@@ -72,7 +72,9 @@
             <!-- [optionFormControl]="orderTxForm.controls['challanDated'] | convertToFormControl" -->
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">               
                 <div [fxFlex]="100">
-                    <i-autocomplete-box [optionBoxTitle]="'Terms N Conditions'" [allOptions]="availableTerms"                        
+                    <i-autocomplete-box [optionBoxTitle]="'Terms N Conditions'" [allOptions]="availableTerms" 
+                        [isCustomOptionAllowed]="false"                        
+                        [optionFormControl]="orderTxForm.controls['termsName'] | convertToFormControl"
                         (onOptionSelection)="onTermSelection($event)"></i-autocomplete-box>
                 </div>                
             </div>
@@ -202,7 +204,7 @@
                     [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>State</mat-label>
-                    <mat-select name="stateId">
+                    <mat-select name="stateId" formControlName="billingAddressState">
                         <mat-option *ngFor="let state of states" [value]="state">
                             {{state}}
                         </mat-option>
@@ -213,7 +215,7 @@
                     appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>City</mat-label>
                     <input type="text" placeholder="Select City" aria-label="city" matInput
-                        [matAutocomplete]="autoCity">
+                        [matAutocomplete]="autoCity" formControlName="billingAddressCity">
                     <mat-icon matSuffix class="search-icon">search</mat-icon>
                     <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
                         <mat-option *ngFor="let option of filteredBillingCities  | async" [value]="option.cityName">
@@ -227,7 +229,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Pincode</mat-label>
                     <input matInput placeholder="Enter Pincode" #Pincode name="Pincode" id="Pincode"
-                    >
+                    formControlName="billingAddressPinCode">
                 </mat-form-field>
             </div>
         </mat-card-content>

@@ -146,6 +146,8 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
             new Date(this.saleOrderTx.deliveryDate).getDate())
             : this.dateAdapterService.createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())),
           termsOfDelivery: new FormControl(!!this.saleOrderTx.termsOfDelivery ? this.saleOrderTx.termsOfDelivery : ''),
+          termsId: new FormControl(!!this.saleOrderTx.termsId ? this.saleOrderTx.termsId : ''),
+          termsName: new FormControl(), // Will be loaded once all the terms will be retrieved.
           deliveryAddress: new FormControl(!!this.saleOrderTx.deliveryAddress ? this.saleOrderTx.deliveryAddress : ''),
           deliveryAddress2: new FormControl(!!this.saleOrderTx.deliveryAddress2 ? this.saleOrderTx.deliveryAddress2 : ''),
           deliveryAddress3: new FormControl(!!this.saleOrderTx.deliveryAddress3 ? this.saleOrderTx.deliveryAddress3 : ''),
@@ -158,6 +160,8 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
           billingAddress2:  new FormControl(!!this.saleOrderTx.billingAddress2 ? this.saleOrderTx.billingAddress2 : ''),
           billingAddress3:  new FormControl(!!this.saleOrderTx.billingAddress3 ? this.saleOrderTx.billingAddress3 : ''),
           billingAddressState: new FormControl(!!this.saleOrderTx.billingAddressState ? this.saleOrderTx.billingAddressState : ''),
+          billingAddressCity: new FormControl(!!this.saleOrderTx.billingAddressCity ? this.saleOrderTx.billingAddressCity : ''),
+          billingAddressPinCode: new FormControl(!!this.saleOrderTx.billingAddressPinCode ? this.saleOrderTx.billingAddressPinCode : ''),
 
         });
 
@@ -271,6 +275,29 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
       tx.paymentLines = this.orderTxForm.controls["paymentLines"].value;
       tx.returnAmount = this.orderTxForm.controls["returnAmount"].value;
 
+      /** Order Description details for save/update */
+      tx.description = this.orderTxForm.controls["description"].value;
+      tx.modeOrTermsOfPayment = this.orderTxForm.controls["modeOrTermsOfPayment"].value;
+      tx.otherReferences = this.orderTxForm.controls["otherReferences"].value;
+      tx.buyersOrderNo = this.orderTxForm.controls["buyersOrderNo"].value;
+      tx.dated = this.orderTxForm.controls["dated"].value;
+      tx.challanNo = this.orderTxForm.controls["challanNo"].value;
+      tx.challanDated = this.orderTxForm.controls["challanDated"].value;
+      tx.deliveryDate = this.orderTxForm.controls["deliveryDate"].value;
+      tx.termsOfDelivery = this.orderTxForm.controls["termsOfDelivery"].value;
+      tx.termsId = this.orderTxForm.controls["termsId"].value;
+      tx.deliveryAddress = this.orderTxForm.controls["deliveryAddress"].value;
+      tx.deliveryAddress2 = this.orderTxForm.controls["deliveryAddress2"].value;
+      tx.deliveryAddress3 = this.orderTxForm.controls["deliveryAddress3"].value;
+      tx.deliveryAddressState = this.orderTxForm.controls["deliveryAddressState"].value;
+      tx.deliveryAddressCity = this.orderTxForm.controls["deliveryAddressCity"].value;
+      tx.deliveryAddressPinCode = this.orderTxForm.controls["deliveryAddressPinCode"].value;
+      tx.billingAddress = this.orderTxForm.controls["billingAddress"].value;
+      tx.billingAddress2 = this.orderTxForm.controls["billingAddress2"].value;
+      tx.billingAddress3 = this.orderTxForm.controls["billingAddress3"].value;
+      tx.billingAddressState = this.orderTxForm.controls["billingAddressState"].value;
+      tx.billingAddressCity = this.orderTxForm.controls["billingAddressCity"].value;
+      tx.billingAddressPinCode = this.orderTxForm.controls["billingAddressPinCode"].value;
 
       /** Order Transport details info save/update */
       tx.ewayBillDate= this.orderTxForm.controls["ewayBillDate"].value;
