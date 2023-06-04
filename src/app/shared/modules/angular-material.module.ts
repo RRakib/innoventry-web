@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
+
 @NgModule({
   declarations: [
   ],
@@ -59,7 +60,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    FlexLayoutModule
+    FlexLayoutModule    
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

@@ -1,0 +1,23 @@
+
+:host {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    width: 100%;
+  }
+  
+  .mat-list-item {
+    display: flex;
+    width: auto; 
+    height: auto;
+    min-height: 30px;
+  
+    .routeIcon {
+      margin-right: 5px;
+    }
+  }
+  
+  :host ::ng-deep .mat-list-item-content {
+    width: 100% !important;
+  }
+  

@@ -45,9 +45,8 @@ import { OrderDescriptionComponent } from 'src/app/components/post-login-views/t
 import { TermsServiceService } from 'src/server';
 import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-autocomplete-box.component';
 
-
 @NgModule({
-    declarations: [
+    declarations: [       
         ProgressSpinnerComponent,
         FormControlPipe,
         ContactBoxComponent,
@@ -78,7 +77,7 @@ import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-au
         AngularTreeGridModule,
         AppOverlayModule
     ],
-    exports: [
+    exports: [     
         ProgressSpinnerComponent,
         FormControlPipe,
         ContactBoxComponent,

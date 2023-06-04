@@ -41,7 +41,10 @@ export class PartnerLoginComponent implements OnInit {
               // store user details and  token in local storage to keep user logged in between page refreshes
               localStorage.setItem('authToken', authToken);
               localStorage.setItem('userName', username);
+
+              this.router.navigate(['/partnerMainView']);
             }
+            
           },
           error: (err) => { }
       });
