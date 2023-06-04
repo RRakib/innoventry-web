@@ -43,10 +43,10 @@ import { DownloadService } from 'src/app/services/download.service';
 import { OrderTransportDetailComponent } from "src/app/components/post-login-views/transaction/order/order-tabs/order-transport-detail/order-transport-detail.component";
 import { OrderDescriptionComponent } from 'src/app/components/post-login-views/transaction/order/order-tabs/order-description/order-description.component';
 import { TermsServiceService } from 'src/server';
-
+import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-autocomplete-box.component';
 
 @NgModule({
-    declarations: [
+    declarations: [       
         ProgressSpinnerComponent,
         FormControlPipe,
         ContactBoxComponent,
@@ -56,6 +56,7 @@ import { TermsServiceService } from 'src/server';
         ITreeTableComponent,
         IMatDatepickerComponent,
         AutoSelectOption,
+        IAutocompleteBoxComponent,
 
         // Adding Component from Transaction Module which are required to Edit in Reports
         PaymentComponent,
@@ -76,7 +77,7 @@ import { TermsServiceService } from 'src/server';
         AngularTreeGridModule,
         AppOverlayModule
     ],
-    exports: [
+    exports: [     
         ProgressSpinnerComponent,
         FormControlPipe,
         ContactBoxComponent,

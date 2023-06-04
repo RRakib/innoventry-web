@@ -1,0 +1,62 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+      <div class="p-2 logo">
+        <img src="assets/images/logo/logo.png" [attr.width]="'100%'" alt="" />
+      </div>
+      <mat-nav-list>
+        <partner-menu-list-item *ngFor="let item of navItems" [item]="item"></partner-menu-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row class="justify-content-between">  
+          <button mat-icon-button>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+          </button>        
+          <span class="menu-spacer"></span>
+          <div>
+            <button mat-button>
+              <mat-icon>home</mat-icon>
+              Home
+            </button>
+  
+            <!-- <span *ngIf="(isHandset$ | async) === false">
+              <span *ngFor="let item of topNavItems">
+                
+                <span *ngIf="item.children && item.children.length > 0">
+                  <button mat-button [matMenuTriggerFor]="menu.childMenu" class="top-menu-button">
+                    <mat-icon>{{item.iconName}}</mat-icon>
+                    {{item.displayName}}
+                    <mat-icon>expand_more</mat-icon>
+                  </button>
+                  <app-top-menu-list-item #menu [items]="item.children"></app-top-menu-list-item>
+                </span>
+              </span>
+            </span> -->
+  
+  
+            <button mat-button [matMenuTriggerFor]="profile">
+              <mat-icon>account_circle</mat-icon>
+              {{ userName }}
+            </button>
+            <mat-menu #profile="matMenu" xPosition="before">             
+              <button mat-menu-item color="primary" class="top-menu-link" (click)="logoutPartner()">
+                <!-- <mat-icon class="routeIcon">exit_to_app</mat-icon> -->
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+  
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+ 
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -1,0 +1,16 @@
+<mat-form-field class="example-full-width" appearance="outline" 
+        [class]="'innov-matFormField'"
+        [fxFlex]="100">
+        <mat-label>{{ optionBoxTitle }}</mat-label>
+        <input type="text" placeholder="Type to Search" aria-label="autoComplete" matInput [matAutocomplete]="auto"
+            [formControl]="autoCompleteInput" 
+            (blur)="blurOptionTyped($event)">
+        <!-- <mat-hint class="hint-box" *ngIf="selectedOption == undefined && !isCustomOptionAllowed">
+            Please select any Option
+        </mat-hint> -->
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelectionChanged($event)">
+            <mat-option *ngFor="let option of filteredOptions  | async" [value]="option.name">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>      
+</mat-form-field>

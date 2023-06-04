@@ -1,0 +1,69 @@
+<!-- <div class="mat-elevation-z8"> -->
+    <div class="">    
+        <mat-card class="no-card-shadow">
+            <mat-card-header [class]="'mat-card-headers'">
+                <mat-card-title>
+                    All Customer
+                    <div class="title-underline"></div>                
+                  </mat-card-title>                  
+            </mat-card-header>        
+    
+            <mat-card-content>
+                <mat-form-field appearance="standard">
+                    <mat-label>Search Customer</mat-label>
+                    <input matInput  placeholder="Search Customer by name" #filterInput>
+                </mat-form-field>
+    
+                <div class="responsive-table">
+                    <table mat-table class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">    
+                        <ng-container matColumnDef="customer">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
+                            <td mat-cell *matCellDef="let row">{{row.customer}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="item">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
+                            <td mat-cell *matCellDef="let row">{{row.item}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="mobile">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</th>
+                            <td mat-cell *matCellDef="let row">{{row.mobile}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                            <td mat-cell *matCellDef="let row">{{row.email}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="amcDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>AMC Date</th>
+                            <td mat-cell *matCellDef="let row">{{row.amcDate  | date:'mediumDate'  }}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="expiryDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</th>
+                            <td mat-cell *matCellDef="let row">{{row.expiryDate | date:'mediumDate'}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="productKey">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Key</th>
+                            <td mat-cell *matCellDef="let row">{{row.productKey}}</td>
+                        </ng-container>
+            
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                    </table>
+                </div>            
+                <mat-paginator *ngIf="customerCount > 200" 
+                    #paginator                    
+                    [pageSize]="200"
+                    [pageSizeOptions]="[100, 200, 500]"
+                    showFirstLastButtons 
+                    aria-label="Select page">
+                </mat-paginator> 
+            </mat-card-content>
+        </mat-card>
+    </div>
+    

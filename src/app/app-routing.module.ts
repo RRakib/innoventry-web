@@ -15,6 +15,13 @@ const routes: Routes = [
     loadChildren: () => import(`./components/post-login-views/welcome.module`).then(
       module => module.WelcomeModule
     )
+  },
+  { 
+    path: 'partnerMainView',
+    canActivate: [AuthGuard],
+    loadChildren: () => import(`./components/partner-post-login-views/partner-welcome.module`).then(
+      module => module.PartnerWelcomeModule
+    )
   }
 ];
 

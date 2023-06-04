@@ -5,7 +5,7 @@
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
                 <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
                     <mat-label>Enter Description</mat-label>
-                    <textarea matInput placeholder="Enter Shipment Description"></textarea>
+                    <textarea matInput placeholder="Enter Description" formControlName="description"></textarea>
                 </mat-form-field>
             </div>
 
@@ -14,7 +14,8 @@
                     [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>Mode/Terms Of Payment</mat-label>
-                    <input matInput placeholder="Enter Mode/Terms Of Payment" #termsOfPayment name="termsOfPayment" id="termsOfPayment">
+                    <input matInput placeholder="Enter Mode/Terms Of Payment" #termsOfPayment name="termsOfPayment" id="termsOfPayment"
+                        formControlName="modeOrTermsOfPayment">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
@@ -22,7 +23,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>Other References</mat-label>
                     <input matInput placeholder="Enter Other References" #otherReferences name="otherReferences"
-                        id="otherReferences">
+                        id="otherReferences" fornControlName="otherReferences">
                 </mat-form-field>
             </div>
 
@@ -33,11 +34,13 @@
                     [fxFlex]="50">
                     <mat-label>Buyer's Order No.</mat-label>
                     <input matInput placeholder="Enter Buyer's Order No." #buyerOrderNo name="buyerOrderNo"
-                        id="buyerOrderNo">
+                        id="buyerOrderNo" formControlName="buyersOrderNo">
                 </mat-form-field>
 
                 <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="50">
-                    <i-mat-datepicker [label]="'Dated'"></i-mat-datepicker>
+                    <i-mat-datepicker [label]="'Dated'"
+                        [dateFormControl]="orderTxForm.controls['dated'] | convertToFormControl">
+                    </i-mat-datepicker>
                 </div>
             </div>
 
@@ -49,30 +52,31 @@
                     [fxFlex]="50">
                     <mat-label>Challan No.</mat-label>
                     <input matInput placeholder="Enter Challan No." #challanNo name="challanNo"
-                        id="challanNo">
+                        id="challanNo" formControlName="challanNo">
                 </mat-form-field>
 
                 <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="50">
-                    <i-mat-datepicker [label]="'Challan Dated'"></i-mat-datepicker>
+                    <i-mat-datepicker [label]="'Challan Dated'"
+                        [dateFormControl]="orderTxForm.controls['challanDated'] | convertToFormControl">
+                    </i-mat-datepicker>
                 </div>
             </div>
 
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
                 <mat-form-field appearance="outline" class="innov-matFormField" [fxFlex]="100">
                     <mat-label>Terms of Delivery</mat-label>
-                    <textarea matInput placeholder="Enter Terms of Delivery"></textarea>
+                    <textarea matInput placeholder="Enter Terms of Delivery" formControlName="termsOfDelivery"></textarea>
                 </mat-form-field>
             </div>
 
-            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                <mat-form-field appearance="outline" [class]="'innov-matFormField'" [fxFlex]="100">
-                    <mat-label>Terms N Conditions</mat-label>
-                    <mat-select name="availableTerms">
-                        <mat-option *ngFor="let term of availableTerms" [value]="term.id">
-                        {{term.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <!-- [optionFormControl]="orderTxForm.controls['challanDated'] | convertToFormControl" -->
+            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">               
+                <div [fxFlex]="100">
+                    <i-autocomplete-box [optionBoxTitle]="'Terms N Conditions'" [allOptions]="availableTerms" 
+                        [isCustomOptionAllowed]="false"                        
+                        [optionFormControl]="orderTxForm.controls['termsName'] | convertToFormControl"
+                        (onOptionSelection)="onTermSelection($event)"></i-autocomplete-box>
+                </div>                
             </div>
 
         </mat-card-content>
@@ -88,26 +92,25 @@
 
             <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between">
 
-                <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                    [fxFlex]="50">
-                    <mat-label>Delivery Address</mat-label>
-                    <input matInput placeholder="Enter Delivery Address" #deliveryAddress name="deliveryAddress"
-                        id="deliveryAddress">
-                </mat-form-field>
+                <div [fxFlex]="67">
+                    <i-autocomplete-box [optionBoxTitle]="'Delivery Address'" [allOptions]="addressList"                        
+                        (onOptionSelection)="onAddressSelection($event)"></i-autocomplete-box>
+                </div>  
 
-                <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="50">
-                    <i-mat-datepicker [label]="'Delivery Date'"></i-mat-datepicker>
+                <div [class]="(isHandset$ | async) ? '' : 'ml-1'" [fxFlex]="33">
+                    <i-mat-datepicker [label]="'Delivery Date'"
+                        [dateFormControl]="orderTxForm.controls['deliveryDate'] | convertToFormControl">
+                    </i-mat-datepicker>
                 </div>
             </div>
 
             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                    [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 1</mat-label>
                     <input matInput placeholder="Enter Address 1" #address1 name="address1" id="address1"
-                        >
+                        formControlName="deliveryAddress">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
@@ -115,7 +118,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 2</mat-label>
                     <input matInput placeholder="Enter Address 2" #address2 name="address2" id="address2"
-                    >
+                    formControlName="deliveryAddress2">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
@@ -123,7 +126,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 3</mat-label>
                     <input matInput placeholder="Enter Address 3" #address3 name="address3" id="address3"
-                    >
+                    formControlName="deliveryAddress3">
                 </mat-form-field>
             </div>
 
@@ -132,7 +135,7 @@
                     [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>State</mat-label>
-                    <mat-select name="stateId">
+                    <mat-select name="stateId" formControlName="deliveryAddressState">
                         <mat-option *ngFor="let state of states" [value]="state">
                             {{state}}
                         </mat-option>
@@ -143,10 +146,10 @@
                     appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>City</mat-label>
                     <input type="text" placeholder="Select City" aria-label="city" matInput
-                        [matAutocomplete]="autoCity">
+                        [matAutocomplete]="autoCity" formControlName="deliveryAddressCity">
                     <mat-icon matSuffix class="search-icon">search</mat-icon>
                     <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredCities  | async" [value]="option.cityName">
+                        <mat-option *ngFor="let option of filteredDeliveryCities  | async" [value]="option.cityName">
                             {{option.cityName}}
                         </mat-option>
                     </mat-autocomplete>
@@ -157,7 +160,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Pincode</mat-label>
                     <input matInput placeholder="Enter Pincode" #Pincode name="Pincode" id="Pincode"
-                    >
+                        formControlName="deliveryAddressPinCode">
                 </mat-form-field>
             </div>
         </mat-card-content>
@@ -176,7 +179,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 1</mat-label>
                     <input matInput placeholder="Enter Address 1" #address1 name="address1" id="address1"
-                        >
+                        formControlName="billingAddress">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
@@ -184,7 +187,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 2</mat-label>
                     <input matInput placeholder="Enter Address 2" #address2 name="address2" id="address2"
-                    >
+                        formControlName="billingAddress2">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class]="'innov-matFormField'"
@@ -192,7 +195,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Address 3</mat-label>
                     <input matInput placeholder="Enter Address 3" #address3 name="address3" id="address3"
-                    >
+                        formControlName="billingAddress3">
                 </mat-form-field>
             </div>
 
@@ -201,7 +204,7 @@
                     [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
                     [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>State</mat-label>
-                    <mat-select name="stateId">
+                    <mat-select name="stateId" formControlName="billingAddressState">
                         <mat-option *ngFor="let state of states" [value]="state">
                             {{state}}
                         </mat-option>
@@ -212,10 +215,10 @@
                     appearance="outline" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                     <mat-label>City</mat-label>
                     <input type="text" placeholder="Select City" aria-label="city" matInput
-                        [matAutocomplete]="autoCity">
+                        [matAutocomplete]="autoCity" formControlName="billingAddressCity">
                     <mat-icon matSuffix class="search-icon">search</mat-icon>
                     <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredCities  | async" [value]="option.cityName">
+                        <mat-option *ngFor="let option of filteredBillingCities  | async" [value]="option.cityName">
                             {{option.cityName}}
                         </mat-option>
                     </mat-autocomplete>
@@ -226,7 +229,7 @@
                     [fxFlex]="(isHandset$ | async) ? 100 : 33">
                     <mat-label>Pincode</mat-label>
                     <input matInput placeholder="Enter Pincode" #Pincode name="Pincode" id="Pincode"
-                    >
+                    formControlName="billingAddressPinCode">
                 </mat-form-field>
             </div>
         </mat-card-content>

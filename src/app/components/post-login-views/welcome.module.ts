@@ -15,10 +15,10 @@ import { CompanyPlanServiceService } from 'src/server';
 
 @NgModule({
   declarations: [   
-    WelcomeComponent,
     MenuListItemComponent,
-    DashboardComponent,
-    TopMenuListItemComponent
+    TopMenuListItemComponent,
+    WelcomeComponent,
+    DashboardComponent  
   ],
   imports: [
     CommonModule,

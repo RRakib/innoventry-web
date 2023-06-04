@@ -23,7 +23,7 @@ table.innoventry-table tr.mat-row, tr.mat-footer-row {
 
 table.innoventry-table tr.mat-header-row {
     height: 35px;
-    border: 1px solid #3f51b5;
+    border: 1px solid #F0F0F0;
 }
 .responsive-table{
     position: relative;
@@ -39,7 +39,7 @@ table.innoventry-table tr.mat-header-row {
 }
 
 table.innoventry-table tr:nth-child(odd){
-    background: #efeeee;
+    // background: #efeeee;
 }
 
 table.innoventry-table td, table.db-tree-view td {
@@ -68,11 +68,11 @@ table.innoventry-table td, table.db-tree-view td {
 
 
 .angular-tree-grid-header{    
-    background-color: #3f51b5 !important;
+    background-color: #F0F0F0  !important;
 }
 
 tr.angular-tree-grid-header > th{
-    color: #fff !important;
+    color: #00448d !important;    
     font-weight: 500 !important;
     font-size: 0.75rem !important;
 }
