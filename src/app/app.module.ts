@@ -18,13 +18,15 @@ import { environment } from 'src/environments/environment';
 import { HttpAuthInterceptor } from './services/http.interceptor';
 import { DatabaseServiceService } from 'src/server/api/databaseService.service';
 import { AuthGuard } from './services/auth.guard';
+import { PartnerLoginComponent } from './components/login/partner-login/partner-login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent              
+    RegistrationComponent,
+    PartnerLoginComponent              
   ],
   imports: [
     BrowserModule,

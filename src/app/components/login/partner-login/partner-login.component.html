@@ -1,0 +1,26 @@
+<form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="partnerLoginForm" (submit)="doPartnerlogin()">
+    
+    <mat-form-field appearance="outline" class="innov-matFormField">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" formControlName="username" #username name="username" id="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="innov-matFormField">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" type="password" formControlName="password" #password name="password"
+            id="password">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary">
+        Login
+    </button>
+
+    <div class="or">
+        OR
+    </div>
+
+    <button mat-raised-button type="button" style="background-color: #F0F0F0" (click)="newPartnerRegistration()">
+        <mat-icon>account_box</mat-icon>
+        Be Our Partner
+    </button>  
+</form>
