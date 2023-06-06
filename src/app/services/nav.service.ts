@@ -23,10 +23,10 @@ export class NavService {
   }
 
   public closeNav() {    
-    this.drawer.toggle();
+    this.drawer.close();
   }
 
   public openNav() {
-    this.drawer.toggle();
+    this.drawer.open();
   }
 }
