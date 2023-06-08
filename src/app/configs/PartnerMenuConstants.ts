@@ -4,15 +4,15 @@ export class PartnerMenuConstants {
     public static MENUS: NavItem[] = [
         {
           displayName: 'New License',
-          iconName: 'group',
-          route: 'partnerMainView',
+          iconName: 'access_time',
+          route: 'partnerMainView/newLicense',
           cssClass: 'mt-2 font120',
           children: [ ]
         },
         {
             displayName: 'Renew License',
-            iconName: 'group',
-            route: 'partnerMainView',
+            iconName: 'autorenew',
+            route: 'partnerMainView/renewLicense',
             cssClass: 'mt-2 font120',
             children: [ ]
         },

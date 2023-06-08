@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NavigationExtras, Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { NavService } from 'src/app/services/nav.service';
 import { ItemLicenseReportLine, PartnerItemLicenseReportArg, PartnerItemLicenseReportServiceService } from 'src/server';
@@ -29,7 +30,8 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     'email',
     'amcDate',
     'expiryDate',
-    'productKey'
+    'productKey',
+    'actions'
   ];
 
   public dataSource = new MatTableDataSource<ItemLicenseReportLine>([]);
@@ -44,11 +46,11 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
 
   constructor(private partnerItemLicenseReportService: PartnerItemLicenseReportServiceService,
     public navService: NavService,
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver,    
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllCustomer();
-
+    this.getAllCustomer();    
   }
 
   private getAllCustomer() {
@@ -107,5 +109,22 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     }    
     this.dataSource.data = updatedCustomerList;
     this.customerCount = updatedCustomerList.length > 0 ? updatedCustomerList.length : 0;
+  }
+
+  renewBuyLicense(productKey? :string) {
+    if(!!productKey && productKey.length > 0) {      
+      let navigationExtras: NavigationExtras = {
+        state: {
+          licenseKey: productKey
+        }
+      }
+      this.router.navigate(['partnerMainView/renewLicense'], navigationExtras);  
+    }else{
+      this.router.navigate(['partnerMainView/renewLicense']);  
+    }
+  }
+
+  public generateNewLicense(): void{
+    this.router.navigate(['partnerMainView/newLicense']);  
   }
 }

@@ -8,21 +8,29 @@ import { PartnerWelcomeRoutingModule } from './partner-welcome-routing.module';
 import { PartnerWelcomeComponent } from './partner-welcome/partner-welcome.component';
 import { PartnerCustomersComponent } from './partner-customers/partner-customers.component';
 import { PartnerMenuListItemComponent } from './partner-menu-list-item/partner-menu-list-item.component';
-import { PartnerItemLicenseReportServiceService } from 'src/server';
+import { PartnerItemInfoServiceService, PartnerItemLicenseGenerationServiceService, PartnerItemLicenseReportServiceService } from 'src/server';
+import { PartnerRenewLicenseComponent } from './partner-renew-license/partner-renew-license.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NavService } from 'src/app/services/nav.service';
+import { PartnerNewLicenseComponent } from './partner-new-license/partner-new-license.component';
 
 @NgModule({
   declarations: [
-    PartnerWelcomeComponent, PartnerCustomersComponent, PartnerMenuListItemComponent
+    PartnerWelcomeComponent, PartnerCustomersComponent, PartnerMenuListItemComponent, PartnerRenewLicenseComponent, PartnerNewLicenseComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AngularMaterialModule,
     PartnerWelcomeRoutingModule
   ],
   providers: [
     AuthGuard,
     CommonUtils,
-    PartnerItemLicenseReportServiceService
+    NavService,
+    PartnerItemLicenseReportServiceService,
+    PartnerItemLicenseGenerationServiceService,
+    PartnerItemInfoServiceService
   ],
   bootstrap: []
 })
