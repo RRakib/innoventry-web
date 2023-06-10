@@ -1,0 +1,81 @@
+<!-- <div class="mat-elevation-z8"> -->
+    <div class="">    
+        <mat-card class="no-card-shadow">
+            <mat-card-header [class]="'mat-card-headers mb-2'">
+                <mat-card-title>
+                    New License
+                    <div class="title-underline"></div>                
+                </mat-card-title>
+                <div>                     
+                    <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="viewCustomers()">
+                        <mat-icon>group</mat-icon> All Customers
+                    </button>                    
+                  </div> 
+            </mat-card-header> 
+    
+            <mat-card-content *ngIf="isFormLoaded">
+                <form  [formGroup]="licenseForm">
+                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Enter Customer Name"
+                                #name name="name" id="name"
+                                formControlName="customerName">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Enter Mobile No."
+                                #mobileNo name="mobileNo" id="mobileNo"
+                                formControlName="mobile">
+                        </mat-form-field>
+                    </div>
+
+                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Enter Email"
+                                #name name="name" id="email"
+                                formControlName="email">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                            <mat-label>Address</mat-label>
+                            <input matInput placeholder="Enter Address"
+                                #mobileNo name="address" id="address"
+                                formControlName="address">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                        <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="100">
+                            <mat-label>Product Key</mat-label>
+                            <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
+                              <mat-option *ngFor="let product of availableProducts" [value]="product.id">
+                                {{product.name}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                    </div>
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" *ngIf="selectedProductRate">
+                        <mat-chip>The selected product key price is : Rs. {{selectedProductRate}}</mat-chip>                        
+                    </div>
+
+                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">
+                        <div>
+                            <button mat-raised-button class="button-group" [fxFlex]="50">
+                                Cancel
+                            </button>
+                            <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50">
+                                Renew
+                            </button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
