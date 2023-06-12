@@ -30,8 +30,8 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     'email',
     'amcDate',
     'expiryDate',
-    'productKey',
-    'actions'
+    'productKey'
+    // 'actions'
   ];
 
   public dataSource = new MatTableDataSource<ItemLicenseReportLine>([]);
@@ -125,6 +125,6 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
   }
 
   public generateNewLicense(): void{
-    this.router.navigate(['partnerMainView/newLicense']);  
+   this.router.navigate(['partnerMainView/newLicense']);  
   }
 }

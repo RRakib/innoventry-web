@@ -7,13 +7,13 @@
                     <div class="title-underline"></div>                
                   </mat-card-title>  
                   <div>
-                    <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="generateNewLicense()">
+                    <button mat-raised-button color="primary" class="toolbar-button" matTooltip="Add New Item" (click)="generateNewLicense()">
                         <mat-icon>person_add</mat-icon> New License
                     </button>   
-                    <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="renewBuyLicense()">
+                    <!-- <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="renewBuyLicense()">
                         <mat-icon>autorenew</mat-icon> Renew/Buy License
-                    </button>                    
-                  </div>                
+                    </button> -->
+                  </div>  
             </mat-card-header> 
     
             <mat-card-content>
@@ -72,14 +72,14 @@
                             <td mat-cell *matCellDef="let row">{{row.productKey}}</td>
                         </ng-container>
 
-                        <ng-container matColumnDef="actions">
+                        <!-- <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
                             <td mat-cell *matCellDef="let row">
                                 <button mat-raised-button class="toolbar-button" matTooltip="Renew License" (click)="renewBuyLicense(row.productKey)">
                                     <mat-icon>autorenew</mat-icon> Renew
                                 </button>
                             </td>                            
-                          </ng-container>
+                          </ng-container> -->
 
                         <tr class="mat-row" *matNoDataRow>
                             <td class="mat-cell" [attr.colspan]="displayedColumns.length">

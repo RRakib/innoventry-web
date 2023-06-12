@@ -1,8 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { PartnerItemInfo, PartnerItemInfoServiceService, PartnerItemLicenseGenerationServiceService } from 'src/server';
 
 @Component({
@@ -28,7 +30,8 @@ export class PartnerNewLicenseComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private generateLicenseService: PartnerItemLicenseGenerationServiceService,
     private formBuilder: FormBuilder,
     private itemService: PartnerItemInfoServiceService,
-    private router: Router) {
+    private router: Router,
+    public dialog: MatDialog) {
 
   }
 
@@ -62,4 +65,35 @@ export class PartnerNewLicenseComponent implements OnInit {
     this.router.navigate(['partnerMainView/customers']);  
   }
 
+  generateLicense() {
+    let buyLicenseURL = `${environment.buyLicenseUrl}`;
+    window.open(buyLicenseURL, '_blank');
+    
+    const ConfirmationDialogRef = this.dialog.open(ConfirmationDialogBox,
+      {disableClose: true}
+    );
+
+    ConfirmationDialogRef.afterClosed().subscribe(result => {
+      this.licenseForm.reset(); 
+      this.selectedProductRate = undefined;
+    });
+  }
+
+}
+
+@Component({
+  selector: 'confirmation-dialog',
+  templateUrl: 'confirmation-dialog.component.html',
+})
+export class ConfirmationDialogBox {
+  constructor(private router: Router, public dialogRef: MatDialogRef<ConfirmationDialogBox>) { }
+
+  public closeDialog() :void{
+    this.dialogRef.close();
+    this.router.navigate(['partnerMainView/customers']);  
+  }
+
+  public generateNewLicense() : void{
+    this.dialogRef.close();
+  }
 }

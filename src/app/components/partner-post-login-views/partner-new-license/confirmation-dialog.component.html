@@ -1,0 +1,10 @@
+
+<div mat-dialog-content>
+    A transaction has been initiated in the new tab of your browser. <br/> 
+    Please complete the payment to generate new License.
+    <p>Click <b>Close</b> if payment already done.</p>
+</div>
+<div mat-dialog-actions class="justify-content-between">
+    <button mat-button color="primary" (click)="generateNewLicense()">Generate New License</button>
+    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>  
+</div>
