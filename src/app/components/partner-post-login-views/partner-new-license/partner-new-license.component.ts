@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
@@ -31,7 +31,8 @@ export class PartnerNewLicenseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private itemService: PartnerItemInfoServiceService,
     private router: Router,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public newLicenseDialogRef: MatDialogRef<PartnerNewLicenseComponent>) {
 
   }
 
@@ -48,7 +49,7 @@ export class PartnerNewLicenseComponent implements OnInit {
           address: new FormControl(),
           itemId: new FormControl(),
           requestType: new FormControl(),
-          productKey: new FormControl(),
+          productKey: new FormControl(null, [Validators.required]),
         });
 
         this.isFormLoaded = true;
@@ -57,26 +58,26 @@ export class PartnerNewLicenseComponent implements OnInit {
   }
 
   onProductKeyChange(): void{
-    let selectedProduct = this.availableProducts.find((product) => product.id == this.licenseForm.controls["productKey"].value);
+    let selectedProduct = this.availableProducts.find((product) => product.name == this.licenseForm.controls["productKey"].value);
     this.selectedProductRate = selectedProduct?.rate;
   }
 
-  public viewCustomers() :void {
-    this.router.navigate(['partnerMainView/customers']);  
+  generateLicense() {
+
+    this.licenseForm.controls["productKey"].markAsTouched();
+    if(this.licenseForm.valid) {
+      this.newLicenseDialogRef.close();
+      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&product=${this.licenseForm.controls["productKey"].value}`;
+      window.open(buyLicenseURL, '_blank');
+      
+      this.dialog.open(ConfirmationDialogBox,
+        {disableClose: true, width: '60vw'}
+      );
+    }   
   }
 
-  generateLicense() {
-    let buyLicenseURL = `${environment.buyLicenseUrl}`;
-    window.open(buyLicenseURL, '_blank');
-    
-    const ConfirmationDialogRef = this.dialog.open(ConfirmationDialogBox,
-      {disableClose: true}
-    );
-
-    ConfirmationDialogRef.afterClosed().subscribe(result => {
-      this.licenseForm.reset(); 
-      this.selectedProductRate = undefined;
-    });
+  cancelLicenseGeneration() {
+    this.newLicenseDialogRef.close();
   }
 
 }
@@ -86,14 +87,17 @@ export class PartnerNewLicenseComponent implements OnInit {
   templateUrl: 'confirmation-dialog.component.html',
 })
 export class ConfirmationDialogBox {
-  constructor(private router: Router, public dialogRef: MatDialogRef<ConfirmationDialogBox>) { }
+  constructor(public dialogRef: MatDialogRef<ConfirmationDialogBox>, public dialog: MatDialog) { }
 
   public closeDialog() :void{
     this.dialogRef.close();
-    this.router.navigate(['partnerMainView/customers']);  
   }
 
   public generateNewLicense() : void{
     this.dialogRef.close();
+
+    this.dialog.open(PartnerNewLicenseComponent,
+      {disableClose: true, width: '60vw'}
+    );
   }
 }
