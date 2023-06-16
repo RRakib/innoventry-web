@@ -1,21 +1,21 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-      <div class="p-2 logo">
-        <img src="assets/images/logo/logo.png" [attr.width]="'100%'" alt="" />
-      </div>
+    <!-- <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">      
       <mat-nav-list>
         <partner-menu-list-item *ngFor="let item of navItems" [item]="item"></partner-menu-list-item>
       </mat-nav-list>
-    </mat-sidenav>
+    </mat-sidenav> -->
     <mat-sidenav-content>
       <mat-toolbar color="primary">
         <mat-toolbar-row class="justify-content-between">  
-          <button mat-icon-button>
+          <!-- <button mat-icon-button>
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
               <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-          </button>        
+          </button>         -->
+          <div class="p-2 logo">
+            <img src="assets/images/logo/logo-withoutbg.png" [attr.width]="'100%'" alt="" />
+          </div>
           <span class="menu-spacer"></span>
           <div>
             <button mat-button>

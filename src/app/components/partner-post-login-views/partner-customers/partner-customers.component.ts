@@ -2,12 +2,14 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { NavService } from 'src/app/services/nav.service';
 import { ItemLicenseReportLine, PartnerItemLicenseReportArg, PartnerItemLicenseReportServiceService } from 'src/server';
+import { PartnerNewLicenseComponent } from '../partner-new-license/partner-new-license.component';
 
 @Component({
   selector: 'app-partner-customers',
@@ -30,8 +32,8 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     'email',
     'amcDate',
     'expiryDate',
-    'productKey',
-    'actions'
+    'productKey'
+    // 'actions'
   ];
 
   public dataSource = new MatTableDataSource<ItemLicenseReportLine>([]);
@@ -47,7 +49,10 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
   constructor(private partnerItemLicenseReportService: PartnerItemLicenseReportServiceService,
     public navService: NavService,
     private breakpointObserver: BreakpointObserver,    
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog) {
+      
+  }
 
   ngOnInit(): void {
     this.getAllCustomer();    
@@ -124,7 +129,9 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public generateNewLicense(): void{
-    this.router.navigate(['partnerMainView/newLicense']);  
+  public generateNewLicense(): void{  
+    this.dialog.open(PartnerNewLicenseComponent,
+      {disableClose: true, width: '60vw'}
+    );
   }
 }

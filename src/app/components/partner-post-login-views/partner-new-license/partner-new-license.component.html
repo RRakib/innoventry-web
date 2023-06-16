@@ -6,16 +6,16 @@
                     New License
                     <div class="title-underline"></div>                
                 </mat-card-title>
-                <div>                     
+                <!-- <div>                     
                     <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="viewCustomers()">
                         <mat-icon>group</mat-icon> All Customers
                     </button>                    
-                  </div> 
+                </div>  -->
             </mat-card-header> 
     
             <mat-card-content *ngIf="isFormLoaded">
                 <form  [formGroup]="licenseForm">
-                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                    <!-- <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
                         <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Enter Customer Name"
@@ -29,9 +29,9 @@
                                 #mobileNo name="mobileNo" id="mobileNo"
                                 formControlName="mobile">
                         </mat-form-field>
-                    </div>
+                    </div> -->
 
-                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                    <!-- <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
                         <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
                             <mat-label>Email</mat-label>
                             <input matInput placeholder="Enter Email"
@@ -45,30 +45,30 @@
                                 #mobileNo name="address" id="address"
                                 formControlName="address">
                         </mat-form-field>
-                    </div>
+                    </div> -->
 
 
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
                         <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="100">
                             <mat-label>Product Key</mat-label>
                             <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
-                              <mat-option *ngFor="let product of availableProducts" [value]="product.id">
+                              <mat-option *ngFor="let product of availableProducts" [value]="product.name">
                                 {{product.name}}
                               </mat-option>
                             </mat-select>
                         </mat-form-field>    
                     </div>
                     <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" *ngIf="selectedProductRate">
-                        <mat-chip>The selected product key price is : Rs. {{selectedProductRate}}</mat-chip>                        
+                        <mat-chip>The selected product price is : Rs. {{selectedProductRate}}</mat-chip>                        
                     </div>
 
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">
                         <div>
-                            <button mat-raised-button class="button-group" [fxFlex]="50">
+                            <button mat-raised-button class="button-group" [fxFlex]="50" (click)="cancelLicenseGeneration()">
                                 Cancel
                             </button>
-                            <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50">
-                                Renew
+                            <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="generateLicense()">
+                                Generate
                             </button>
                         </div>
                     </div>
