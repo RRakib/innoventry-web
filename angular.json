@@ -32,16 +32,40 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",              
-              "src/assets/css/index.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.scss",
+              "src/assets/theme/css/bootstrap.min.css",
+              "src/assets/theme/font-awesome/css/font-awesome.css",
+              "src/assets/theme/css/plugins/toastr/toastr.min.css",
+              "src/assets/theme/js/plugins/gritter/jquery.gritter.css",
+              "src/assets/theme/css/animate.css",
+              "src/assets/theme/css/style.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles"
               ]
             },
-            "scripts": []
+            "scripts": [
+              "src/assets/theme/js/jquery-2.1.1.js",
+              "src/assets/theme/js/bootstrap.min.js",
+              "src/assets/theme/js/plugins/metisMenu/jquery.metisMenu.js",
+              "src/assets/theme/js/plugins/slimscroll/jquery.slimscroll.min.js",
+              "src/assets/theme/js/plugins/flot/jquery.flot.js",
+              "src/assets/theme/js/plugins/flot/jquery.flot.tooltip.min.js",
+              "src/assets/theme/js/plugins/flot/jquery.flot.spline.js",
+              "src/assets/theme/js/plugins/flot/jquery.flot.resize.js",
+              "src/assets/theme/js/plugins/flot/jquery.flot.pie.js",
+              "src/assets/theme/js/plugins/peity/jquery.peity.min.js",
+              "src/assets/theme/js/demo/peity-demo.js",
+              "src/assets/theme/js/inspinia.js",
+              "src/assets/theme/js/plugins/pace/pace.min.js",
+              "src/assets/theme/js/plugins/jquery-ui/jquery-ui.min.js",
+              "src/assets/theme/js/plugins/gritter/jquery.gritter.min.js",
+              "src/assets/theme/js/plugins/sparkline/jquery.sparkline.min.js",
+              "src/assets/theme/js/demo/sparkline-demo.js",
+              "src/assets/theme/js/plugins/chartJs/Chart.min.js",
+              "src/assets/theme/js/plugins/toastr/toastr.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -12,13 +12,17 @@ import { TopMenuListItemComponent } from './top-menu-list-item/top-menu-list-ite
 import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { EditReportService } from 'src/app/services/editReport.service';
 import { CompanyPlanServiceService } from 'src/server';
+import { SideNavigationComponent } from '../layouts/side-navigation/side-navigation.component';
+import { TopNavbarComponent } from '../layouts/top-navbar/top-navbar.component';
 
 @NgModule({
   declarations: [   
     MenuListItemComponent,
     TopMenuListItemComponent,
     WelcomeComponent,
-    DashboardComponent  
+    DashboardComponent,
+    SideNavigationComponent,
+    TopNavbarComponent 
   ],
   imports: [
     CommonModule,

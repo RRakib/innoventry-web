@@ -20,13 +20,12 @@ import { DatabaseServiceService } from 'src/server/api/databaseService.service';
 import { AuthGuard } from './services/auth.guard';
 import { PartnerLoginComponent } from './components/login/partner-login/partner-login.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    PartnerLoginComponent              
+    PartnerLoginComponent        
   ],
   imports: [
     BrowserModule,
