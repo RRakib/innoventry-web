@@ -168,9 +168,8 @@ h5 {
   font-size: 12px;
 }
 .nav-header {
-  padding: 33px 25px;
-  background-color: #2f4050;
-  background-image: url("patterns/header-profile.png");
+  padding: 10px 25px;
+  background-color: #f3f3f4;
 }
 .pace-done .nav-header {
   transition: all 0.4s;
@@ -312,7 +311,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   font-weight: 600;
   color: white;
   display: none;
-  padding: 18px 0;
+  padding: 14px 0;
 }
 .pace-done .navbar-static-side,
 .pace-done .nav-header,
@@ -412,8 +411,7 @@ body.canvas-menu .logo-element {
   display: none;
 }
 body.mini-navbar .nav-header {
-  padding: 0;
-  background-color: #1ab394;
+  padding: 0;  
 }
 body.canvas-menu .nav-header {
   padding: 33px 25px;
@@ -3630,7 +3628,7 @@ video {
   padding: 0 20px;
 }
 .wrapper-content {
-  padding: 20px 10px 40px;
+  padding: 5px 5px 40px;
 }
 #page-wrapper {
   padding: 0 15px;

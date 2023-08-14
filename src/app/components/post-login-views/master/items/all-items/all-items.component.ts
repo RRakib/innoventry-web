@@ -17,7 +17,7 @@ import { ItemServiceGetReportAsFile } from 'src/server/model/itemServiceGetRepor
 export class AllItemsComponent implements OnInit, AfterViewInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  public displayedColumns = ['name',
+  public displayedColumns : Array<string> = ['name',
     'productCode',
     'groupName',
     'unitName',

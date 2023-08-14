@@ -2,24 +2,11 @@
     <div class="sidebar-collapse">
       <ul class="nav metismenu" id="side-menu">
         <li class="nav-header">
-          <div class="dropdown profile-element"> 
-            <!-- <span>
-              <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-            </span> -->
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{userName}}</strong>
-                </span> <span class="text-muted text-xs block">{{companyId}} <b class="caret"></b></span>
-              </span> </a>
-            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-              <li><a [routerLink]="['/main/user/profile']">My Plan</a></li>
-              <li><a href="contacts.html">Contacts</a></li>
-              <li><a href="mailbox.html">Mailbox</a></li>
-              <li class="divider"></li>
-              <li><a href="login.html">Logout</a></li>
-            </ul>
+          <div class="dropdown profile-element">            
+            <img src="assets/images/logo/logo.png" [attr.width]="'100%'" alt="" />
           </div>
           <div class="logo-element">
-            IN+
+            <img src="assets/images/logo/logosn.png"  alt="" />
           </div>
         </li>
         <ng-container *ngIf="isMenuLoaded">

@@ -4,8 +4,7 @@
 }
 
 .mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
-    font-size: 0.85rem !important;    
-    font-weight: 400;
+    font-size: 1.25rem !important;    
 }
 
 .mat-toolbar-multiple-rows {
@@ -26,15 +25,12 @@
     padding-top: 30px !important;
 }
 
-tr.mat-header-row {
-    border: 1px solid #3f51b5;
+.mat-card-header-text{
+    margin: 0 !important;
 }
 
 .mat-card {
     border-radius: 0px !important;
-}
-.mat-card-header-text {
-    margin: 0 0px !important;
 }
 
 
@@ -54,7 +50,7 @@ th.mat-header-cell {
 }
 
 .mat-card-headers{
-    justify-content: space-between;
+    justify-content: space-between !important;
     height: 40px !important;
 }
 

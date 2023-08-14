@@ -59,45 +59,46 @@
             </mat-card-header>
             <mat-card-content class="text-center">
 
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill [class]="'justify-content-between'">
+                    <div>
+                        <Ledger-Box                      
+                            [ledgerFormControl]="getEntryFormControl('ledgerName')"
+                            [ledgerBoxTitle]="'Ledger'"
+                            [applyForbiddenNameValidator]=applyForbiddenNameValidator
+                            (onLedgerSelection)="onLedgerSelectionChange($event)">
+                        </Ledger-Box>
 
-                    <Ledger-Box                      
-                        [ledgerFormControl]="getEntryFormControl('ledgerName')"
-                        [ledgerBoxTitle]="'Ledger'"
-                        [applyForbiddenNameValidator]=applyForbiddenNameValidator
-                        (onLedgerSelection)="onLedgerSelectionChange($event)">
-                    </Ledger-Box>
 
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'">
+                            <mat-label>Credit/Debit Amount</mat-label>
+                            <input matInput placeholder="Enter Amount (Toggle to switch Tx. type)"
+                                #lineAmount name="lineAmount" id="lineAmount" 
+                                formControlName="lineAmount">
+                            <mat-slide-toggle matSuffix color="primary" formControlName="txType">
+                                {{txTypeLabel}}
+                            </mat-slide-toggle>
+                        </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'">
-                        <mat-label>Credit/Debit Amount</mat-label>
-                        <input matInput placeholder="Enter Amount (Toggle to switch Tx. type)"
-                            #lineAmount name="lineAmount" id="lineAmount" 
-                            formControlName="lineAmount">
-                        <mat-slide-toggle matSuffix color="primary" formControlName="txType">
-                            {{txTypeLabel}}
-                        </mat-slide-toggle>
-                    </mat-form-field>
+                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
+                        [fxFlex]="(isHandset$ | async) ? 100 : 30">
+                            <mat-label>Description</mat-label>
+                            <input matInput placeholder="Enter Description"
+                                #description name="description" id="description" 
+                                formControlName="description">                            
+                        </mat-form-field>
 
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField full-width-table' : 'innov-matFormField ml-1'"
-                    [fxFlex]="(isHandset$ | async) ? 100 : 30">
-                        <mat-label>Description</mat-label>
-                        <input matInput placeholder="Enter Description"
-                            #description name="description" id="description" 
-                            formControlName="description">                            
-                    </mat-form-field>
-
-                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : 'align-items-center'">                    
-                                                
-                            <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : 'ml-1'" color="primary"
-                                (click)="addJounralEntry()">
-                                <mat-icon>save</mat-icon>   
-                                {{ isEntryEditModeEnabled ? 'Edit' : 'Add' }}
-                            </button>                            
-                        
-                            <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelEditMode()" [disabled]="!isEntryEditModeEnabled">
-                                <mat-icon>cancel</mat-icon> Cancel
-                            </button>  
+                    </div>
+                    
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" [class]="(isHandset$ | async) ? '' : 'align-items-center'"> 
+                            <div>
+                                <button mat-raised-button class="button-group" [fxFlex]="50" (click)="addJounralEntry()" color="primary">
+                                    <mat-icon>save</mat-icon>
+                                    {{ isEntryEditModeEnabled ? 'Edit' : 'Add' }}
+                                </button>
+                                <button mat-raised-button class="button-group"   [fxFlex]="50" (click)="cancelEditMode()">
+                                    Cancel
+                                </button>
+                            </div>
                         
                     </div>
                 </div>                               
