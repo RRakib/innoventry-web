@@ -73,21 +73,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
          }
        }
        this.navItems = sideHierarchicalMenu;      
-      //  this.topMenu = TopMenuConstants.MENUS;  
-      //  let topHierarchicalMenu: NavItem[] = [];
-
-      //  for (let i = 0; i < this.topMenu.length; i++) {
-      //   let menuObj = Object.assign({}, this.topMenu[i]);
-      //   if (this.permissionProvider.canAccess(menuObj.permission || [])) {
-      //     if (menuObj.children) {
-      //       menuObj.children = _.filter(menuObj.children, (submenu: any)=>{
-      //         return this.permissionProvider.canAccess(submenu.permission || []);
-      //       });
-      //     }
-      //     topHierarchicalMenu.push(menuObj);
-      //    }
-      //   }
-      //this.topNavItems = topHierarchicalMenu;
+       
       resolve(true);          
       });     
     });
@@ -106,6 +92,10 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
       this.router.navigate([parentMenu[0].route + "/" + item.route]);
      
     }   
+  }
+
+  navigateToHome() : void{
+    this.router.navigate(["main"]);
   }
 
 }

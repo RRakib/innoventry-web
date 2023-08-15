@@ -5,7 +5,7 @@ export class TopMenuConstants {
     public static MENUS: NavItem[] = [
         {
           displayName: 'Customer',
-          iconName: 'person',
+          iconName: 'fa fa-user',
           route: '',
           children: [
             {    
@@ -61,7 +61,7 @@ export class TopMenuConstants {
         },
         {
           displayName: 'Supplier',
-          iconName: 'supervisor_account',
+          iconName: 'fa fa-users',
           route: '',
           children: [
             {    
@@ -103,7 +103,7 @@ export class TopMenuConstants {
         },
         {
           displayName: 'Accounting',
-          iconName: 'account_balance',
+          iconName: 'fa fa-credit-card',
           route: '',
           children: [
             {    
@@ -124,7 +124,7 @@ export class TopMenuConstants {
         },
         {
           displayName: 'Inventory',
-          iconName: 'bar_chart',
+          iconName: 'fa fa-bar-chart',
           route: '',
           children: [
             {    
@@ -159,7 +159,7 @@ export class TopMenuConstants {
         },
         {
           displayName: 'Reports',
-          iconName: 'account_balance',
+          iconName: 'fa fa-line-chart',
           route: '',
           children: [
             {    

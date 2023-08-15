@@ -5,7 +5,7 @@ export class MenuConstants {
   public static MENUS: NavItem[] = [
     {
       displayName: 'Master',
-      iconName: 'group',
+      iconName: 'fa fa-cogs',
       route: 'main/master',
       cssClass: 'mt-2 font125',
       children: [
@@ -74,7 +74,7 @@ export class MenuConstants {
     },
     {
       displayName: 'Transaction',
-      iconName: 'currency_rupee',
+      iconName: 'fa fa-credit-card',
       route: 'main/transaction',
       cssClass: 'mt-4 font125',
       children: [
@@ -124,7 +124,7 @@ export class MenuConstants {
     },
     {
       displayName: 'Reports',
-      iconName: 'bar_chart',
+      iconName: 'fa fa-bar-chart',
       route: 'main/report',
       cssClass: 'mt-4 font125',
       children: [
