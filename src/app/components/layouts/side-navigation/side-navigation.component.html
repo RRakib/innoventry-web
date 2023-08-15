@@ -19,7 +19,21 @@
               <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
                   <li *ngFor="let childItem of navItem.children; let idx = index">
-                    <a (click)="onItemSelected(childItem)">{{childItem.displayName}}</a>
+                    <ng-container *ngIf="childItem.children?.length == 0; else thirdLevel" >
+                      <a (click)="onItemSelected(childItem)">{{childItem.displayName}}</a>
+                    </ng-container>
+                    <ng-template #thirdLevel>
+                      <a href="javascript:void(0)">
+                        {{childItem.displayName}}
+                        <span class="fa arrow"></span>
+                      </a>
+                      <ul class="nav nav-third-level">
+                          <li *ngFor="let thirdChild of childItem.children; let thirdChildIdx = index">
+                              <a (click)="onItemSelected(thirdChild)">{{thirdChild.displayName}}</a>                                                    
+                          </li>
+                      </ul>
+                    </ng-template>
+                    
                   </li>                
               </ul>
           </li>
