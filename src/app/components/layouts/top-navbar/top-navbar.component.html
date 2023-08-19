@@ -1,0 +1,29 @@
+<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " (click)="toggleNavigation()"><i
+          class="fa fa-bars"></i>
+      </a>      
+    </div>
+    <ul class="nav navbar-top-links navbar-right">      
+      <li class="dropdown" *ngFor="let navItem of navItems; let i = index">
+        <div class="btn-group">
+          <button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-default-header">
+            <i [class]="navItem.iconName" aria-hidden="true"></i>&nbsp;
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+              <li *ngFor="let child of navItem.children">
+                <a href="javascript:void(0)" (click)="onItemSelected(child)"> {{ child.displayName }} </a>
+              </li>              
+          </ul>
+        </div>
+      </li>
+
+
+      <li>
+        <a (click)="logout()">
+          <i class="fa fa-sign-out" ></i>
+        </a>
+      </li>
+    </ul>
+  </nav>

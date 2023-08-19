@@ -1,0 +1,44 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav metismenu" id="side-menu">
+        <li class="nav-header">
+          <div class="dropdown profile-element">            
+            <img src="assets/images/logo/logo.png" [attr.width]="'100%'" alt="" (click)="navigateToHome()"
+              class=""/>
+          </div>
+          <div class="logo-element">
+            <img src="assets/images/logo/logosn.png"  alt="" (click)="navigateToHome()"/>
+          </div>
+        </li>
+        <ng-container *ngIf="isMenuLoaded">
+          <!-- <li [ngClass]="{'active': i === 0}" *ngFor="let navItem of navItems; let i = index"> -->
+          <li *ngFor="let navItem of navItems; let i = index">
+            <a>
+              <i [class]="navItem.iconName"></i> 
+              <span class="nav-label">{{navItem.displayName}}</span> 
+              <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li *ngFor="let childItem of navItem.children; let idx = index">
+                    <ng-container *ngIf="childItem.children?.length == 0; else thirdLevel" >
+                      <a (click)="onItemSelected(childItem)">{{childItem.displayName}}</a>
+                    </ng-container>
+                    <ng-template #thirdLevel>
+                      <a href="javascript:void(0)">
+                        {{childItem.displayName}}
+                        <span class="fa arrow"></span>
+                      </a>
+                      <ul class="nav nav-third-level">
+                          <li *ngFor="let thirdChild of childItem.children; let thirdChildIdx = index">
+                              <a (click)="onItemSelected(thirdChild)">{{thirdChild.displayName}}</a>                                                    
+                          </li>
+                      </ul>
+                    </ng-template>
+                    
+                  </li>                
+              </ul>
+          </li>
+        </ng-container>        
+      </ul>
+
+    </div>
+  </nav>

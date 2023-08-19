@@ -6,10 +6,9 @@
                 <div class="title-underline"></div>                
               </mat-card-title>
               <div>
-                <button mat-raised-button class="button-group"  matTooltip="Add New Item" (click)="viewAllItems()">
-                    <mat-icon>arrow_back</mat-icon>
-                    All Items
-                </button>                
+                <button type="button" class="btn btn-w-m btn-default" (click)="viewAllItems()">
+                    <i class="fa fa-arrow-circle-left"></i>&nbsp;All Items
+                </button>                              
               </div>
         </mat-card-header>        
 
@@ -207,12 +206,13 @@
                         </section>
                     </div>
                     <div>
-                        <button mat-raised-button class="button-group" [fxFlex]="50" (click)="viewAllItems()">
+                        <button type="button" class="btn btn-w-m btn-default" (click)="viewAllItems()">
                             Cancel
-                        </button>
-                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="saveItem()">
-                            Save
-                        </button>
+                        </button>  
+
+                        <button type="button" class="btn btn-w-m btn-primary mar-left-5" (click)="saveItem()">
+                            <i class="fa fa-floppy-o"></i>&nbsp;Save
+                        </button>                         
                     </div>
                 </div>
             </form>
