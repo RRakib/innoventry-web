@@ -6,6 +6,7 @@ import { PermissionsProvider } from 'src/app/services/permissions.provider';
 import * as _ from "lodash";
 import { AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 declare var jQuery:any;
 
@@ -25,7 +26,8 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
   userName: string;
   companyId : string;
 
-  constructor(private permissionProvider : PermissionsProvider, public router: Router) { 
+  constructor(private permissionProvider : PermissionsProvider, public router: Router,
+    private authService : AuthenticationService) { 
     this.userName = localStorage.getItem("userName") || '';
     this.companyId = localStorage.getItem("companyId") || '';
   }
@@ -96,6 +98,11 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
 
   navigateToHome() : void{
     this.router.navigate(["main"]);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(["/login"]);
   }
 
 }

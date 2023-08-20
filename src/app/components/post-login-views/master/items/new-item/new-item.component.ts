@@ -392,7 +392,10 @@ export class NewItemComponent implements OnInit {
     this.router.navigate(['main/master/allItems']);
   }
 
-  public saveItem() : void {    
+  public saveItem() : void {
+
+    this.itemForm.markAllAsTouched();
+
     if(this.itemForm.valid) {
       this.overlayService.enableProgressSpinner();
       this.itemService.save(this.itemForm.value).subscribe({
