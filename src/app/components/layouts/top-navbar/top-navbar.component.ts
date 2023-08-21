@@ -31,7 +31,7 @@ export class TopNavbarComponent implements OnInit {
   isMenuLoaded: boolean = false;
 
   constructor(private permissionProvider : PermissionsProvider, public router: Router, 
-    private authService : AuthenticationService, private breakpointObserver: BreakpointObserver) { }
+     private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     this.getMenu();
@@ -85,10 +85,4 @@ export class TopNavbarComponent implements OnInit {
      
     }   
   }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(["/login"]);
-  }
-
 }

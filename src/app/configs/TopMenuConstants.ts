@@ -18,7 +18,7 @@ export class TopMenuConstants {
             {    
               displayName: 'Sale',
               iconName: 'person_add',
-              route: 'transaction/newOrder/sale',
+              route: 'transaction/sale/new',
               children: [],
               permission: []
             },

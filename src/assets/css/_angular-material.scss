@@ -1,3 +1,7 @@
+.mat-card-header .mat-card-title{
+    font-size: 14px;
+}
+
 .mat-toolbar {
     background: #f5f5f5 !important;
     color: #00448d !important;
@@ -82,4 +86,8 @@ mat-card.mat-card{
         background: #e0e0e0;
         border-radius: 3px
     }
+ }
+
+ .mat-tab-label, .mat-tab-link{
+    font-size: 12px;
  }

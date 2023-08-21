@@ -75,6 +75,7 @@ h5 {
 }
 .navbar-top-links li {
   display: inline-block;
+  margin: 0 5px;
 }
 .navbar-top-links li:last-child {
   margin-right: 10px;
@@ -82,6 +83,11 @@ h5 {
 .body-small .navbar-top-links li:last-child {
   margin-right: 0;
 }
+
+.body-small .navbar-top-links li {
+  margin: 0 2px;
+}
+
 .navbar-top-links li a {
   padding: 20px 10px;
   min-height: 50px;
@@ -3473,7 +3479,7 @@ body {
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 html,
 body {
@@ -3897,7 +3903,7 @@ code {
 }
 .ibox {
   clear: both;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   margin-top: 0;
   padding: 0;
 }
