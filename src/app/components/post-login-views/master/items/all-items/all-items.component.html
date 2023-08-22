@@ -10,14 +10,20 @@
                 <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="addNewItem()">
                     <mat-icon>add_box</mat-icon>
                 </button>
-                <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" (click)="editItem()"
-                    [disabled]="selectedRowIndex == -1">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-raised-button class="toolbar-button" matTooltip="Delete Item"
-                    [disabled]="selectedRowIndex == -1" (click)="deleteSelectedItem()">
-                    <mat-icon>delete</mat-icon>
-                </button>
+
+                <ng-container [ngSwitch]="currentBreakpoint">
+                    <ng-container *ngSwitchCase="Breakpoints.Web">
+                        <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" (click)="editItem()"
+                            [disabled]="selectedRowIndex == -1">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button class="toolbar-button" matTooltip="Delete Item"
+                            [disabled]="selectedRowIndex == -1" (click)="deleteSelectedItem()">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </ng-container>
+                </ng-container>
+                
                 <button mat-raised-button class="toolbar-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -40,80 +46,94 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search item by name" #filterInput>
             </mat-form-field>
 
-            <!-- <div class="ibox-content">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example">
-                        <thead>
-                            <tr>
-                                <th *ngFor="let column of displayedColumns; let i = index">
-                                    {{ column }}
-                                </th>                                
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="dataSource != undefined">
-                            <tr *ngFor="let row of dataSource.data; let rowIdx = index">
-                                <td *ngFor="let column of displayedColumns; let colIdx = index">
-                                    {{ row[column] }}
-                                </td>
-                            </tr>                                                       
-                        </tbody>                        
-                    </table>
+            <div [ngSwitch]="currentBreakpoint">
+                <div class="responsive-table" *ngSwitchCase="Breakpoints.Web">                    
+                    <table mat-table class="innoventry-table"
+                        [dataSource]="dataSource" matSort aria-label="Elements">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                            <td mat-cell [class]="'itemName-txtLeft'" *matCellDef="let row">{{row.name}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="productCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</th>
+                            <td mat-cell *matCellDef="let row">{{row.productCode}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="groupName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Group Name</th>
+                            <td mat-cell *matCellDef="let row">{{row.groupName}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="unitName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit Name</th>
+                            <td mat-cell *matCellDef="let row">{{row.unitName}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="mrp">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
+                            <td mat-cell *matCellDef="let row">{{row.mrp}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="sellingPrice">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Selling Price</th>
+                            <td mat-cell *matCellDef="let row">{{row.sellingPrice}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="taxClassName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax Class Name</th>
+                            <td mat-cell *matCellDef="let row">{{row.taxClassName}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="hsnCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>HSN Code</th>
+                            <td mat-cell *matCellDef="let row">{{row.hsnCode}}</td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
+                        </tr>
+                    </table>                                         
                 </div>
-            </div> -->
+                <!-- <span *ngSwitchCase="Breakpoints.TabletPortrait"> 
 
-            <div class="responsive-table">
-                <table mat-table class="innoventry-table"
-                    [dataSource]="dataSource" matSort aria-label="Elements">
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                        <td mat-cell [class]="'itemName-txtLeft'" *matCellDef="let row">{{row.name}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="productCode">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</th>
-                        <td mat-cell *matCellDef="let row">{{row.productCode}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="groupName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Group Name</th>
-                        <td mat-cell *matCellDef="let row">{{row.groupName}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="unitName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit Name</th>
-                        <td mat-cell *matCellDef="let row">{{row.unitName}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="mrp">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
-                        <td mat-cell *matCellDef="let row">{{row.mrp}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="sellingPrice">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Selling Price</th>
-                        <td mat-cell *matCellDef="let row">{{row.sellingPrice}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="taxClassName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax Class Name</th>
-                        <td mat-cell *matCellDef="let row">{{row.taxClassName}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="hsnCode">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>HSN Code</th>
-                        <td mat-cell *matCellDef="let row">{{row.hsnCode}}</td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                        [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
-                    </tr>
-                </table>
+                </span> -->
+                <div class="responsive-table" *ngSwitchCase="Breakpoints.HandsetPortrait || Breakpoints.TabletPortrait">                    
+                    <mat-card class="mb-1" *ngFor="let item of dataSource.data">
+                        <mat-card-content>  
+                            <div [fxLayout]="'row'" [fxFlex]="100" fxLayoutAlign="start center">
+                                <div [fxFlex]="75">
+                                    <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-around">
+                                        <span class="theme-color">{{ item.productCode }}</span>
+                                        <span class="mb-1">{{ item.name }}</span>
+                                        <mat-chip-list
+                                            class="example-chip"
+                                            cdkDropList 
+                                            cdkDropListOrientation="horizontal">
+                                            <mat-chip *ngIf="item.taxClassName">{{ item.taxClassName }}</mat-chip>
+                                            <mat-chip *ngIf="item.mrp">M.R.P {{ item.mrp | number : '1.2-2'}}</mat-chip>
+                                        </mat-chip-list>
+                                    </div>
+                                </div>
+                                <div [fxFlex]="25" [fxLayout]="'row'">
+                                    <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" (click)="highlight(item); editItem()">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-raised-button class="toolbar-button" matTooltip="Delete Item"
+                                        (click)="highlight(item); deleteSelectedItem()">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-card-content>                                            
+                    </mat-card>
+                </div>    
+                <mat-paginator #paginator [length]="totalRowCount" [pageIndex]="currentPage" [pageSize]="200"
+                        [pageSizeOptions]="[100, 200, 500]" (page)="pageChanged($event)" showFirstLastButtons
+                        aria-label="Select page">
+                </mat-paginator>                             
             </div>
-            <mat-paginator #paginator [length]="totalRowCount" [pageIndex]="currentPage" [pageSize]="200"
-                [pageSizeOptions]="[100, 200, 500]" (page)="pageChanged($event)" showFirstLastButtons
-                aria-label="Select page">
-            </mat-paginator>
         </mat-card-content>
     </mat-card>
 </div>

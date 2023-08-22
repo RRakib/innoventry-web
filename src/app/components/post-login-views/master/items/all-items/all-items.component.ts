@@ -1,7 +1,10 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 import { DownloadService } from 'src/app/services/download.service';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { GetObjectsArgument, PItemMaster } from 'src/server';
@@ -15,6 +18,9 @@ import { ItemServiceGetReportAsFile } from 'src/server/model/itemServiceGetRepor
   styleUrls: ['./all-items.component.css']
 })
 export class AllItemsComponent implements OnInit, AfterViewInit {
+
+  Breakpoints = Breakpoints; // To be used in template html
+  currentBreakpoint : string = '';
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   public displayedColumns : Array<string> = ['name',
@@ -39,7 +45,8 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
   filterInput: ElementRef;
 
   constructor(private router: Router, private itemServiceApi : ItemServiceService, private overlayService : OverlayService, 
-    private downloadService : DownloadService) {    
+    private downloadService : DownloadService,
+    private breakPointService: BreakPointService) {    
   }
 
   ngOnInit(): void {
@@ -47,10 +54,18 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
     this.getItemsByCriteria.pageSize = 200;
     this.getItemsByCriteria.genericSearch = false; 
 
-    this.getAllItems();
+    this.getItems();
+
+    this.breakPointService.breakpointObservable$.subscribe({
+      next: (data) => {
+        this.currentBreakpoint = data;
+      }
+    });
   }
 
-  private getAllItems() {
+
+
+  private getItems(): void {
 
     this.dataSource.data  = [];
     this.overlayService.enableProgressSpinner();
@@ -110,8 +125,9 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
     if (window.confirm('Are you sure want to delete this item ?')) {
         this.itemServiceApi._delete(this.selectedRowIndex)
         .subscribe({
-          next: (data) => {          
-            this.getAllItems();
+          next: (data) => {
+            this.filterInput.nativeElement.value = '';          
+            this.getItems();
           }
         });
     }
@@ -126,7 +142,7 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
     this.getItemsByCriteria.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
 
-    this.getAllItems();
+    this.getItems();
   }
 
 

@@ -13,6 +13,7 @@ import { EditReportService } from 'src/app/services/editReport.service';
 import { CompanyPlanServiceService } from 'src/server';
 import { SideNavigationComponent } from '../layouts/side-navigation/side-navigation.component';
 import { TopNavbarComponent } from '../layouts/top-navbar/top-navbar.component';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 @NgModule({
   declarations: [       
@@ -29,7 +30,8 @@ import { TopNavbarComponent } from '../layouts/top-navbar/top-navbar.component';
   providers: [AuthGuard, SecurityManagerServiceService, PermissionsProvider, 
     CommonUtils,
     EditReportService,
-    CompanyPlanServiceService],
+    CompanyPlanServiceService, 
+    BreakPointService],
   bootstrap: []
 })
 export class WelcomeModule { }

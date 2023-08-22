@@ -27,7 +27,7 @@ table.innoventry-table tr.mat-header-row {
 }
 .responsive-table{
     position: relative;
-    max-height: 400px;
+    max-height: calc(100vh - 240px);
     overflow: auto;
     border-bottom: 1px solid grey;
 }
