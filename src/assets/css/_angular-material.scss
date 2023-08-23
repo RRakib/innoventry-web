@@ -35,6 +35,12 @@
 
 .mat-card {
     border-radius: 0px !important;
+
+    .content-list{
+        max-height: calc(100vh - 202px);
+        overflow-y: auto;
+        margin-bottom: 0px;
+    }
 }
 
 
