@@ -2,7 +2,7 @@
     <mat-card>
         <div class="fl-sb-center">
             <div class="col-10">
-                <h2>New Item</h2>
+                <h2 class="theme-color">New Item</h2>
             </div>
             <div class="col-2">
                 <button type="button" class="btn btn-w-m btn-default" (click)="viewAllItems()">
@@ -22,7 +22,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Item Information </h5>                        
+                            <h5 class="theme-color">Item Information </h5>                        
                         </div>
                         <div class="ibox-content">
                             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
@@ -66,7 +66,7 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Price Information </h5>
+                            <h5 class="theme-color">Price Information </h5>
                         </div>
                         <div class="ibox-content">
                             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
@@ -120,7 +120,7 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title fl-sb-center">
-                            <h5>Stock Information </h5>
+                            <h5 class="theme-color">Stock Information </h5>
                             <section class="example-section">
                                 <mat-checkbox class="example-margin"  formControlName="maintainStock">Maintain Stock</mat-checkbox>              
                             </section>
@@ -179,7 +179,7 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Accounting Information </h5>
+                            <h5 class="theme-color">Accounting Information </h5>
                         </div>
                         <div class="ibox-content">
                             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
@@ -262,7 +262,7 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Item Grouping & Features</h5>
+                            <h5 class="theme-color">Item Grouping & Features</h5>
                         </div>
                         <div class="ibox-content">
                             <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
@@ -305,211 +305,5 @@
     
 </form>
 
-
-<!-- <mat-card-content  class="text-center" *ngIf="isFormLoaded">
-            <form [formGroup]="itemForm">
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Enter Item Name"
-                            #name name="name" id="name"
-                            formControlName="name">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Product Code</mat-label>
-                        <input matInput placeholder="Enter Product Code"
-                            #productCode name="productCode" id="productCode"
-                            formControlName="productCode">
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>HSN Code</mat-label>
-                        <input matInput placeholder="Enter HSN Code"
-                            #hsnCode name="hsnCode" id="hsnCode"
-                            formControlName="hsnCode">
-                    </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Unit</mat-label>
-                        <input type="text"
-                            placeholder="Select Item Unit" 
-                            aria-label="unit"
-                            matInput                    
-                            [matAutocomplete]="autoUnit"
-                            formControlName="unitName">
-                            <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoUnit="matAutocomplete" (optionSelected)="onUnitSelectionChanged($event)">
-                        <mat-option *ngFor="let option of itemUnits  | async" [value]="option.displayName">
-                            {{option.displayName}}
-                        </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </div>
-                
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">                
-                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Item Group</mat-label>
-                        <input type="text"
-                            placeholder="Select Item Group" 
-                            aria-label="itemGroup"
-                            matInput                    
-                            [matAutocomplete]="autoItemGroup"
-                            formControlName="itemgroupName"                            
-                            (blur)="blurItemGroupSelection($event)">
-                            <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoItemGroup="matAutocomplete" 
-                            (optionSelected)="onItemGroupSelectionChanged($event)">
-                        <mat-option *ngFor="let option of filteredItemGroups  | async" [value]="option.name">
-                            {{option.name}}
-                        </mat-option>
-                        </mat-autocomplete>
-                        <mat-error>
-                            {{ itemForm.get('itemgroupName')?.errors?.['forbiddenNames']?.value }}
-                        </mat-error>                       
-                    </mat-form-field>
-
-
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>M.R.P.</mat-label>
-                        <input matInput placeholder="Enter M.R.P."
-                            #hsnCode name="mrp" id="mrp"
-                            formControlName="mrp">
-                    </mat-form-field>
-                </div>
-
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Selling Price</mat-label>
-                        <input matInput placeholder="Enter Selling Price"
-                            #sellingPrice name="sellingPrice" id="sellingPrice"
-                            formControlName="sellingPrice">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Opening Rate</mat-label>
-                        <input matInput placeholder="Enter Opening Rate"
-                            #openingRate name="openingRate" id="openingRate"
-                            formControlName="openingRate">
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Minimum Stock</mat-label>
-                        <input matInput placeholder="Enter Min. Stock"
-                            #minStock name="minStock" id="minStock"
-                            formControlName="minStock">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Maximum Stock</mat-label>
-                        <input matInput placeholder="Enter Max. Stock"
-                            #maxStock name="maxStock" id="maxStock"
-                            formControlName="maxStock">
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Opening Stock</mat-label>
-                        <input matInput placeholder="Enter Opening Stock"
-                            #openingStock name="openingStock" id="openingStock"
-                            formControlName="openingStock">
-                    </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Sale Accounts</mat-label>
-                        <input type="text"
-                            placeholder="Select Sale Accounts" 
-                            aria-label="saleAccounts"
-                            matInput                    
-                            [matAutocomplete]="autoSaleAccounts"
-                            formControlName="ledgerName"
-                            (blur)="blurSaleAccountSelection($event)">
-                            <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoSaleAccounts="matAutocomplete" 
-                            (optionSelected)="onSaleAccountSelectionChanged($event)">
-                        <mat-option *ngFor="let option of filteredSaleAccounts  | async" [value]="option.name">
-                            {{option.name}}
-                        </mat-option>
-                        </mat-autocomplete>
-                        <mat-error>
-                            {{ itemForm.get('ledgerName')?.errors?.['forbiddenNames']?.value }}
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">                
-                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Purchase Accounts</mat-label>
-                        <input type="text"
-                            placeholder="Select Purchase Accounts" 
-                            aria-label="purchaseAccounts"
-                            matInput                    
-                            [matAutocomplete]="autoPurchaseAccounts"
-                            formControlName="purchaseAccountLedgerName"
-                            (blur)="blurPurchaseAccountSelection($event)">
-                            <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoPurchaseAccounts="matAutocomplete" (optionSelected)="onPurchaseAccountSelectionChanged($event)">
-                        <mat-option *ngFor="let option of filteredPurchaseAccounts  | async" [value]="option.name">
-                            {{option.name}}
-                        </mat-option>
-                        </mat-autocomplete>
-                        <mat-error>
-                            {{ itemForm.get('purchaseAccountLedgerName')?.errors?.['forbiddenNames']?.value }}
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="innov-matFormField mr-1" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Tax Class</mat-label>
-                        <input type="text"
-                            placeholder="Select Tax Class" 
-                            aria-label="taxClass"
-                            matInput                    
-                            [matAutocomplete]="autoTaxClass"
-                            formControlName="taxClassName"
-                            (blur)="blurTaxClassSelection($event)">
-                            <mat-icon matSuffix class="search-icon">search</mat-icon>
-                        <mat-autocomplete autoActiveFirstOption #autoTaxClass="matAutocomplete" (optionSelected)="onTaxClassSelectionChanged($event)">
-                        <mat-option *ngFor="let option of filteredTaxClass  | async" [value]="option.name">
-                            {{option.name}}
-                        </mat-option>
-                        </mat-autocomplete>
-                        <mat-error>
-                            {{ itemForm.get('taxClassName')?.errors?.['forbiddenNames']?.value }}                     
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                    
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Stock Attribute Group</mat-label>
-                        <mat-select formControlName="itemAttributeGroupId" name="itemAttributeGroupId">
-                          <mat-option *ngFor="let attributeGroup of allAttributeGroups" [value]="attributeGroup.id">
-                            {{attributeGroup.name}}
-                          </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                        <mat-label>Item Attribute Group</mat-label>
-                        <mat-select formControlName="tradeItemGroupId" name="tradeItemGroupId">
-                          <mat-option *ngFor="let attributeGroup of allAttributeGroups" [value]="attributeGroup.id">
-                            {{attributeGroup.name}}
-                          </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">
-                    <div class="text-left">
-                        <section class="example-section">
-                            <mat-checkbox class="example-margin"  formControlName="maintainStock">Maintain Stock</mat-checkbox>              
-                        </section>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-w-m btn-default" (click)="viewAllItems()">
-                            Cancel
-                        </button>  
-
-                        <button type="button" class="btn btn-w-m btn-primary mar-left-5" (click)="saveItem()">
-                            <i class="fa fa-floppy-o"></i>&nbsp;Save
-                        </button>                         
-                    </div>
-                </div>
-            </form>
-        </mat-card-content> -->
 
 

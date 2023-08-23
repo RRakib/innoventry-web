@@ -108,7 +108,7 @@ export class NewItemComponent implements OnInit {
         this.getSalePurchaseAccounts$(data[1]).subscribe({
           next: (data) => {
              this.purchaseAccounts = data[0];
-             this.saleAccounts = data[1];
+             this.saleAccounts = data[1];          
 
              this.itemForm = this.formBuilder.group({
               jacksontype : 'ItemImpl',
@@ -143,6 +143,26 @@ export class NewItemComponent implements OnInit {
             });
         
             this.getAvailableUnitsByCriteria.genericSearch = false; 
+
+            if(this.item.purchaseAccountLedgerName == undefined){
+              let purchaseAccount = this.purchaseAccounts.find((prAccount) => prAccount.name == 'Purchase Account');
+              if(purchaseAccount != undefined) {
+                this.itemForm.patchValue({
+                  purchaseAccountLedgerId : purchaseAccount.id,
+                  purchaseAccountLedgerName : purchaseAccount.name
+                });
+              }
+            }
+
+            if(this.item.ledgerName == undefined){
+              let saleAccount = this.saleAccounts.find((prAccount) => prAccount.name == 'Sale Account');
+              if(saleAccount != undefined) {
+                this.itemForm.patchValue({
+                  ledgerId : saleAccount.id,
+                  ledgerName : saleAccount.name
+                });
+              }
+            }
     
             //start with the value available in form i.e in New it will be null 
             //and Edit it will be searched with actual item unit  
@@ -185,6 +205,16 @@ export class NewItemComponent implements OnInit {
    * And bind the auto-complete textbox with the valueChanges event.
    */
    private getItemGroups() : void {
+
+    // In case of new item, attach Default as item group.
+    if(this.itemForm.controls["itemgroupName"].value == undefined){
+      let defaultItemGroup = this.itemGroups.find((itemGroup) => itemGroup.name == 'Default');
+      this.itemForm.patchValue({
+        itemgroupId: defaultItemGroup?.id,
+        itemgroupName: defaultItemGroup?.name
+      });
+    }
+
     this.filteredItemGroups = this.itemForm.controls["itemgroupName"].valueChanges.pipe(startWith(this.itemForm.controls["itemgroupName"].value), map(value => this._filterItemGroups(value || '')));
   }
 

@@ -40,14 +40,14 @@
             </div>
         </mat-card-header>
 
-        <mat-card-content>
+        <mat-card-content class="content-list">
             <mat-form-field appearance="standard">
                 <mat-label>Search Item</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search item by name" #filterInput>
-            </mat-form-field>
+            </mat-form-field>             
 
             <div [ngSwitch]="currentBreakpoint">
-                <div class="responsive-table" *ngSwitchCase="Breakpoints.Web">                    
+                <div *ngSwitchCase="Breakpoints.Web">                    
                     <table mat-table class="innoventry-table"
                         [dataSource]="dataSource" matSort aria-label="Elements">
                         <ng-container matColumnDef="name">
@@ -99,7 +99,7 @@
                 <!-- <span *ngSwitchCase="Breakpoints.TabletPortrait"> 
 
                 </span> -->
-                <div class="responsive-table" *ngSwitchCase="Breakpoints.HandsetPortrait || Breakpoints.TabletPortrait">                    
+                <div *ngSwitchCase="Breakpoints.HandsetPortrait || Breakpoints.TabletPortrait">                    
                     <mat-card class="mb-1" *ngFor="let item of dataSource.data">
                         <mat-card-content>  
                             <div [fxLayout]="'row'" [fxFlex]="100" fxLayoutAlign="start center">
@@ -128,12 +128,12 @@
                             </div>
                         </mat-card-content>                                            
                     </mat-card>
-                </div>    
-                <mat-paginator #paginator [length]="totalRowCount" [pageIndex]="currentPage" [pageSize]="200"
+                </div>                                           
+            </div>
+        </mat-card-content>   
+        <mat-paginator #paginator [length]="totalRowCount" [pageIndex]="currentPage" [pageSize]="200"
                         [pageSizeOptions]="[100, 200, 500]" (page)="pageChanged($event)" showFirstLastButtons
                         aria-label="Select page">
-                </mat-paginator>                             
-            </div>
-        </mat-card-content>
+        </mat-paginator>      
     </mat-card>
 </div>
