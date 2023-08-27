@@ -36,7 +36,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
                 }  
                 
                 if(401 == err.status) {
-                    this._snackBar.open("Session Expired", 'Dismiss', {
+                    this._snackBar.open('Authentication failed', 'Dismiss', {
                         horizontalPosition: this.horizontalPosition,
                         verticalPosition: this.verticalPosition,
                         duration: 2000,

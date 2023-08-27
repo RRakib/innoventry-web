@@ -58,8 +58,21 @@ body {
     margin-bottom: 5px;
 }
 
+.fl-sb-center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .theme-color{
     color: #00458d;
+}
+
+
+.scrollable-content{
+    max-height: calc(100vh - 175px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .width100{

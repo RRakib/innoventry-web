@@ -79,7 +79,7 @@ export class AllItemsComponent implements OnInit, AfterViewInit {
           this.paginator.length = data.count;
         });
 
-        this.filterInput.nativeElement.focus();
+        // this.filterInput.nativeElement.focus();
 
         this.overlayService.disableProgressSpinner();
       },

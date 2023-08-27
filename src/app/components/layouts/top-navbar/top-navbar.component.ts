@@ -5,9 +5,8 @@ import { TopMenuConstants } from 'src/app/configs/TopMenuConstants';
 import { NavItem } from 'src/app/models/NavItem';
 import * as _ from "lodash";
 import { PermissionsProvider } from 'src/app/services/permissions.provider';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, map, shareReplay } from 'rxjs';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 declare var jQuery:any;
 
@@ -17,13 +16,6 @@ declare var jQuery:any;
   styleUrls: ['./top-navbar.component.css']
 })
 export class TopNavbarComponent implements OnInit {
-
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-  );
   
   navItems: NavItem[]; // Side Menu Items
   private menu: NavItem[]; // Private variable for Side Menus
@@ -31,7 +23,7 @@ export class TopNavbarComponent implements OnInit {
   isMenuLoaded: boolean = false;
 
   constructor(private permissionProvider : PermissionsProvider, public router: Router, 
-     private breakpointObserver: BreakpointObserver) { }
+     private breakPointService: BreakPointService) { }
 
   ngOnInit(): void {
     this.getMenu();
