@@ -1,4 +1,242 @@
-<div class="mat-elevation-z8">
+<form [formGroup]="ledgerForm" *ngIf="isFormLoaded">
+    <mat-card>
+        <div class="fl-sb-center">
+            <div class="col-10">
+                <h2 class="theme-color">New Ledger</h2>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-w-m btn-default" (click)="viewAllLedgers()">
+                    <i class="fa fa-arrow-circle-left"></i>&nbsp;All Ledgers
+                </button>
+
+                <button type="button" class="btn btn-w-m btn-primary" (click)="saveLedger()">
+                    <i class="fa fa-floppy-o"></i>&nbsp;Save
+                </button>
+            </div>
+        </div>
+    </mat-card>
+
+    <div class="scrollable-content">
+
+        <div class="wrapper wrapper-content animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="theme-color">Contact Details</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-around">
+                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                                    <mat-form-field appearance="outline" [class]="'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter Ledger Name"
+                                            #name name="name" id="name"
+                                            formControlName="name">
+                                    </mat-form-field>    
+                
+                                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Print Name</mat-label>
+                                        <input matInput placeholder="Enter Print Name"
+                                            #displayName name="printName" id="printName"
+                                            formControlName="printName">
+                                    </mat-form-field> 
+    
+                                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Ledger Group</mat-label>
+                                        <mat-select formControlName="ledgerGroupId" name="ledgerGroupId">
+                                          <mat-option *ngFor="let ledgerGroup of ledgerGroups" [value]="ledgerGroup.id">
+                                            {{ledgerGroup.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                
+                                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start" fxFlex="50">                    
+                                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" 
+                                            [fxFlex]="80">
+                                            <mat-label>Opening Balance</mat-label>
+                                            <input type="number" matInput placeholder="Enter Opening Balance"
+                                                #name name="openingBal" id="openingBal"
+                                                formControlName="openingBal">
+                                        </mat-form-field>    
+                
+                                        <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
+                                         [fxFlex]="20">
+                                            <mat-label>Type</mat-label>
+                                            <mat-select formControlName="openingBalType" name="openingBalType">
+                                                <mat-option value="CR">Cr</mat-option>
+                                                <mat-option value="DR">Dr</mat-option>
+                                                </mat-select>
+                                        </mat-form-field> 
+                                    </div>
+                                </div>
+
+                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Mobile</mat-label>
+                                        <input matInput placeholder="Enter Mobile Number"
+                                            #name name="mobile" id="mobile"
+                                            formControlName="mobile">
+                                    </mat-form-field> 
+            
+                                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Email ID</mat-label>
+                                        <input matInput placeholder="Enter Email ID"
+                                            #displayName name="email" id="email"
+                                            formControlName="email">
+                                    </mat-form-field>  
+            
+                                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Alternate Mobile Number</mat-label>
+                                        <input matInput placeholder="Enter Alt. Mobile Number"
+                                            #name name="alternateNo1" id="alternateNo1"
+                                            formControlName="alternateNo1">
+                                    </mat-form-field> 
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="theme-color">Address Details</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'"
+                                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Country</mat-label>
+                                        <mat-select formControlName="countryName" name="countryName">
+                                            <mat-option *ngFor="let country of countries" [value]="country.countryName">
+                                                {{country.countryName}}
+                                            </mat-option>                                
+                                        </mat-select>
+                                </mat-form-field>   
+
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
+                                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>State</mat-label>
+                                        <mat-select formControlName="stateId" name="stateId">
+                                            <mat-option *ngFor="let state of states" [value]="state.stateId">
+                                                {{state.stateName}}
+                                            </mat-option>   
+                                        </mat-select>
+                                </mat-form-field>  
+                                
+                                <mat-form-field [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" appearance="outline"  [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>City</mat-label>
+                                    <input type="text"
+                                        placeholder="Select City" 
+                                        aria-label="city"
+                                        matInput                    
+                                        [matAutocomplete]="autoCity"
+                                        formControlName="cityName">
+                                        <mat-icon matSuffix class="search-icon">search</mat-icon>
+                                    <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete" 
+                                            (optionSelected)="onCitySelectionChanged($event)">
+                                        <mat-option *ngFor="let option of filteredCities  | async" [value]="option.cityName">
+                                            {{option.cityName}}
+                                        </mat-option>
+                                    </mat-autocomplete>                                              
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="theme-color">Tax Information</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>GSTIN</mat-label>
+                                    <input matInput placeholder="Enter GSTIN"
+                                        #name name="gstin" id="gstin"
+                                        formControlName="gstin">
+                                </mat-form-field>    
+            
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
+                                    [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                        <mat-label>Type</mat-label>
+                                        <mat-select formControlName="gstType" name="gstType">
+                                            <mat-option value="Regular">Regular</mat-option>
+                                            <mat-option value="Composition">Composition</mat-option>
+                                            <mat-option value="Unregistered">Unregistered</mat-option>
+                                        </mat-select>
+                                </mat-form-field>
+                                
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>PAN Number</mat-label>
+                                    <input matInput placeholder="Enter PAN Number"
+                                        #name name="panNumber" id="panNumber"
+                                        formControlName="panNumber">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="theme-color">Bank Details</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>Bank Name</mat-label>
+                                    <input matInput placeholder="Enter Bank Name"
+                                        #name name="bankName" id="bankName"
+                                        formControlName="bankName">
+                                </mat-form-field>    
+            
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>Branch Name</mat-label>
+                                    <input matInput placeholder="Enter Branch Name"
+                                        #displayName name="branchName" id="branchName"
+                                        formControlName="branchName">
+                                </mat-form-field> 
+    
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>IFSC Code</mat-label>
+                                    <input matInput placeholder="Enter Bank IFSC Code"
+                                        #name name="bankIfscCode" id="bankIfscCode"
+                                        formControlName="bankIfscCode">
+                                </mat-form-field>    
+            
+                                <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <mat-label>Bank Account No.</mat-label>
+                                    <input matInput placeholder="Enter Bank Account No."
+                                        #displayName name="bankAcNo" id="bankAcNo"
+                                        formControlName="bankAcNo">
+                                </mat-form-field>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+</form>
+<!-- <div class="mat-elevation-z8">
     <mat-card>
         <mat-card-header [class]="'mat-card-headers'">
             <mat-card-title>
@@ -206,4 +444,4 @@
             </form>
         </mat-card-content>
     </mat-card>
-</div>
+</div> -->

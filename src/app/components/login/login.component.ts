@@ -43,15 +43,15 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    let companyId = this.loginForm!.get("companyId")!.value
-    let username = this.loginForm!.get("username")!.value;
-    let password = this.loginForm!.get("password")!.value;
+    let companyId = this.loginForm!.get("companyId")!.value.replace(/\s/g, "");
+    let username = this.loginForm!.get("username")!.value.replace(/\s/g, "");
+    let password = this.loginForm!.get("password")!.value.replace(/\s/g, "");
 
     this.loginForm.markAllAsTouched();
 
     if (this.loginForm.valid) {
 
-      this.authenticationService.login(username, password, companyId)
+      this.authenticationService.login(username.trim(), password, companyId)
         .subscribe({
           next: (data) => {
             // login successful if there's a  token in the response

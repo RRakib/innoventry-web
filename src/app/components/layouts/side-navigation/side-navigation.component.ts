@@ -1,12 +1,12 @@
 import { AfterContentChecked, AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { correctHeight, detectBody } from 'src/app/components/post-login-views/welcome/welcome.helpers';
+import { correctHeight, detectBody, smoothlyMenu } from 'src/app/components/post-login-views/welcome/welcome.helpers';
 import { MenuConstants } from 'src/app/configs/MenuConstants';
 import { NavItem } from 'src/app/models/NavItem';
 import { PermissionsProvider } from 'src/app/services/permissions.provider';
 import * as _ from "lodash";
-import { AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 declare var jQuery:any;
 
@@ -27,7 +27,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
   companyId : string;
 
   constructor(private permissionProvider : PermissionsProvider, public router: Router,
-    private authService : AuthenticationService) { 
+    private authService : AuthenticationService, private breakPointService : BreakPointService) { 
     this.userName = localStorage.getItem("userName") || '';
     this.companyId = localStorage.getItem("companyId") || '';
   }
@@ -89,7 +89,12 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
         //    car.make === 'BWM'
         return parent.children?.find((child) => child.displayName === item.displayName ? child : 
           child.children?.find((child1) => child1.displayName == item.displayName));
-      });
+      });      
+
+      if(!this.breakPointService.isWeb()){
+        jQuery("body").toggleClass("mini-navbar");
+        smoothlyMenu();
+      }
 
       this.router.navigate([parentMenu[0].route + "/" + item.route]);
      

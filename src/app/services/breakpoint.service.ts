@@ -32,4 +32,8 @@ export class BreakPointService {
     get breakpointObservable$()  {
         return this.breakPointBehaviorSubject$.asObservable();
     }
+
+    public isWeb() : boolean{
+        return this.breakPointBehaviorSubject$.value == Breakpoints.Web ? true : false;
+    }
 }

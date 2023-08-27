@@ -1,7 +1,9 @@
+import { Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { GetObjectsArgument, PLedgerMaster } from 'src/server';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -12,6 +14,9 @@ import { LedgerServiceService } from 'src/server/api/ledgerService.service';
   styleUrls: ['./all-ledgers.component.css']
 })
 export class AllLedgersComponent implements OnInit, AfterViewInit {
+
+  Breakpoints = Breakpoints; // To be used in template html
+  currentBreakpoint : string = '';
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   public displayedColumns = ['name',
@@ -28,18 +33,26 @@ export class AllLedgersComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource<PLedgerMaster>([]);
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
   selectedRowIndex = -1;
+  currentPage = 0;
 
   @ViewChild('filterInput') 
   filterInput: ElementRef;
 
   constructor(private overlayService : OverlayService, private router: Router, 
-    private ledgerServiceApi : LedgerServiceService) { }
+    private ledgerServiceApi : LedgerServiceService,
+    private breakPointService: BreakPointService) { }
 
   ngOnInit(): void {
     this.getLedgersByCriteria.startPageIndex = 0;
     this.getLedgersByCriteria.genericSearch = false; 
 
     this.getAllLedgers();
+
+    this.breakPointService.breakpointObservable$.subscribe({
+      next: (data) => {
+        this.currentBreakpoint = data;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -54,7 +67,7 @@ export class AllLedgersComponent implements OnInit, AfterViewInit {
     this.ledgerServiceApi.getPLedgerMasterList(this.getLedgersByCriteria).subscribe({
       next: (data) => {
         this.dataSource.data = data.objects || [];
-        this.filterInput.nativeElement.focus();
+        // this.filterInput.nativeElement.focus();
 
         this.overlayService.disableProgressSpinner();
       },
@@ -63,8 +76,26 @@ export class AllLedgersComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value;    
+
+    this.getLedgersByCriteria.nameSearchText = filterValue;
+    this.getLedgersByCriteria.startPageIndex = 0;
+
+    this.ledgerServiceApi.getPLedgerMasterList(this.getLedgersByCriteria).subscribe({
+      next: (data) => {                
+        this.dataSource.data = data.objects || [];
+
+        setTimeout(() => {
+          this.paginator.pageIndex = this.currentPage;
+          this.paginator.length = data.count;
+        });
+
+        // this.filterInput.nativeElement.focus();
+      },
+      error: () => {  }
+    });
+
+
   }
 
   addNewLedger() : void {
