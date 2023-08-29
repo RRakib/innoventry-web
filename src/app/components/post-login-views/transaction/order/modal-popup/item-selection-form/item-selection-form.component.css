@@ -8,6 +8,13 @@
     height: 100vh !important;
 }
 
+::ng-deep.item-selection-dialog-container_mobile ::ng-deep.mat-dialog-container {    
+    padding: 10px !important;      
+    margin-bottom: 100px;
+    overflow-y: auto;
+    max-height: 75vh !important;
+}
+
 :host ::ng-deep .mat-form-field-wrapper {
     padding-bottom: 0px;
 }
@@ -26,11 +33,11 @@
 }
 
 .footer-section{
-    height: 20px;   
+    height: 20px;  
+    margin-top: 20px; 
 }
 
-.selection-form-container{
-    height: calc(100vh - 90px);
+.selection-form-container{    
     max-height: calc(100vh - 90px);
     overflow-y: auto;    
 }

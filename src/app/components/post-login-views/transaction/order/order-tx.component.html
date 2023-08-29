@@ -113,178 +113,22 @@
                             <mat-card-header [class]="'mat-card-headers'">                
                                 <mat-card-subtitle class="d-flex flex-column">
                                     Items & Services                      
-                                </mat-card-subtitle>
-                                <div>                    
-                                    <mat-slide-toggle matSuffix color="primary" class="font14 fw-500" formControlName="isTaxDeductionFromAmountEnabled">
-                                        Deduct Tax From Amount
-                                    </mat-slide-toggle>                                  
-                                </div>
+                                </mat-card-subtitle>                                
                             </mat-card-header>
                             <mat-card-content>
-                
-                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                
-                                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                
-                                        <div [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField pr-1'" 
-                                            [fxFlex]="(isHandset$ | async) ? 100 : 70">
-                                            <item-box   [itemFormControl]="getItemFormControl('itemName')"  
-                                                [stockCountStatement]="stockCountStatement"
-                                                (onItemSelection)="onItemSelectionChange($event)">
-                                            </item-box>
-                                        </div>
-                
-                                       
-                
-                                        <mat-form-field appearance="outline" [class]="'innov-matFormField'" [fxFlex]="(isHandset$ | async) ? 100 : 30">
-                                            <mat-label>Location</mat-label>
-                                            <mat-select formControlName="stockLocation" name="stockLocation" (selectionChange)="getItemStockLocationCount()">
-                                                <mat-option *ngFor="let stockLocation of stockLocations" [value]="stockLocation.id">
-                                                {{stockLocation.name}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                
-                                    </div>
-                                    
-                
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                
-                                        <mat-form-field appearance="outline"
-                                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-1'" 
-                                            [fxFlex]="50">
-                                            <mat-label>Product Code</mat-label>
-                                            <input matInput placeholder="Product Code" #referenceNo name="itemProductCode"
-                                                id="itemProductCode" formControlName="itemProductCode">
-                                        </mat-form-field>
-                
-                                        <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField'"
-                                            [fxFlex]="50">
-                                            <mat-label>Unit</mat-label>
-                                            <input matInput placeholder="Unit" #referenceNo name="unitName"
-                                                id="unitName" formControlName="unitName">
-                                        </mat-form-field> 
-                                    </div>
-                                    
-                                </div>
-                
-                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                                        <mat-form-field appearance="outline"
-                                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1'"
-                                            [fxFlex]="50">
-                                            <mat-label>Quantity</mat-label>
-                                            <input matInput placeholder="Quantity" #quantity name="quantity"
-                                                id="quantity" formControlName="quantity">
-                                        </mat-form-field>
-                
-                                        <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField'"
-                                            [fxFlex]="50">
-                                            <mat-label>Rate</mat-label>
-                                            <input matInput placeholder="rate" #referenceNo name="rate"
-                                                id="rate" formControlName="rate">
-                                        </mat-form-field>
-                                           
-                                    </div> 
-                                    
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                                        <mat-form-field appearance="outline"
-                                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-1'" 
-                                            [fxFlex]="50">
-                                            <mat-label>Discount (%)</mat-label>
-                                            <input matInput placeholder="Discount (%)" #referenceNo name="discount"
-                                                id="discount" formControlName="discount">
-                                        </mat-form-field>
-                
-                                        <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField'" 
-                                            [fxFlex]="50">
-                                            <mat-label>Net Rate.</mat-label>
-                                            <input matInput placeholder="Net Rate" #referenceNo name="netRate"
-                                                id="netRate" formControlName="netRate">
-                                        </mat-form-field>
-                
-                                    </div>
-                                    
-                                </div>
-                
-                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                                        <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField pr-1'"                            
-                                            [fxFlex]="50">
-                                            <mat-label>Amount (Exc. Tax)</mat-label>
-                                            <input matInput placeholder="Amount Excluding Tax" #taxableAmount name="taxableAmountBeforeBillDiscount"
-                                                id="taxableAmountBeforeBillDiscount" formControlName="taxableAmountBeforeBillDiscount">
-                                        </mat-form-field>
-                
-                                        <div [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField'" 
-                                            [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                                            <tax-group-box [taxGroupFormControl]="getItemFormControl('taxGroupName')"
-                                                (onTaxGroupSelection)="onTaxGroupSelectionChanged($event)">
-                                            </tax-group-box>
-                                        </div>
-                
-                                    </div>
-                
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                
-                                        <mat-form-field appearance="outline"
-                                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-1'" 
-                                            [fxFlex]="50">
-                                            <mat-label>Tax Amount</mat-label>
-                                            <input matInput placeholder="taxAmount" #taxAmount name="taxAmount"
-                                                id="taxAmount" formControlName="taxAmount">
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField'" 
-                                            [fxFlex]="50">
-                                            <mat-label>Total Amount</mat-label>
-                                            <input matInput placeholder="Total Amount" #totalAmount name="totalAmount"
-                                                id="totalAmount" formControlName="totalAmountBeforeBillDiscount">
-                                        </mat-form-field>
-                
-                                    </div>
-                                </div>
-                
-                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill 
-                                    [fxLayoutAlign]="(isHandset$ | async) ? 'start': 'space-between'" 
-                                    class="mb-1">
-                                    <div [fxLayout]="'row'" [class]="(isHandset$ | async) ? 'mb-1' : ''" fxLayoutAlign="start" >
+                                <div [fxLayout]="'row'" fxflexfill [fxLayoutAlign]="'end'" class="mb-1">
+                                    <div class="table-action-buttons">
                                         <button mat-raised-button color="primary"
-                                            class="width100 mr-1"
+                                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
                                             [disabled]="selectedLineItemForEdit == undefined"
                                             (click)="editItemLine()">
                                             <mat-icon>edit</mat-icon>
                                         </button>
                                         <button mat-raised-button color="warn" 
-                                            class="width100 ml-1"
+                                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
                                             [disabled]="selectedLineItemForEdit == undefined"
                                             (click)="deleteItemLine()">
-                                        <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </div>
-                                    <div [fxLayout]="'row'"  fxLayoutAlign="end">
-                                        <button mat-raised-button class="button-group item_form-buttons"  (click)="cancelAddItem()">
-                                            <mat-icon>cancel</mat-icon>
-                                            Cancel
-                                        </button>
-                                        <button mat-raised-button class="button-group item_form-buttons"  color="primary" (click)="openServicesForm()">                            
-                                            <mat-icon>room_service</mat-icon>
-                                            Add Services
-                                        </button>
-                                        <button mat-raised-button class="button-group item_form-buttons"  color="primary"  (click)="showItemStockAttributes()">
-                                            <mat-icon>edit_attributes</mat-icon>
-                                            Attributes
-                                        </button>
-                                        <button mat-raised-button class="button-group item_form-buttons"  color="primary" (click)="addOrEditItemLine()">
-                                            <mat-icon>add_circle_outline</mat-icon>
-                                            Add Item
+                                            <mat-icon>delete</mat-icon>
                                         </button>
                                     </div>
                                 </div>
@@ -344,6 +188,9 @@
                                             <td class="mat-cell" [attr.colspan]="itemLineDisplayedColumns.length">
                                                 <a style="font-weight:500;cursor:pointer" 
                                                     (click)="openItemSelectionForm()">Add Item Line</a>
+                                                &nbsp; / &nbsp;
+                                                <a style="font-weight:500;cursor:pointer" 
+                                                    (click)="openServicesForm()">Add Service</a>
                                             </td>
                                         </tr>
                                       
@@ -356,8 +203,11 @@
                                       </table>                 
                                 </div>
                                 <div style="text-align:center" *ngIf="itemLinesDataSource.data.length > 0">
-                                    <a style="font-weight:500;cursor:pointer"  
+                                    <a style="font-weight:500;cursor:pointer"
                                         (click)="openItemSelectionForm()">Add Item Line</a>
+                                    &nbsp; / &nbsp;
+                                    <a style="font-weight:500;cursor:pointer" 
+                                        (click)="openServicesForm()">Add Service</a>
                                 </div>
                                 
                             </mat-card-content>           
@@ -371,26 +221,21 @@
                             </mat-card-subtitle>
                         </mat-card-header>
                         <mat-card-content>
-                            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between" class="mb-1">
+                            <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" class="mb-1">
                                 <div class="table-action-buttons">
                                     <button mat-raised-button color="primary" 
                                         [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
                                         [disabled]="selectedOtherChargeLineForEdit == undefined"
                                         (click)="editOtherChargeLine()">
                                         <mat-icon>edit</mat-icon>
-                                        </button>
-                                        <button mat-raised-button color="warn"
+                                    </button>
+                                    <button mat-raised-button color="warn"
                                         [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
                                         [disabled]="selectedOtherChargeLineForEdit == undefined"
                                         (click)="deleteOtherChargeLine()">
                                         <mat-icon>delete</mat-icon>
-                                        </button>
-                                </div>
-                                <div>                       
-                                    <button mat-raised-button class="button-group"  color="primary" (click)="openOtherChargesDiscountsModal()">
-                                        Add Other Charges/Discounts
                                     </button>
-                                </div>
+                                </div>                                
                             </div>
                 
                             <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start" class="responsive-table">
@@ -414,7 +259,9 @@
                 
                                     <tr class="mat-row" *matNoDataRow>
                                         <td class="mat-cell" [attr.colspan]="otherChargesDisplayedColumns.length">
-                                            No Other Charges/Discount Added
+                                            <a style="font-weight:500;cursor:pointer" 
+                                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges/Discounts
+                                            </a>                                            
                                         </td>
                                     </tr>
                                 
@@ -424,8 +271,12 @@
                                         [ngClass]="{'highlight': !!selectedOtherChargeLineForEdit && selectedOtherChargeLineForEdit.chargesId == row.chargesId}"
                                         (click)="setSelectedOtherChargeLine(row)">
                                     </tr>
-                                    </table> 
-                
+                                    </table>                 
+                            </div>
+                            <div style="text-align:center" *ngIf="otherChargesDataSource.data.length > 0">
+                                <a style="font-weight:500;cursor:pointer" 
+                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges/Discounts
+                                </a>
                             </div>
                         </mat-card-content>
                     </mat-card>

@@ -20,6 +20,7 @@ import { VoucherNumberServiceService } from 'src/server/api/voucherNumberService
 import { ISaleOrderTx } from 'src/server/model/models';
 import { SelectItemStockAttributeComponent } from '../modal-popup/select-item-stock-attribute/select-item-stock-attribute.component';
 import { OrderTxComponent } from '../order-tx.component';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 @Component({
   selector: 'app-sale',
@@ -41,14 +42,15 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<SaleComponent>,
     public dialog: MatDialog, private childItemService : ItemServiceService, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService,
+    private childBreakPointService : BreakPointService) {
 
     super(saleBreakpointObserver, childFormBuilder, 
       childstockLocationService, childTaxableEntityService,
       childTxProvider, childLedgerAttributesService, childBillingClassificationService,
       childOtherChargesService,_childSnackBar, ledgerService, childItemService, overlayService,
       childStockAttributeGroupLineService, dialog,
-      302, childTaxConfigurationService);
+      302, childTaxConfigurationService, childBreakPointService);
 
     this.headerTitle = 'Sale';
   }
@@ -213,7 +215,7 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
         disableClose: true,
         minWidth: 300
       }); 
-      StockAttributeDialogRef.afterClosed().subscribe(result => {        
+      StockAttributeDialogRef.afterClosed().subscribe(result => {    
         if(!!result && result.length > 0){
           if(!this.itemForm.contains("attributeGroupLines")) {
             this.itemForm.addControl("attributeGroupLines",new FormControl());
@@ -222,6 +224,8 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
           this.itemForm.patchValue({
             attributeGroupLines : result
           });
+
+          this.addOrEditItemLine();
         }
       });
     }

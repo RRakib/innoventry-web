@@ -18,6 +18,7 @@ import { OrderPaymentDetailComponent } from "./modal-popup/order-payment-detail/
 import { OrderServicesComponent } from "./modal-popup/order-services/order-services.component";
 import { OrderChargesDiscountsComponent } from "./modal-popup/order-charges-discounts/order-charges-discounts.component";
 import { ItemSelectionFormComponent } from "./modal-popup/item-selection-form/item-selection-form.component";
+import { BreakPointService } from "src/app/services/breakpoint.service";
 
 export abstract class OrderTxComponent {
 
@@ -26,6 +27,9 @@ export abstract class OrderTxComponent {
     map(result => result.matches),
     shareReplay()
   );
+
+  Breakpoints = Breakpoints; // To be used in template html
+  currentBreakpoint : string = '';
 
 
   public orderTxForm!: FormGroup;
@@ -79,7 +83,8 @@ export abstract class OrderTxComponent {
     private itemService : ItemServiceService, private parentOverlayService : OverlayService,
     private stockAttributeGroupLineService : StockAttributeGroupLineServiceService,
     public matDialog: MatDialog,private currentTxType: number,
-    private taxConfigurationService : TaxConfigurationServiceService
+    private taxConfigurationService : TaxConfigurationServiceService,
+    private breakPointService : BreakPointService
     ) { 
   } 
 
@@ -110,6 +115,12 @@ export abstract class OrderTxComponent {
     });
 
     this.updateStockLocation();
+
+    this.breakPointService.breakpointObservable$.subscribe({
+      next: (data) => {
+        this.currentBreakpoint = data;
+      }
+    });
     
   }
 
@@ -277,8 +288,11 @@ export abstract class OrderTxComponent {
    */
   openItemSelectionForm() : void{
     const ItemSelectionDialogRef = this.matDialog.open(ItemSelectionFormComponent, { 
-      panelClass: 'item-selection-dialog-container',    
+      panelClass: this.currentBreakpoint == Breakpoints.Web 
+        ? 'item-selection-dialog-container' 
+        : 'item-selection-dialog-container_mobile',
       data : {
+        itemForm: this.itemForm,
         itemLineEditMode: this.itemLineEditMode,
         itemLines: this.itemLines,
         selectedLineItemForEdit: this.selectedLineItemForEdit
@@ -287,10 +301,7 @@ export abstract class OrderTxComponent {
     }); 
 
     ItemSelectionDialogRef.afterClosed().subscribe((result) => {
-      this.itemLines = result.itemLines;
-      this.itemLinesDataSource.data = this.itemLines;
-
-      this.updateFinalAmounts();      
+      this.showItemStockAttributes();
     });
   }
 
@@ -709,7 +720,6 @@ export abstract class OrderTxComponent {
       this.stockCountStatement = '';
         
       this.itemLinesDataSource.data = this.itemLines;
-      this.itemForm.reset();     
 
       this.itemForm.controls["itemName"].removeValidators(Validators.required);      
       this.itemForm.controls["itemName"].updateValueAndValidity();
@@ -718,6 +728,8 @@ export abstract class OrderTxComponent {
       this.itemForm.patchValue({
         isTaxDeductionFromAmountEnabled: true
       })
+
+      this.itemForm.reset();
     }
        
   }
@@ -785,6 +797,8 @@ export abstract class OrderTxComponent {
           }   
 
           this.parentOverlayService.disableProgressSpinner();     
+
+          this.openItemSelectionForm();
         }
       });
     } else if(!!this.selectedLineItemForEdit && this.selectedLineItemForEdit.jacksontype == 'ServiceLineImpl') {
@@ -982,12 +996,12 @@ export abstract class OrderTxComponent {
   }
 
   private getAllIItemLineAmount(): number | undefined{
-    return this.itemLines.filter((iL) => iL.jacksontype == 'ItemLineImpl')
+    return this.itemLines && this.itemLines.length > 0 ? this.itemLines.filter((iL) => iL.jacksontype == 'ItemLineImpl')
         .map(iL => iL.taxableAmountBeforeBillDiscount)
         .reduce((a,b) => {
           return (!!a ? a : 0) + (!!b ? b : 0);
         }
-      );   
+      ) : 0;
   }
 
   /**

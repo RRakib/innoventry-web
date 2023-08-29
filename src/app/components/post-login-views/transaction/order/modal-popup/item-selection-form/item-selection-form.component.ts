@@ -25,6 +25,7 @@ export class ItemSelectionFormComponent implements OnInit {
     private taxableEntityService : TaxableEntityServiceService,
     public itemSelectionCompRef: MatDialogRef<ItemSelectionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { 
+      itemForm: FormGroup,
       itemLineEditMode: boolean,
       itemLines: IItemLine[],
       selectedLineItemForEdit : IItemLine | undefined
@@ -39,26 +40,7 @@ export class ItemSelectionFormComponent implements OnInit {
    */
   public initializeItemForm() {
 
-    this.itemForm = this.formBuilder.group({
-      isTaxDeductionFromAmountEnabled: new FormControl(true),
-      itemId: new FormControl(''),
-      itemName: new FormControl(''),
-      itemProductCode: new FormControl({ value: '', disabled: true }),
-      quantity: new FormControl(''),
-      unit: new FormControl(''),
-      unitName: new FormControl({ value: '', disabled: true }),
-      mrp: new FormControl({ value: '', disabled: true }),
-      discount: new FormControl(''),
-      rate: new FormControl(''),
-      netRate: new FormControl({ value: '', disabled: true }),
-      taxGroup: new FormControl(''),
-      taxGroupName: new FormControl(''),
-      taxLines: [],      
-      taxableAmountBeforeBillDiscount: new FormControl({ value: '', disabled: true }),
-      taxAmount: new FormControl({ value: '', disabled: true }),                 
-      totalAmountBeforeBillDiscount: new FormControl({ value: '', disabled: true }),
-      stockLocation: new FormControl()
-    });
+    this.itemForm = this.data.itemForm;
 
     this.updateStockLocation();
     
@@ -461,50 +443,7 @@ export class ItemSelectionFormComponent implements OnInit {
    * Also executed when user edit an already added item line.
    */
   public addOrEditItemLine() : void {
-
-    if(this.itemForm.controls["itemName"].value == undefined || this.itemForm.controls["itemName"].value.length == 0){
-      this.itemForm.controls["itemName"].addValidators([Validators.required]);    
-      this.itemForm.controls["itemName"].updateValueAndValidity();
-    }
-
-    if(this.itemForm.valid && !!this.itemForm.controls["itemName"].value) {
-      let itemLine : IItemLine = this.itemForm.getRawValue();   // Convert ItemForm to IItemLine.      
-      itemLine.jacksontype = 'ItemLineImpl';
-
-      if(!this.data.itemLineEditMode) { //New Item Line added
-        this.data.itemLines = [...this.data.itemLines, itemLine];
-      }else if(!!this.data.selectedLineItemForEdit) {//Edit existing item line.
-
-        let updatedItemLine = Object.assign(this.data.selectedLineItemForEdit, itemLine);
-
-        this.data.itemLines = this.data.itemLines.map((iL) => {
-          if(iL.itemId == updatedItemLine.itemId) {
-            iL = updatedItemLine;
-          }
-          return iL;
-        });
-
-        this.data.itemLineEditMode = false;
-        this.data.selectedLineItemForEdit = undefined;
-      }
-      
-      this.stockCountStatement = '';
-
-      this.itemForm.reset();     
-
-      this.itemForm.controls["itemName"].removeValidators(Validators.required);      
-      this.itemForm.controls["itemName"].updateValueAndValidity();
-
-      // Hard code set the flag as true.
-      this.itemForm.patchValue({
-        isTaxDeductionFromAmountEnabled: true
-      });
-
-      this.itemSelectionCompRef.close({
-        itemLines: this.data.itemLines
-      });
-    }
-       
+      this.itemSelectionCompRef.close();
   }
   
 
