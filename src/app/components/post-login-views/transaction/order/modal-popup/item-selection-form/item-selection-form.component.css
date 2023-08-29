@@ -1,0 +1,36 @@
+::ng-deep.item-selection-dialog-container ::ng-deep.mat-dialog-container {  
+    position: absolute;
+    padding: 10px !important;
+    bottom: 0;
+    right: 0;
+    width: 30vw !important;    
+    overflow-y: auto;
+    height: 100vh !important;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.product-code{
+    margin-left: 5px;
+    font-size: 12px;
+    color: #00458d;
+    font-weight: 500;
+}
+
+.new-item-link{
+    font-size: 12px;
+    text-decoration: underline;
+    color: #00458d;
+}
+
+.footer-section{
+    height: 20px;   
+}
+
+.selection-form-container{
+    height: calc(100vh - 90px);
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;    
+}

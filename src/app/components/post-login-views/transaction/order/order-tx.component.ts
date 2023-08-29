@@ -17,6 +17,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { OrderPaymentDetailComponent } from "./modal-popup/order-payment-detail/order-payment-detail.component";
 import { OrderServicesComponent } from "./modal-popup/order-services/order-services.component";
 import { OrderChargesDiscountsComponent } from "./modal-popup/order-charges-discounts/order-charges-discounts.component";
+import { ItemSelectionFormComponent } from "./modal-popup/item-selection-form/item-selection-form.component";
 
 export abstract class OrderTxComponent {
 
@@ -50,6 +51,7 @@ export abstract class OrderTxComponent {
     'taxAmount',
     'totalAmountBeforeBillDiscount'
   ];
+
   stockLocations : IStockLocation[];
   stockCountStatement: string = '';
 
@@ -267,6 +269,28 @@ export abstract class OrderTxComponent {
           })
         }        
       }
+    });
+  }
+
+  /** 
+   * This function is executed when user click on Add Item Line or Edit Item Line
+   */
+  openItemSelectionForm() : void{
+    const ItemSelectionDialogRef = this.matDialog.open(ItemSelectionFormComponent, { 
+      panelClass: 'item-selection-dialog-container',    
+      data : {
+        itemLineEditMode: this.itemLineEditMode,
+        itemLines: this.itemLines,
+        selectedLineItemForEdit: this.selectedLineItemForEdit
+      },        
+      disableClose: false
+    }); 
+
+    ItemSelectionDialogRef.afterClosed().subscribe((result) => {
+      this.itemLines = result.itemLines;
+      this.itemLinesDataSource.data = this.itemLines;
+
+      this.updateFinalAmounts();      
     });
   }
 
