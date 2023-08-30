@@ -223,10 +223,10 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
   
           this.itemForm.patchValue({
             attributeGroupLines : result
-          });
-
-          this.addOrEditItemLine();
+          });          
         }
+        
+        this.addOrEditItemLine();
       });
     }
   }
