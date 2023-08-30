@@ -1,0 +1,105 @@
+<form [formGroup]="itemForm">
+    <mat-card class="no-card-shadow">
+        <mat-card-header [class]="'fl-sb-center mb-1'">
+            <mat-card-title class="theme-color dialog-title"> Add Item Line </mat-card-title>      
+            <mat-slide-toggle matSuffix color="primary" class="font14 fw-500" formControlName="isTaxDeductionFromAmountEnabled">
+                Deduct Tax From Amount
+            </mat-slide-toggle>
+        </mat-card-header>     
+        <mat-card-content>
+            
+            <div class="selection-form-container" [fxLayout]="'column'" fxflexfill fxLayoutAlign="start">
+                <item-box  [itemFormControl]="getItemFormControl('itemName')"  
+                    [stockCountStatement]="stockCountStatement"
+                    (onItemSelection)="onItemSelectionChange($event)">
+                </item-box>
+
+                <div class="fl-sb-center">
+                    <div class="product-code">                        
+                        {{ getItemFormControl("itemProductCode").value }}
+                    </div>
+                    <a class="new-item-link">New Item</a>
+                </div>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Location</mat-label>
+                    <mat-select formControlName="stockLocation" name="stockLocation" (selectionChange)="getItemStockLocationCount()">
+                        <mat-option *ngFor="let stockLocation of stockLocations" [value]="stockLocation.id">
+                        {{stockLocation.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Product Code</mat-label>
+                    <input matInput placeholder="Product Code" #referenceNo name="itemProductCode"
+                        id="itemProductCode" formControlName="itemProductCode">
+                </mat-form-field> -->
+
+                <!-- <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Unit</mat-label>
+                    <input matInput placeholder="Unit" #referenceNo name="unitName"
+                        id="unitName" formControlName="unitName">
+                </mat-form-field> -->
+                
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput placeholder="Quantity" #quantity name="quantity"
+                        id="quantity" formControlName="quantity">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Rate</mat-label>
+                    <input matInput placeholder="rate" #referenceNo name="rate"
+                        id="rate" formControlName="rate">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Discount (%)</mat-label>
+                    <input matInput placeholder="Discount (%)" #referenceNo name="discount"
+                        id="discount" formControlName="discount">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Net Rate.</mat-label>
+                    <input matInput placeholder="Net Rate" #referenceNo name="netRate"
+                        id="netRate" formControlName="netRate">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Amount (Exc. Tax)</mat-label>
+                    <input matInput placeholder="Amount Excluding Tax" #taxableAmount name="taxableAmountBeforeBillDiscount"
+                        id="taxableAmountBeforeBillDiscount" formControlName="taxableAmountBeforeBillDiscount">
+                </mat-form-field>
+
+                <div [class]="'innov-matFormField'">
+                    <tax-group-box [taxGroupFormControl]="getItemFormControl('taxGroupName')"
+                        (onTaxGroupSelection)="onTaxGroupSelectionChanged($event)">
+                    </tax-group-box>
+                </div>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Tax Amount</mat-label>
+                    <input matInput placeholder="taxAmount" #taxAmount name="taxAmount"
+                        id="taxAmount" formControlName="taxAmount">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" [class]="'innov-matFormField'">
+                    <mat-label>Total Amount</mat-label>
+                    <input matInput placeholder="Total Amount" #totalAmount name="totalAmount"
+                        id="totalAmount" formControlName="totalAmountBeforeBillDiscount">
+                </mat-form-field>
+            </div>
+            
+            <div class="footer-section">
+                <button mat-raised-button class="button-group" [fxFlex]="50">
+                    Cancel
+                </button>
+                <button type="submit" mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="addOrEditItemLine()">
+                    Add
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+

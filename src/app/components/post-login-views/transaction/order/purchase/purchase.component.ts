@@ -19,6 +19,7 @@ import { TaxableEntityServiceService } from 'src/server/api/taxableEntityService
 import { VoucherNumberServiceService } from 'src/server/api/voucherNumberService.service';
 import { ConfigureItemStockAttributeComponent } from '../modal-popup/configure-item-stock-attribute/configure-item-stock-attribute.component';
 import { OrderTxComponent } from '../order-tx.component';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 @Component({
   selector: 'app-purchase',
@@ -40,13 +41,15 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
     public dialogRef: MatDialogRef<PurchaseComponent>, 
     private childItemService : ItemServiceService, public dialog: MatDialog, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService
+    private childTaxConfigurationService : TaxConfigurationServiceService,
+    private childBreakPointService : BreakPointService
     ) {
 
     super(purchaseBreakpointObserver, childFormBuilder, childstockLocationService, 
       childTaxableEntityService, childTxProvider, childLedgerAttributesService,
       childBillingClassificationService,childOtherChargesService, _childSnackBar,
-      ledgerService, childItemService,overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService);
+      ledgerService, childItemService,overlayService, childStockAttributeGroupLineService, dialog, 301, childTaxConfigurationService,
+      childBreakPointService);
 
     this.headerTitle = 'Purchase';
   }
@@ -150,6 +153,8 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
           this.itemForm.patchValue({
             attributeGroupLines : result
           });
+
+          this.addOrEditItemLine();
         }
       });
     }    

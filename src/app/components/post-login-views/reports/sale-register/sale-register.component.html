@@ -30,11 +30,12 @@
 
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
                     [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
-                    <div class="mr-1">
+                    <div class="mr-1" [fxLayout]="'column'" fxflexfill fxLayoutAlign="start">
                         <Ledger-Box [fxFlex]="100"
                             [ledgerFormControl]="saleRegisterForm.controls['ledgerName'] | convertToFormControl"
                             [ledgerBoxTitle]="'From Ledger'" (onLedgerSelection)="onFromLedgerSelection($event)">
                         </Ledger-Box>
+                        <mat-checkbox formControlName="isItemDetailRequired" class="text-left">Show Item Details</mat-checkbox>
                     </div>
 
                     <div>
@@ -46,18 +47,14 @@
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="saleRegisterForm.controls['endDate'] | convertToFormControl">
                         </i-mat-datepicker>
-                    </div>
-                    <div fxflexfill fxLayout="column" [class]="'ml-1 mr-1'">
-                        <mat-checkbox formControlName="isItemDetailRequired">Show Item Details</mat-checkbox>
-
-                    </div>
-                    <div>
+                    </div>                    
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
                         <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''"
                             (click)="getSaleRegisterReport()">
                             Show
                         </button> 
                     </div>
-                </div>
+                </div>                
             </form>
 
         </mat-card-content>

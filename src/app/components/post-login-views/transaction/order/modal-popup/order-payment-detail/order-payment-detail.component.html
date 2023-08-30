@@ -24,7 +24,7 @@
                         <div class="paymentDetail-form-row" [formGroup]="toFormGroup(paymentDetailLine)">
                             
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Cash">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component'">
                                     <div [class]="'summary-header'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>
@@ -41,7 +41,7 @@
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Cheque">
                                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start" [class]="'summary-component'">
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                         </div>
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             Cheque No.
                                         </div>
@@ -68,7 +68,7 @@
                                     </div>
 
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             Cheque Date
                                         </div>
@@ -85,7 +85,7 @@
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Card">
                                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                         </div>
@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             Card No.
                                         </div>
@@ -112,7 +112,7 @@
                                     </div>
 
 
-                                    <div fxLayout="'row'" fxLayoutAlign="start" class="align-items-center">
+                                    <div fxLayout="'row'" fxLayoutAlign="start center">
                                         <div [class]="'summary-header'">
                                             Card Type
                                         </div>
@@ -131,7 +131,7 @@
                             </ng-container>
 
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.MobileMoney">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component'">
                                     <div [class]="'summary-header'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>
@@ -146,7 +146,7 @@
                             </ng-container>
 
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Voucher">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component'">
                                     <div [class]="'summary-header'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>
@@ -161,7 +161,7 @@
                             </ng-container>
 
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.ECommerce">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component'">
                                     <div [class]="'summary-header'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>
@@ -176,7 +176,7 @@
                             </ng-container>
 
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == PaymentModes.Other">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component'">
                                     <div [class]="'summary-header'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>
@@ -191,7 +191,7 @@
                             </ng-container>
 
                             <ng-container *ngIf="getFormGroupControlValue(paymentDetailLine, 'type') == 'RETURN_AMOUNT'">
-                                <div [fxLayout]="'row'" fxLayoutAlign="start" [class]="'summary-component align-items-center mt-2'">
+                                <div [fxLayout]="'row'" fxLayoutAlign="start center" [class]="'summary-component mt-2'">
                                     <div [class]="'summary-header return-amount-label'">
                                         {{ getFormGroupControlValue(paymentDetailLine, 'name') }}
                                     </div>

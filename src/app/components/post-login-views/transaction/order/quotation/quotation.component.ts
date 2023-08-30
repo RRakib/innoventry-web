@@ -18,6 +18,7 @@ import { StockLocationServiceService } from 'src/server/api/stockLocationService
 import { TaxableEntityServiceService } from 'src/server/api/taxableEntityService.service';
 import { VoucherNumberServiceService } from 'src/server/api/voucherNumberService.service';
 import { OrderTxComponent } from '../order-tx.component';
+import { BreakPointService } from 'src/app/services/breakpoint.service';
 
 @Component({
   selector: 'app-quotation',
@@ -38,13 +39,15 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { txId: number }, public dialogRef: MatDialogRef<QuotationComponent>,
     private childItemService : ItemServiceService, public dialog: MatDialog,
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
-    private childTaxConfigurationService : TaxConfigurationServiceService) {
+    private childTaxConfigurationService : TaxConfigurationServiceService,
+    private childBreakPointService : BreakPointService) {
       
       super(saleBreakpointObserver, childFormBuilder, 
         childstockLocationService, childTaxableEntityService,
         childTxProvider, childLedgerAttributesService, childBillingClassificationService,
         childOtherChargesService,_childSnackBar, ledgerService, childItemService, 
-        overlayService, childStockAttributeGroupLineService, dialog, 302, childTaxConfigurationService);
+        overlayService, childStockAttributeGroupLineService, dialog, 302, childTaxConfigurationService,
+        childBreakPointService);
 
       this.headerTitle = 'Quotation';
   }
