@@ -21,29 +21,54 @@
                     <form [formGroup]="orderTxForm">
                         <mat-card class="mb-1">
                             <mat-card-content class="text-center">
-                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">                    
+                                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-between">                    
                                     
-                                    <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <div [class]="(isHandset$ | async) ? '' : ''" [fxFlex]="(isHandset$ | async) ? 100 : 20">
                                         <i-mat-datepicker [label]="'Date'" [dateFormControl]="orderTxForm.controls['transactiondate'] | convertToFormControl"></i-mat-datepicker>
                                     </div>
                     
                 
-                                    <div [fxLayout]="'row'" [fxFlex]="(isHandset$ | async) ? 100 : 50">
+                                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" [fxFlex]="(isHandset$ | async) ? 100 : 80">
                 
                                         <mat-form-field appearance="outline"
                                             [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-1'"
-                                            [fxFlex]="50">
+                                            [fxFlex]="(isHandset$ | async) ? 100 : 25">
                                             <mat-label>Voucher No.</mat-label>
                                             <input matInput placeholder="Enter Voucher No." #vouchernumber name="vouchernumber"
                                                 id="vouchernumber" formControlName="vouchernumber">
                                         </mat-form-field>
                 
                                         <mat-form-field appearance="outline"
-                                            [class]="'innov-matFormField'"
-                                            [fxFlex]="50">
+                                            [class]="(isHandset$ | async) ? 'innov-matFormField pr-1' : 'innov-matFormField pr-1 ml-1 mr-1'"
+                                            [fxFlex]="(isHandset$ | async) ? 100 : 25">
                                             <mat-label>Reference No.</mat-label>
                                             <input matInput placeholder="Enter Reference No." #referenceNo name="referenceNo"
                                                 id="referenceNo" formControlName="referenceNo">
+                                        </mat-form-field>
+
+                                        <!-- If Quotation Order then display Contact Box else display Ledger Box -->
+                                        <ng-container *ngIf="headerTitle == 'Quotation'; else ledgerBox" >                                            
+                                                <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 25"                        
+                                                    [contactFormControl]="getOrderFormControl('contactName')"
+                                                    [contactBoxTitle]="'Contact'"
+                                                    (onContactSelection)="onContactSelectionChange($event)">
+                                                </Contact-Box>
+                                        </ng-container>
+
+                                        <ng-template #ledgerBox>                                            
+                                                <Ledger-Box [fxFlex]="(isHandset$ | async) ? 100 : 25"                                               
+                                                    [ledgerFormControl]="getOrderFormControl('ledgerName')"
+                                                    [ledgerBoxTitle]="'Ledger'"
+                                                    (onLedgerSelection)="onLedgerSelectionChange($event)">
+                                                </Ledger-Box>                                                                          
+                                        </ng-template>
+                                        
+                                        <mat-form-field appearance="outline"                        
+                                            [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
+                                            [fxFlex]="(isHandset$ | async) ? 100 : 25">
+                                            <mat-label>Name on Bill</mat-label>
+                                            <input matInput placeholder="Enter Bill Name" #referenceNo name="billName"
+                                                id="billName" formControlName="billName">
                                         </mat-form-field>
                                     </div>
                 
@@ -51,29 +76,7 @@
                 
                                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
                 
-                                    <!-- If Quotation Order then display Contact Box else display Ledger Box -->
-                                    <ng-container *ngIf="headerTitle == 'Quotation'; else ledgerBox" >
-                                        <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 50"                        
-                                            [contactFormControl]="getOrderFormControl('contactName')"
-                                            [contactBoxTitle]="'Contact'"
-                                            (onContactSelection)="onContactSelectionChange($event)">
-                                        </Contact-Box>
-                                    </ng-container>
-                                    <ng-template #ledgerBox>
-                                        <Ledger-Box [fxFlex]="(isHandset$ | async) ? 100 : 50"                                               
-                                            [ledgerFormControl]="getOrderFormControl('ledgerName')"
-                                            [ledgerBoxTitle]="'Ledger'"
-                                            (onLedgerSelection)="onLedgerSelectionChange($event)">
-                                        </Ledger-Box>
-                                    </ng-template>
                                     
-                                    <mat-form-field appearance="outline"                        
-                                        [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField ml-1'"
-                                        [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                                        <mat-label>Name on Bill</mat-label>
-                                        <input matInput placeholder="Enter Bill Name" #referenceNo name="billName"
-                                            id="billName" formControlName="billName">
-                                    </mat-form-field>
                                     
                                 </div>
                 
@@ -119,16 +122,27 @@
                                 <div [fxLayout]="'row'" fxflexfill [fxLayoutAlign]="'end'" class="mb-1">
                                     <div class="table-action-buttons">
                                         <button mat-raised-button color="primary"
-                                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
+                                            [class]="'button-group'" 
                                             [disabled]="selectedLineItemForEdit == undefined"
                                             (click)="editItemLine()">
                                             <mat-icon>edit</mat-icon>
                                         </button>
                                         <button mat-raised-button color="warn" 
-                                            [class]="(isHandset$ | async) ? 'edit-delete-action' : 'button-group'" 
+                                            [class]="'button-group'" 
                                             [disabled]="selectedLineItemForEdit == undefined"
                                             (click)="deleteItemLine()">
                                             <mat-icon>delete</mat-icon>
+                                        </button>
+
+                                        <button mat-raised-button
+                                            [class]="'button-group'"
+                                            (click)="openItemSelectionForm()">
+                                            <mat-icon>add_circle_outline</mat-icon> Item
+                                        </button>
+                                        <button mat-raised-button
+                                            [class]="'button-group'" 
+                                            (click)="openServicesForm()">
+                                            <mat-icon>add_circle_outline</mat-icon> Service
                                         </button>
                                     </div>
                                 </div>
@@ -187,7 +201,11 @@
                                         <tr class="mat-row" *matNoDataRow>
                                             <td class="mat-cell" [attr.colspan]="itemLineDisplayedColumns.length">
                                                 <a style="font-weight:500;cursor:pointer" 
-                                                    (click)="openItemSelectionForm()">Add Item Line</a>
+                                                    (click)="openItemSelectionForm()">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                    &nbsp;
+                                                    <span>Add Item Line</span>
+                                                </a>
                                                 &nbsp; / &nbsp;
                                                 <a style="font-weight:500;cursor:pointer" 
                                                     (click)="openServicesForm()">Add Service</a>
@@ -204,7 +222,8 @@
                                 </div>
                                 <div style="text-align:center" *ngIf="itemLinesDataSource.data.length > 0">
                                     <a style="font-weight:500;cursor:pointer"
-                                        (click)="openItemSelectionForm()">Add Item Line</a>
+                                        (click)="openItemSelectionForm()">
+                                        <mat-icon>add_circle_outline</mat-icon> Add Item Line</a>
                                     &nbsp; / &nbsp;
                                     <a style="font-weight:500;cursor:pointer" 
                                         (click)="openServicesForm()">Add Service</a>
