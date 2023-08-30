@@ -153,9 +153,9 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
           this.itemForm.patchValue({
             attributeGroupLines : result
           });
-
-          this.addOrEditItemLine();
         }
+
+        this.addOrEditItemLine();
       });
     }    
   }

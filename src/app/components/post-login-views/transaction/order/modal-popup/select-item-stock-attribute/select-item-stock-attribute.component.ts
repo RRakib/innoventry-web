@@ -22,6 +22,8 @@ export class SelectItemStockAttributeComponent implements OnInit {
     shareReplay()
   );
   public stockAttrLinesForm!: FormGroup;
+
+  isAttributeLinesFetched : boolean = false;
   
   dataSource = new MatTableDataSource<any>([]);
    /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -46,7 +48,12 @@ export class SelectItemStockAttributeComponent implements OnInit {
           this.stockAttrLinesForm = this.formBuilder.group({
             stockAttrLines: this.formBuilder.array([])
           });
+          this.isAttributeLinesFetched = true;
           this.prepareStockLineHeaderAndLines(data);
+
+        }else{
+          this.isAttributeLinesFetched = false;
+          this.stockAttributeCompRef.close([]);
         }
       }
     });
