@@ -68,6 +68,8 @@ export class ConfigureItemStockAttributeComponent implements OnInit {
               this.isFormLoaded = true;
             }
           });
+        }else{
+          this.stockAttributeCompRef.close([]);
         }
       }
     });

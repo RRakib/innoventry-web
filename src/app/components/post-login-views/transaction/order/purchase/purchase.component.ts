@@ -20,6 +20,7 @@ import { VoucherNumberServiceService } from 'src/server/api/voucherNumberService
 import { ConfigureItemStockAttributeComponent } from '../modal-popup/configure-item-stock-attribute/configure-item-stock-attribute.component';
 import { OrderTxComponent } from '../order-tx.component';
 import { BreakPointService } from 'src/app/services/breakpoint.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase',
@@ -42,7 +43,8 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
     private childItemService : ItemServiceService, public dialog: MatDialog, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
     private childTaxConfigurationService : TaxConfigurationServiceService,
-    private childBreakPointService : BreakPointService
+    private childBreakPointService : BreakPointService,
+    private router: Router
     ) {
 
     super(purchaseBreakpointObserver, childFormBuilder, childstockLocationService, 
@@ -214,6 +216,10 @@ export class PurchaseComponent extends OrderTxComponent  implements OnInit {
       }
       
     }
+  }
+
+  public cancelOrderTx() {
+    this.router.navigate(['main/report/purchaseRegister']);    
   }
 
 }

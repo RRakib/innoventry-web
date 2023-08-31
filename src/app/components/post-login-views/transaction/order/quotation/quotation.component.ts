@@ -194,5 +194,8 @@ export class QuotationComponent extends OrderTxComponent  implements OnInit {
 
   }
 
+  public cancelOrderTx() {
+    
+  }
 
 }

@@ -21,6 +21,7 @@ import { ISaleOrderTx } from 'src/server/model/models';
 import { SelectItemStockAttributeComponent } from '../modal-popup/select-item-stock-attribute/select-item-stock-attribute.component';
 import { OrderTxComponent } from '../order-tx.component';
 import { BreakPointService } from 'src/app/services/breakpoint.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale',
@@ -43,7 +44,8 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
     public dialog: MatDialog, private childItemService : ItemServiceService, 
     private childStockAttributeGroupLineService : StockAttributeGroupLineServiceService,
     private childTaxConfigurationService : TaxConfigurationServiceService,
-    private childBreakPointService : BreakPointService) {
+    private childBreakPointService : BreakPointService,
+    private router: Router) {
 
     super(saleBreakpointObserver, childFormBuilder, 
       childstockLocationService, childTaxableEntityService,
@@ -348,5 +350,9 @@ export class SaleComponent extends OrderTxComponent  implements OnInit {
       }
       
     }
+  }
+
+  public cancelOrderTx() {
+    this.router.navigate(['main/transaction/sale']);
   }
 }

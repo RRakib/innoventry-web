@@ -37,10 +37,13 @@ export class TaxGroupBoxComponent implements OnInit, OnChanges {
    * @param changes 
    */
    ngOnChanges(changes: SimpleChanges): void {
+    console.log("**** Tax Group input has been changed *********");
+    console.log(changes);
+
     this.filteredTaxGroups = this.autoCompleteInput.valueChanges
           .pipe(startWith(this.autoCompleteInput.value), map(value => this._filterTaxGroups(value)));
 
-    console.log("**** Tax Group input has been changed *********");
+    
   }
 
 
@@ -64,15 +67,14 @@ export class TaxGroupBoxComponent implements OnInit, OnChanges {
             this.autoCompleteInput.setValue(taxGroupInEditMode[0].name);
           }
 
+          console.log("this.autoCompleteInput.value", this.autoCompleteInput.value);
+
           this.filteredTaxGroups = this.autoCompleteInput.valueChanges.pipe(startWith(this.autoCompleteInput.value), map(value => this._filterTaxGroups(value)));
 
-          // Return ledger object in case if ledgerName is provided
-          // This works with default ledger name and in edit mode.         
+          // This works with default tax group name and in edit mode.         
           if (taxGroupInEditMode.length == 1) {
             this.onTaxGroupSelection.emit(taxGroupInEditMode[0]);
-          }
-
-            
+          } 
         }
       }
     });

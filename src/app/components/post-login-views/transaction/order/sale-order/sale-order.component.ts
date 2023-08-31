@@ -175,5 +175,7 @@ export class SaleOrderComponent extends OrderTxComponent  implements OnInit {
     }
   }
 
-
+  public cancelOrderTx() {
+    
+  }
 }

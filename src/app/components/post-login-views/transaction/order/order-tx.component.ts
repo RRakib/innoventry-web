@@ -297,11 +297,15 @@ export abstract class OrderTxComponent {
         itemLines: this.itemLines,
         selectedLineItemForEdit: this.selectedLineItemForEdit
       },        
-      disableClose: false
+      disableClose: true
     }); 
 
     ItemSelectionDialogRef.afterClosed().subscribe((result) => {
-      this.showItemStockAttributes();
+      if(result.add) {
+        this.showItemStockAttributes();
+      }else{
+        this.itemForm.reset();
+      }
     });
   }
 
@@ -723,15 +727,9 @@ export abstract class OrderTxComponent {
 
       this.itemForm.controls["itemName"].removeValidators(Validators.required);      
       this.itemForm.controls["itemName"].updateValueAndValidity();
-
-      // Hard code set the flag as true.
-      this.itemForm.patchValue({
-        isTaxDeductionFromAmountEnabled: true
-      })
-
-      this.itemForm.reset();
     }
-       
+
+    this.itemForm.reset();
   }
 
   /**
@@ -762,6 +760,10 @@ export abstract class OrderTxComponent {
       }
 
       this.itemForm.patchValue({
+        isTaxDeductionFromAmountEnabled : 
+          this.selectedLineItemForEdit?.quantity && this.selectedLineItemForEdit?.rate &&
+          this.selectedLineItemForEdit?.quantity * this.selectedLineItemForEdit?.rate == this.selectedLineItemForEdit.totalAmountBeforeBillDiscount 
+          ? true : false,
         itemId: this.selectedLineItemForEdit?.itemId,
         itemName: this.selectedLineItemForEdit?.itemName,
         itemProductCode: this.selectedLineItemForEdit?.itemProductCode,
@@ -967,31 +969,33 @@ export abstract class OrderTxComponent {
       disableClose: true,      
     }); 
 
-    OrderServicesDialogRef.afterClosed().subscribe(result => {  
-      let itemLine : IItemLine = result["servicesFormRawValue"];     
+    OrderServicesDialogRef.afterClosed().subscribe(result => {      
+      if(result.servicesFormRawValue) {
+        let itemLine : IItemLine = result["servicesFormRawValue"];     
 
-      itemLine.itemName = itemLine.taxableEntityName;
-      itemLine.itemId = itemLine.taxableEntityId;
-
-      if(!this.itemLineEditMode) { //New Item Line added
-        this.itemLines = [...this.itemLines, itemLine];
-      }else if(!!this.selectedLineItemForEdit) {//Edit existing item line.
-
-        let updatedItemLine = Object.assign(this.selectedLineItemForEdit, itemLine);
-
-        this.itemLines = this.itemLines.map((iL) => {
-          if(iL.itemId == updatedItemLine.itemId) {
-            iL = updatedItemLine;
-          }
-          return iL;
-        });
-
-        this.itemLineEditMode = false;
-        this.selectedLineItemForEdit = undefined;
-      }
-
-      this.updateFinalAmounts();
-      this.itemLinesDataSource.data = this.itemLines;
+        itemLine.itemName = itemLine.taxableEntityName;
+        itemLine.itemId = itemLine.taxableEntityId;
+  
+        if(!this.itemLineEditMode) { //New Item Line added
+          this.itemLines = [...this.itemLines, itemLine];
+        }else if(!!this.selectedLineItemForEdit) {//Edit existing item line.
+  
+          let updatedItemLine = Object.assign(this.selectedLineItemForEdit, itemLine);
+  
+          this.itemLines = this.itemLines.map((iL) => {
+            if(iL.itemId == updatedItemLine.itemId) {
+              iL = updatedItemLine;
+            }
+            return iL;
+          });
+  
+          this.itemLineEditMode = false;
+          this.selectedLineItemForEdit = undefined;
+        }
+  
+        this.updateFinalAmounts();
+        this.itemLinesDataSource.data = this.itemLines;
+      }      
     });
   }
 
@@ -1077,7 +1081,17 @@ export abstract class OrderTxComponent {
     return this.itemForm.get(name) as FormControl;
   }
 
+  /**
+   * 
+   */
+  public getItemLineRatePerQuantity(rate : number | undefined, quantity: number | undefined) : number{
+    return rate && quantity ? Number((rate/quantity).toFixed(2)) : 0;
+  }
+
+  
   public abstract showItemStockAttributes() : void;
+
+  public abstract cancelOrderTx() : void;
 
   public abstract saveOrderTx() : void;
 }

@@ -284,4 +284,10 @@ export class OrderServicesComponent implements OnInit {
     });
   }
 
+  cancelServiceAddition() : void{
+    this.orderServicesCompRef.close({
+      servicesFormRawValue : undefined
+    });
+  }
+
 }

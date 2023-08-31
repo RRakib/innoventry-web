@@ -100,7 +100,7 @@
                 </div>
 
                 <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" [class]="(isHandset$ | async) ? 'mt-1' : 'mt-1 align-items-center'">
-                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'">
+                    <button mat-raised-button [class]="(isHandset$ | async) ? 'width100 ml-1' : 'ml-1'" (click)="cancelServiceAddition()">
                         Cancel
                     </button>
                     <button mat-raised-button  [class]="(isHandset$ | async) ? 'width100' : ''" color="primary" (click)="saveUpdateServiceLine()">                         
