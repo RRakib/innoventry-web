@@ -3,13 +3,15 @@
 }
 
 mat-card-header mat-card-title{
-
     &.dialog-title{
         font-size: 18px !important;
         font-weight: 300 !important;
         margin: 0 !important; 
-    }
-    
+    }    
+}
+
+.cdk-overlay-container {
+    z-index: 9999 !important;
 }
 
 .mat-toolbar {

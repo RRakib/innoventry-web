@@ -384,8 +384,18 @@ export class ItemSelectionFormComponent implements OnInit {
           });
   
           this.updateTaxesAfterValueChanges(selectedItem, rate);
-        }
-        
+        }        
+      }
+    });
+
+    this.itemForm.controls["isTaxDeductionFromAmountEnabled"].valueChanges.subscribe({
+      next: (data) => {
+
+        let rate = this.itemForm.controls["quantity"].value * this.itemForm.controls["rate"].value;
+
+        rate = rate - ((rate * this.itemForm.controls["discount"].value) / 100);
+
+        this.updateTaxesAfterValueChanges(selectedItem, rate);
       }
     });
   }
@@ -443,7 +453,11 @@ export class ItemSelectionFormComponent implements OnInit {
    * Also executed when user edit an already added item line.
    */
   public addOrEditItemLine() : void {
-      this.itemSelectionCompRef.close();
+      this.itemSelectionCompRef.close({add : true});
+  }
+
+  public cancelAddition() : void {
+    this.itemSelectionCompRef.close({add : false});
   }
   
 

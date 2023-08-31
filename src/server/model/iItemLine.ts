@@ -15,6 +15,7 @@ import { IItemBatch } from './iItemBatch';
 import { ITaxLine } from './iTaxLine';
 
 export interface IItemLine { 
+    isTaxDeductionFromAmountEnabled?: boolean;
     schemeItemLines?: Array<IItemLine>;
     stockLocationName?: string;
     itemProductCode?: string;
