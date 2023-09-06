@@ -48,88 +48,98 @@
 
             <div [ngSwitch]="currentBreakpoint">
                 <div *ngSwitchCase="Breakpoints.Web">                    
-                    <table mat-table class="innoventry-table"
-                        [dataSource]="dataSource" matSort aria-label="Elements">
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                            <td mat-cell [class]="'itemName-txtLeft'" *matCellDef="let row">{{row.name}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="productCode">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</th>
-                            <td mat-cell *matCellDef="let row">{{row.productCode}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="groupName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Group Name</th>
-                            <td mat-cell *matCellDef="let row">{{row.groupName}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="unitName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit Name</th>
-                            <td mat-cell *matCellDef="let row">{{row.unitName}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="mrp">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
-                            <td mat-cell *matCellDef="let row">{{row.mrp}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="sellingPrice">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Selling Price</th>
-                            <td mat-cell *matCellDef="let row">{{row.sellingPrice}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="taxClassName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax Class Name</th>
-                            <td mat-cell *matCellDef="let row">{{row.taxClassName}}</td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="hsnCode">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>HSN Code</th>
-                            <td mat-cell *matCellDef="let row">{{row.hsnCode}}</td>
-                        </ng-container>
-    
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                            [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
-                        </tr>
-                    </table>                                         
+                    <ng-container *ngTemplateOutlet="tableView"></ng-container>                     
                 </div>
-                <!-- <span *ngSwitchCase="Breakpoints.TabletPortrait"> 
+                <div *ngSwitchCase="Breakpoints.HandsetPortrait">                 
+                    <ng-container *ngTemplateOutlet="cardView"></ng-container>
+                </div>                
+                <div *ngSwitchCase="Breakpoints.TabletPortrait">                 
+                    <ng-container *ngTemplateOutlet="cardView"></ng-container>
+                </div>                
+                <div *ngSwitchDefault>
+                    <ng-container *ngTemplateOutlet="tableView"></ng-container>
+                </div>
+            </div>
 
-                </span> -->
-                <div *ngSwitchCase="Breakpoints.HandsetPortrait || Breakpoints.TabletPortrait">                    
-                    <mat-card class="mb-1" *ngFor="let item of dataSource.data">
-                        <mat-card-content>  
-                            <div [fxLayout]="'row'" [fxFlex]="100" fxLayoutAlign="start center">
-                                <div [fxFlex]="75">
-                                    <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-around">
-                                        <span class="theme-color">{{ item.productCode }}</span>
-                                        <span class="mb-1">{{ item.name }}</span>
-                                        <mat-chip-list
-                                            class="example-chip"
-                                            cdkDropList 
-                                            cdkDropListOrientation="horizontal">
-                                            <mat-chip *ngIf="item.taxClassName">{{ item.taxClassName }}</mat-chip>
-                                            <mat-chip *ngIf="item.mrp">M.R.P {{ item.mrp | number : '1.2-2'}}</mat-chip>
-                                        </mat-chip-list>
-                                    </div>
-                                </div>
-                                <div [fxFlex]="25" [fxLayout]="'row'">
-                                    <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" (click)="highlight(item); editItem()">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                    <button mat-raised-button class="toolbar-button" matTooltip="Delete Item"
-                                        (click)="highlight(item); deleteSelectedItem()">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
+            <ng-template #tableView>
+                <table mat-table class="innoventry-table"
+                    [dataSource]="dataSource" matSort aria-label="Elements">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                        <td mat-cell [class]="'itemName-txtLeft'" *matCellDef="let row">{{row.name}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="productCode">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</th>
+                        <td mat-cell *matCellDef="let row">{{row.productCode}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="groupName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Group Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.groupName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="unitName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.unitName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mrp">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
+                        <td mat-cell *matCellDef="let row">{{row.mrp}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sellingPrice">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Selling Price</th>
+                        <td mat-cell *matCellDef="let row">{{row.sellingPrice}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="taxClassName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax Class Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.taxClassName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="hsnCode">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>HSN Code</th>
+                        <td mat-cell *matCellDef="let row">{{row.hsnCode}}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                        [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
+                    </tr>
+                </table>   
+            </ng-template>
+            <ng-template #cardView>
+                <mat-card class="mb-1" *ngFor="let item of dataSource.data">
+                    <mat-card-content>  
+                        <div [fxLayout]="'row'" [fxFlex]="100" fxLayoutAlign="start center">
+                            <div [fxFlex]="75">
+                                <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-around">
+                                    <span class="theme-color">{{ item.productCode }}</span>
+                                    <span class="mb-1">{{ item.name }}</span>
+                                    <mat-chip-list
+                                        class="example-chip"
+                                        cdkDropList 
+                                        cdkDropListOrientation="horizontal">
+                                        <mat-chip *ngIf="item.taxClassName">{{ item.taxClassName }}</mat-chip>
+                                        <mat-chip *ngIf="item.mrp">M.R.P {{ item.mrp | number : '1.2-2'}}</mat-chip>
+                                    </mat-chip-list>
                                 </div>
                             </div>
-                        </mat-card-content>                                            
-                    </mat-card>
-                </div>                                           
-            </div>
+                            <div [fxFlex]="25" [fxLayout]="'row'">
+                                <button mat-raised-button class="toolbar-button" matTooltip="Edit Item" (click)="highlight(item); editItem()">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-raised-button class="toolbar-button" matTooltip="Delete Item"
+                                    (click)="highlight(item); deleteSelectedItem()">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card-content>                                            
+                </mat-card>
+            </ng-template>
         </mat-card-content>   
         <mat-paginator #paginator [length]="totalRowCount" [pageIndex]="currentPage" [pageSize]="200"
                         [pageSizeOptions]="[100, 200, 500]" (page)="pageChanged($event)" showFirstLastButtons
