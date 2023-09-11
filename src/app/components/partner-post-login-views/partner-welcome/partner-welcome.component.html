@@ -1,43 +1,16 @@
-<mat-sidenav-container class="sidenav-container">
-    <!-- <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">      
-      <mat-nav-list>
-        <partner-menu-list-item *ngFor="let item of navItems" [item]="item"></partner-menu-list-item>
-      </mat-nav-list>
-    </mat-sidenav> -->
-    <mat-sidenav-content>
+<mat-sidenav-container class="sidenav-container">    
+    <mat-sidenav-content style="background:#FFF">
       <mat-toolbar color="primary">
-        <mat-toolbar-row class="justify-content-between">  
-          <!-- <button mat-icon-button>
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
-          </button>         -->
+        <mat-toolbar-row class="justify-content-between">          
           <div class="p-2 logo">
             <img src="assets/images/logo/logo-withoutbg.png" [attr.width]="'100%'" alt="" />
           </div>
           <span class="menu-spacer"></span>
           <div>
-            <button mat-button>
+            <button mat-button (click)="returnToHome()">
               <mat-icon>home</mat-icon>
               Home
             </button>
-  
-            <!-- <span *ngIf="(isHandset$ | async) === false">
-              <span *ngFor="let item of topNavItems">
-                
-                <span *ngIf="item.children && item.children.length > 0">
-                  <button mat-button [matMenuTriggerFor]="menu.childMenu" class="top-menu-button">
-                    <mat-icon>{{item.iconName}}</mat-icon>
-                    {{item.displayName}}
-                    <mat-icon>expand_more</mat-icon>
-                  </button>
-                  <app-top-menu-list-item #menu [items]="item.children"></app-top-menu-list-item>
-                </span>
-              </span>
-            </span> -->
-  
-  
             <button mat-button [matMenuTriggerFor]="profile">
               <mat-icon>account_circle</mat-icon>
               {{ userName }}

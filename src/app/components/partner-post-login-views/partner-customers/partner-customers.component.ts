@@ -32,8 +32,8 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     'email',
     'amcDate',
     'expiryDate',
-    'productKey'
-    // 'actions'
+    'productKey',
+    'actions'
   ];
 
   public dataSource = new MatTableDataSource<ItemLicenseReportLine>([]);
@@ -116,22 +116,26 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     this.customerCount = updatedCustomerList.length > 0 ? updatedCustomerList.length : 0;
   }
 
-  renewBuyLicense(productKey? :string) {
-    if(!!productKey && productKey.length > 0) {      
-      let navigationExtras: NavigationExtras = {
-        state: {
-          licenseKey: productKey
-        }
+  renewBuyLicense(productKey? :string, action?: string) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        licenseKey: productKey,
+        action: action
       }
-      this.router.navigate(['partnerMainView/renewLicense'], navigationExtras);  
-    }else{
-      this.router.navigate(['partnerMainView/renewLicense']);  
     }
+
+    this.router.navigate(['partnerMainView/renewLicense'], navigationExtras);    
   }
 
-  public generateNewLicense(): void{  
+  public generateNewLicense(action : string): void{  
     this.dialog.open(PartnerNewLicenseComponent,
-      {disableClose: true, width: '60vw'}
+      {
+        disableClose: true,
+        width: '60vw',
+        data : {
+          action: action
+        },
+      }
     );
   }
 }

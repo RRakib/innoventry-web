@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -32,7 +32,10 @@ export class PartnerNewLicenseComponent implements OnInit {
     private itemService: PartnerItemInfoServiceService,
     private router: Router,
     public dialog: MatDialog,
-    public newLicenseDialogRef: MatDialogRef<PartnerNewLicenseComponent>) {
+    public newLicenseDialogRef: MatDialogRef<PartnerNewLicenseComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { 
+      action: string
+    }) {
 
   }
 
@@ -67,7 +70,7 @@ export class PartnerNewLicenseComponent implements OnInit {
     this.licenseForm.controls["productKey"].markAsTouched();
     if(this.licenseForm.valid) {
       this.newLicenseDialogRef.close();
-      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&product=${this.licenseForm.controls["productKey"].value}`;
+      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&productCode=${this.licenseForm.controls["productKey"].value}&action=${this.data.action}`;
       window.open(buyLicenseURL, '_blank');
       
       this.dialog.open(ConfirmationDialogBox,

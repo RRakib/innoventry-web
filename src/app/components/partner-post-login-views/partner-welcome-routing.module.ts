@@ -12,7 +12,7 @@ const partnerRoutes: Routes = [
         children: [
             { path: '', component: PartnerCustomersComponent },
              { path: 'customers', component: PartnerCustomersComponent },
-            //  { path: 'renewLicense', component: PartnerRenewLicenseComponent} ,
+             { path: 'renewLicense', component: PartnerRenewLicenseComponent} ,
              { path: 'newLicense', component: PartnerNewLicenseComponent}
         ]
     }
