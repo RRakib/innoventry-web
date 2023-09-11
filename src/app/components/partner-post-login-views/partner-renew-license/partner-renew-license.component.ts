@@ -3,11 +3,12 @@ import { ItemLicenseReportLine, PartnerItemLicenseGenerationServiceService } fro
 
 import { Observable, Subscription, map, shareReplay} from 'rxjs';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NavService } from 'src/app/services/nav.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-partner-renew-license',
@@ -27,6 +28,7 @@ export class PartnerRenewLicenseComponent implements OnInit {
   isFormLoaded : boolean = false;
 
   licenseKey : string;
+  action : string;
   customerCount: number = 0;
 
   public dataSource = new MatTableDataSource<ItemLicenseReportLine>([]);
@@ -48,11 +50,12 @@ export class PartnerRenewLicenseComponent implements OnInit {
     private licenseGenerationService : PartnerItemLicenseGenerationServiceService,
     private router : Router, private breakpointObserver: BreakpointObserver) {
       this.licenseKey = router.getCurrentNavigation()?.extras.state?.['licenseKey'];
+      this.action = router.getCurrentNavigation()?.extras.state?.['action'];
     }
 
   ngOnInit(): void {
     this.licenseSearchForm = this.formBuilder.group({
-      licenseKey: new FormControl(this.licenseKey)
+      licenseKey: new FormControl(this.licenseKey, [Validators.required])
     });
 
     if(!!this.licenseKey && this.licenseKey.length > 0) {
@@ -71,6 +74,14 @@ export class PartnerRenewLicenseComponent implements OnInit {
           ? data.length : 0;
       }
     });
+  }
+
+  renewLicense() : void{
+    this.licenseSearchForm.controls["licenseKey"].markAsTouched();
+    if(this.licenseSearchForm.valid) {
+      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&product_key=${this.licenseSearchForm.controls["licenseKey"].value}&action=${this.action}`;
+      window.open(buyLicenseURL, '_blank');
+    }    
   }
 
   public generateNewLicense(): void{

@@ -7,13 +7,22 @@
                     <div class="title-underline"></div>                
                   </mat-card-title>  
                   <div>
-                    <button mat-raised-button color="primary" class="toolbar-button" matTooltip="Add New Item" (click)="generateNewLicense()">
-                        <mat-icon>person_add</mat-icon> New License
-                    </button>   
-                    <!-- <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="renewBuyLicense()">
-                        <mat-icon>autorenew</mat-icon> Renew/Buy License
+                    <button mat-raised-button color="primary" class="toolbar-button" [matMenuTriggerFor]="beforeMenu">Offline Access</button>
+                    <mat-menu #beforeMenu="matMenu" xPosition="before">
+                        <button mat-menu-item (click)="generateNewLicense('new_offline')">Buy New Offline License</button>
+                        <button mat-menu-item (click)="renewBuyLicense('', 'renew_offline')">Renew Offline Yearly License</button>
+                    </mat-menu>
+
+                    <!-- <button mat-raised-button color="primary" class="toolbar-button" [matMenuTriggerFor]="beforeOnlineMenu">Online Access</button>
+                    <mat-menu #beforeOnlineMenu="matMenu" xPosition="before">
+                        <button mat-menu-item (click)="generateNewLicense('new_online')">Buy New Online License</button>
+                        <button mat-menu-item>Renew Online Yearly License</button>
+                    </mat-menu>
+
+                    <button mat-raised-button color="primary" class="toolbar-button" matTooltip="Add New Item">
+                        Buy API
                     </button> -->
-                  </div>  
+                  </div>                    
             </mat-card-header> 
     
             <mat-card-content>
@@ -72,14 +81,14 @@
                             <td mat-cell *matCellDef="let row">{{row.productKey}}</td>
                         </ng-container>
 
-                        <!-- <ng-container matColumnDef="actions">
+                        <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
                             <td mat-cell *matCellDef="let row">
-                                <button mat-raised-button class="toolbar-button" matTooltip="Renew License" (click)="renewBuyLicense(row.productKey)">
-                                    <mat-icon>autorenew</mat-icon> Renew
+                                <button mat-raised-button class="toolbar-button" matTooltip="Renew License" (click)="renewBuyLicense(row.productKey, 'amc')">
+                                    <mat-icon>autorenew</mat-icon>
                                 </button>
                             </td>                            
-                          </ng-container> -->
+                          </ng-container>
 
                         <tr class="mat-row" *matNoDataRow>
                             <td class="mat-cell" [attr.colspan]="displayedColumns.length">

@@ -4,15 +4,7 @@
             <mat-card-title>
                 Renew License
                 <div class="title-underline"></div>                
-              </mat-card-title> 
-              <div>
-                <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="generateNewLicense()">
-                    <mat-icon>access_time</mat-icon> New License
-                </button>   
-                <button mat-raised-button class="toolbar-button" matTooltip="Add New Item" (click)="viewCustomers()">
-                    <mat-icon>group</mat-icon> All Customers
-                </button>                    
-              </div>   
+              </mat-card-title>               
         </mat-card-header> 
 
         <mat-card-content  class="text-center" *ngIf="isFormLoaded">
@@ -94,7 +86,7 @@
                     <button mat-raised-button class="button-group" [fxFlex]="50">
                         Cancel
                     </button>
-                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50">
+                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="renewLicense()">
                         Renew
                     </button>
                 </div>

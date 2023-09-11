@@ -40,6 +40,10 @@ export class PartnerWelcomeComponent implements OnInit, AfterViewInit {
     this.navService.setDrawerRef(this.drawer);
   } 
 
+  returnToHome() {
+    this.router.navigate(['/partnerMainView']);
+  }
+
   logoutPartner() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userName');

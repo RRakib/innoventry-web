@@ -325,7 +325,7 @@
                     <mat-card [class]="'mb-1'">
                         <mat-card-header [class]="'mat-card-headers fl-sb-center'">
                             <mat-card-subtitle  class="theme-color">
-                                Add Other Charges/Discount                    
+                                Other Charges                  
                             </mat-card-subtitle>
                             <div class="table-action-buttons fl-sb-center">
                                 <button mat-raised-button color="primary" 
@@ -366,7 +366,7 @@
                                     <tr class="mat-row" *matNoDataRow>
                                         <td class="mat-cell" [attr.colspan]="otherChargesDisplayedColumns.length">
                                             <a style="font-weight:500;cursor:pointer" 
-                                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges/Discounts
+                                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges
                                             </a>                                            
                                         </td>
                                     </tr>
@@ -379,9 +379,9 @@
                                     </tr>
                                     </table>                 
                             </div>
-                            <div style="text-align:center" *ngIf="otherChargesDataSource.data.length > 0">
+                            <div style="text-align:center; border: 1px solid #F3F3F4;" *ngIf="otherChargesDataSource.data.length > 0">
                                 <a style="font-weight:500;cursor:pointer" 
-                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges/Discounts
+                                    (click)="openOtherChargesDiscountsModal()">Add Other Charges
                                 </a>
                             </div>
                         </mat-card-content>
