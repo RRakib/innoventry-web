@@ -22,10 +22,18 @@ export class PartnerNewLicenseComponent implements OnInit {
 
   //PartnerItemLicenseRequest
   licenseForm : FormGroup;
+  availableOnlineProducts: Array<any> = [
+    {"label": "Basic Edition Online" , "value" : "NINVBEH"},
+    {"label": "Personal Edition Online" , "value" : "NINVBEH"},
+    {"label": "Standard Edition Online" , "value" : "NINVBEH"},
+    {"label": "Premium Edition Online" , "value" : "NINVBEH"}
+  ];
+
   availableProducts: Array<PartnerItemInfo> = [];
 
   isFormLoaded: boolean = false;
   selectedProductRate : number | undefined;
+  selectedProductCode : string | undefined;
 
   constructor(private breakpointObserver: BreakpointObserver, private generateLicenseService: PartnerItemLicenseGenerationServiceService,
     private formBuilder: FormBuilder,
@@ -41,28 +49,40 @@ export class PartnerNewLicenseComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.itemService.getItems().subscribe({
-      next: (data) => {
-        this.availableProducts = data;
-
-        this.licenseForm = this.formBuilder.group({
-          customerName : new FormControl(),
-          mobile: new FormControl(),
-          email: new FormControl(),
-          address: new FormControl(),
-          itemId: new FormControl(),
-          requestType: new FormControl(),
-          productKey: new FormControl(null, [Validators.required]),
-        });
-
-        this.isFormLoaded = true;
-      }
+    this.licenseForm = this.formBuilder.group({      
+      productKey: new FormControl(null, [Validators.required]),
     });
+
+    if(this.data.action == 'new_online'){
+      this.licenseForm.addControl('companyId', new FormControl(null, [Validators.required]));
+    }
+
+    if(this.data.action == 'new_online') {
+      this.isFormLoaded = true;
+    }else{
+      this.itemService.getItems().subscribe({
+        next: (data) => {
+          this.availableProducts = data;
+          this.isFormLoaded = true;
+        }
+      });
+    }
+
+    
   }
 
   onProductKeyChange(): void{
-    let selectedProduct = this.availableProducts.find((product) => product.name == this.licenseForm.controls["productKey"].value);
-    this.selectedProductRate = selectedProduct?.rate;
+
+    if(this.data.action == 'new_online') {
+      let selectedProduct = this.availableOnlineProducts.find((product) => product.value == this.licenseForm.controls["productKey"].value);
+      if(!!selectedProduct){
+        this.selectedProductCode = selectedProduct.value;
+      }
+    }else{
+      let selectedProduct = this.availableProducts.find((product) => product.name == this.licenseForm.controls["productKey"].value);
+      this.selectedProductRate = selectedProduct?.rate;
+    }
+    
   }
 
   generateLicense() {
@@ -70,7 +90,12 @@ export class PartnerNewLicenseComponent implements OnInit {
     this.licenseForm.controls["productKey"].markAsTouched();
     if(this.licenseForm.valid) {
       this.newLicenseDialogRef.close();
-      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&productCode=${this.licenseForm.controls["productKey"].value}&action=${this.data.action}`;
+      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&productCode=${this.selectedProductCode}&action=${this.data.action}`;
+
+      if(this.data.action == 'new_online'){
+        buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&productCode=${this.selectedProductCode}&action=${this.data.action}&company_id=${this.licenseForm.controls["companyId"].value}`;
+      }
+
       window.open(buyLicenseURL, '_blank');
       
       this.dialog.open(ConfirmationDialogBox,

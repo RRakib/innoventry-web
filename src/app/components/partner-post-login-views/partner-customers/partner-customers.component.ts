@@ -10,6 +10,7 @@ import { Observable, map, shareReplay } from 'rxjs';
 import { NavService } from 'src/app/services/nav.service';
 import { ItemLicenseReportLine, PartnerItemLicenseReportArg, PartnerItemLicenseReportServiceService } from 'src/server';
 import { PartnerNewLicenseComponent } from '../partner-new-license/partner-new-license.component';
+import { PartnerBuyApiComponent } from '../partner-buy-api/partner-buy-api.component';
 
 @Component({
   selector: 'app-partner-customers',
@@ -125,6 +126,18 @@ export class PartnerCustomersComponent implements OnInit, AfterViewInit {
     }
 
     this.router.navigate(['partnerMainView/renewLicense'], navigationExtras);    
+  }
+
+  buyAPI(apiType: string){
+    this.dialog.open(PartnerBuyApiComponent,
+      {
+        disableClose: true,
+        width: '60vw',
+        data : {
+          apiType: apiType
+        },
+      }
+    );
   }
 
   public generateNewLicense(action : string): void{  

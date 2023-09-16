@@ -9,86 +9,109 @@
 
         <mat-card-content  class="text-center" *ngIf="isFormLoaded">
             <form [formGroup]="licenseSearchForm">
-                <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between">
-                    <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
-                     [fxFlex]="(isHandset$ | async) ? 60 : 100">
-                        <mat-label>Product Key/License Key</mat-label>
-                        <input type="text" placeholder="Search Product Key/License Key" aria-label="attribute" matInput 
-                           formControlName="licenseKey">
-                    </mat-form-field>
-
-                    <div [fxLayout]="'row'"[fxFlex]="(isHandset$ | async) ? 40 : 0">
-                        <button mat-raised-button class="button-group"  color="primary" (click)="getLicenseKeyOwnerDetails()">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </div>
-                </div>
+                <ng-container [ngSwitch]="action">                    
+                    <ng-container *ngSwitchCase="'renew_online'">
+                        <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
+                             [fxFlex]="(isHandset$ | async) ? 60 : 100">
+                                <mat-label>Company Id</mat-label>
+                                <input type="text" placeholder="Enter Company ID" aria-label="attribute" matInput 
+                                   formControlName="companyId">
+                            </mat-form-field>
+        
+                            <div [fxLayout]="'row'"[fxFlex]="(isHandset$ | async) ? 40 : 0">
+                                <button mat-raised-button class="button-group"  color="primary" (click)="renewOnlineLicense()">
+                                    <mat-icon>autorenew</mat-icon> Renew
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" [class]="(isHandset$ | async) ? 'innov-matFormField' : 'innov-matFormField mr-1'"
+                             [fxFlex]="(isHandset$ | async) ? 60 : 100">
+                                <mat-label>Product Key/License Key</mat-label>
+                                <input type="text" placeholder="Search Product Key/License Key" aria-label="attribute" matInput 
+                                   formControlName="licenseKey">
+                            </mat-form-field>
+        
+                            <div [fxLayout]="'row'"[fxFlex]="(isHandset$ | async) ? 40 : 0">
+                                <button mat-raised-button class="button-group"  color="primary" (click)="getLicenseKeyOwnerDetails()">
+                                    <mat-icon>search</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                
             </form>
 
-            <div class="responsive-table">
-                <table mat-table class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">    
-                    <ng-container matColumnDef="customer">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
-                        <td mat-cell *matCellDef="let row">{{row.customer}}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="item">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
-                        <td mat-cell *matCellDef="let row">{{row.item}}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="mobile">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</th>
-                        <td mat-cell *matCellDef="let row">{{row.mobile}}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="email">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-                        <td mat-cell *matCellDef="let row">{{row.email}}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="amcDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>AMC Date</th>
-                        <td mat-cell *matCellDef="let row">{{row.amcDate  | date:'mediumDate'  }}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="expiryDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</th>
-                        <td mat-cell *matCellDef="let row">{{row.expiryDate | date:'mediumDate'}}</td>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="productKey">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Key</th>
-                        <td mat-cell *matCellDef="let row">{{row.productKey}}</td>
-                    </ng-container>
+            <div  *ngIf="action != 'renew_online'">
+                <div class="responsive-table">
+                    <table mat-table class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">    
+                        <ng-container matColumnDef="customer">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
+                            <td mat-cell *matCellDef="let row">{{row.customer}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="item">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
+                            <td mat-cell *matCellDef="let row">{{row.item}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="mobile">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</th>
+                            <td mat-cell *matCellDef="let row">{{row.mobile}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                            <td mat-cell *matCellDef="let row">{{row.email}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="amcDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>AMC Date</th>
+                            <td mat-cell *matCellDef="let row">{{row.amcDate  | date:'mediumDate'  }}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="expiryDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</th>
+                            <td mat-cell *matCellDef="let row">{{row.expiryDate | date:'mediumDate'}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="productKey">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Key</th>
+                            <td mat-cell *matCellDef="let row">{{row.productKey}}</td>
+                        </ng-container>
 
-                    <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-                          No Customers Found.
-                        </td>
-                    </tr>  
-        
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                    </tr>
-                </table>
-            </div>            
-            <mat-paginator *ngIf="customerCount > 200" 
-                #paginator                    
-                [pageSize]="200"
-                [pageSizeOptions]="[100, 200, 500]"
-                showFirstLastButtons 
-                aria-label="Select page">
-            </mat-paginator> 
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                            No Customers Found.
+                            </td>
+                        </tr>  
+            
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                    </table>
+                </div>            
+                <mat-paginator *ngIf="customerCount > 200" 
+                    #paginator                    
+                    [pageSize]="200"
+                    [pageSizeOptions]="[100, 200, 500]"
+                    showFirstLastButtons 
+                    aria-label="Select page">
+                </mat-paginator> 
 
-            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">
-                <div>
-                    <button mat-raised-button class="button-group" [fxFlex]="50">
-                        Cancel
-                    </button>
-                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="renewLicense()">
-                        Renew
-                    </button>
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">
+                    <div>
+                        <button mat-raised-button class="button-group" [fxFlex]="50">
+                            Cancel
+                        </button>
+                        <button mat-raised-button class="button-group"  color="primary" [fxFlex]="50" (click)="renewOfflineLicense()">
+                            Renew
+                        </button>
+                    </div>
                 </div>
             </div>
 
