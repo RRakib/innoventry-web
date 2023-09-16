@@ -13,12 +13,14 @@ import { PartnerRenewLicenseComponent } from './partner-renew-license/partner-re
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavService } from 'src/app/services/nav.service';
 import { ConfirmationDialogBox, PartnerNewLicenseComponent } from './partner-new-license/partner-new-license.component';
+import { PartnerBuyApiComponent } from './partner-buy-api/partner-buy-api.component';
 
 @NgModule({
   declarations: [
     PartnerWelcomeComponent, PartnerCustomersComponent, 
     PartnerMenuListItemComponent, PartnerRenewLicenseComponent, PartnerNewLicenseComponent,
-    ConfirmationDialogBox
+    ConfirmationDialogBox,
+    PartnerBuyApiComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,8 @@ import { NavService } from 'src/app/services/nav.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
+import { ConfirmationDialogBox } from '../partner-new-license/partner-new-license.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-partner-renew-license',
@@ -48,15 +50,19 @@ export class PartnerRenewLicenseComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private navService : NavService,
     private licenseGenerationService : PartnerItemLicenseGenerationServiceService,
-    private router : Router, private breakpointObserver: BreakpointObserver) {
+    private router : Router, private breakpointObserver: BreakpointObserver, public dialog: MatDialog) {
       this.licenseKey = router.getCurrentNavigation()?.extras.state?.['licenseKey'];
       this.action = router.getCurrentNavigation()?.extras.state?.['action'];
     }
 
   ngOnInit(): void {
-    this.licenseSearchForm = this.formBuilder.group({
-      licenseKey: new FormControl(this.licenseKey, [Validators.required])
-    });
+    this.licenseSearchForm = this.formBuilder.group({ });
+
+    if(this.action == 'renew_online'){
+      this.licenseSearchForm.addControl('companyId', new FormControl(null, [Validators.required]));
+    }else{
+      this.licenseSearchForm.addControl('licenseKey', new FormControl(this.licenseKey, [Validators.required]));
+    }
 
     if(!!this.licenseKey && this.licenseKey.length > 0) {
       this.getLicenseKeyOwnerDetails();
@@ -76,11 +82,31 @@ export class PartnerRenewLicenseComponent implements OnInit {
     });
   }
 
-  renewLicense() : void{
+  renewOfflineLicense() : void{
     this.licenseSearchForm.controls["licenseKey"].markAsTouched();
     if(this.licenseSearchForm.valid) {
       let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&product_key=${this.licenseSearchForm.controls["licenseKey"].value}&action=${this.action}`;
       window.open(buyLicenseURL, '_blank');
+
+      this.dialog.open(ConfirmationDialogBox,
+        {disableClose: true, width: '60vw'}
+      );
+
+      this.router.navigate(["partnerMainView"]);
+    }    
+  }
+
+  renewOnlineLicense() : void{
+    this.licenseSearchForm.controls["companyId"].markAsTouched();
+    if(this.licenseSearchForm.valid) {
+      let buyLicenseURL = `${environment.buyLicenseUrl}?partner_id=${localStorage.getItem('userName')}&company_id=${this.licenseSearchForm.controls["companyId"].value}&action=${this.action}`;
+      window.open(buyLicenseURL, '_blank');
+
+      this.dialog.open(ConfirmationDialogBox,
+        {disableClose: true, width: '60vw'}
+      );
+
+      this.router.navigate(["partnerMainView"]);
     }    
   }
 

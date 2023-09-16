@@ -15,51 +15,42 @@
     
             <mat-card-content *ngIf="isFormLoaded">
                 <form  [formGroup]="licenseForm">
-                    <!-- <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Name</mat-label>
-                            <input matInput placeholder="Enter Customer Name"
-                                #name name="name" id="name"
-                                formControlName="customerName">
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Mobile No.</mat-label>
-                            <input matInput placeholder="Enter Mobile No."
-                                #mobileNo name="mobileNo" id="mobileNo"
-                                formControlName="mobile">
-                        </mat-form-field>
-                    </div> -->
-
-                    <!-- <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="space-around">
-                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Enter Email"
-                                #name name="name" id="email"
-                                formControlName="email">
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 50">
-                            <mat-label>Address</mat-label>
-                            <input matInput placeholder="Enter Address"
-                                #mobileNo name="address" id="address"
-                                formControlName="address">
-                        </mat-form-field>
-                    </div> -->
-
-
-                    <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
-                        <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="100">
-                            <mat-label>Product Key</mat-label>
-                            <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
-                              <mat-option *ngFor="let product of availableProducts" [value]="product.name">
-                                {{product.name}}
-                              </mat-option>
-                            </mat-select>
-                        </mat-form-field>    
-                    </div>
+                    <ng-container [ngSwitch]="data.action">
+                        <ng-container *ngSwitchCase="'new_online'">
+                            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                                <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="80">
+                                    <mat-label>Product Key</mat-label>
+                                    <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
+                                      <mat-option *ngFor="let product of availableOnlineProducts" [value]="product.value">
+                                        {{product.label}}
+                                      </mat-option>
+                                    </mat-select>
+                                </mat-form-field>  
+                                <mat-form-field appearance="outline"
+                                    [class]="'innov-matFormField ml-1'"
+                                    [fxFlex]="20">
+                                    <mat-label>Company Id</mat-label>
+                                    <input matInput placeholder="Enter Company Id" #companyId name="companyId"
+                                        id="companyId" formControlName="companyId">
+                                </mat-form-field>  
+                            </div>        
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'new_offline'">
+                            <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start">
+                                <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="100">
+                                    <mat-label>Product Key</mat-label>
+                                    <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
+                                      <mat-option *ngFor="let product of availableProducts" [value]="product.name">
+                                        {{product.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                </mat-form-field>    
+                            </div>        
+                        </ng-container>
+                    </ng-container>
+                    
                     <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" *ngIf="selectedProductRate">
-                        <mat-chip>The selected product price is : Rs. {{selectedProductRate}}</mat-chip>                        
+                        <mat-chip>The selected product price is : Rs. {{selectedProductRate | number : '1.2-2'}}</mat-chip>                        
                     </div>
 
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">

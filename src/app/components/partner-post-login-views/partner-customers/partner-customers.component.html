@@ -7,10 +7,14 @@
                     <div class="title-underline"></div>                
                   </mat-card-title>  
                   <div>
-                    <button mat-raised-button color="primary" class="toolbar-button" [matMenuTriggerFor]="beforeMenu">Offline Access</button>
+                    <button mat-raised-button color="primary" class="toolbar-button" [matMenuTriggerFor]="beforeMenu">New License</button>
                     <mat-menu #beforeMenu="matMenu" xPosition="before">
-                        <button mat-menu-item (click)="generateNewLicense('new_offline')">Buy New Offline License</button>
+                        <button mat-menu-item (click)="generateNewLicense('new_offline')">New Offline License</button>
+                        <button mat-menu-item (click)="generateNewLicense('new_online')">New Online License</button>
                         <button mat-menu-item (click)="renewBuyLicense('', 'renew_offline')">Renew Offline Yearly License</button>
+                        <button mat-menu-item (click)="renewBuyLicense('', 'renew_online')">Renew Online Yearly License</button>
+                        <button mat-menu-item (click)="buyAPI('GSTEInvoice')">Buy E-Invoice API</button>
+                        <button mat-menu-item (click)="buyAPI('GSTINVerification')">Buy GSTIN Verification API</button>
                     </mat-menu>
 
                     <!-- <button mat-raised-button color="primary" class="toolbar-button" [matMenuTriggerFor]="beforeOnlineMenu">Online Access</button>
