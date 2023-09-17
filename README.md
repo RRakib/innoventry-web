@@ -1,3 +1,16 @@
+# Environment Setup
+
+Use NodeJs Version 16.20
+
+Donwload NodeJs from 
+https://nodejs.org/download/release/v16.20.2/node-v16.20.2-win-x64.zip
+
+Extract the zip to c:\apps
+
+set PATH=C:\apps\node-v16.20.2-win-x64;%PATH%
+npm install -g @angular/cli@13.3.8
+npm install -g @ionic/cli@7.1.1
+
 # Webapp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.8.
