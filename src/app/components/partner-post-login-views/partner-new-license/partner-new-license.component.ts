@@ -29,6 +29,17 @@ export class PartnerNewLicenseComponent implements OnInit {
     {"label": "Premium Edition Online" , "value" : "NINVBEH"}
   ];
 
+  availableOfflineProducts: Array<any> = [
+    {"label": "Basic Edition Perpetual License" , "value" : "NINVBEOT"},
+    {"label": "Personal Edition Perpetual License" , "value" : "NINVPEOT"},
+    {"label": "Standard Edition Perpetual License" , "value" : "NINVSEOT"},
+    {"label": "Premium Edition Perpetual License" , "value" : "NINVFEOT"},
+    {"label": "Basic Edition Yearly License" , "value" : "NINVBEY"},
+    {"label": "Personal Edition Yearly License" , "value" : "NINVPEY"},
+    {"label": "Standard Edition Yearly License" , "value" : "NINVSEY"},
+    {"label": "Premium Edition Yearly License" , "value" : "NINVFEY"}
+  ];
+
   availableProducts: Array<PartnerItemInfo> = [];
 
   isFormLoaded: boolean = false;
@@ -73,14 +84,16 @@ export class PartnerNewLicenseComponent implements OnInit {
 
   onProductKeyChange(): void{
 
+    let selectedProduct;
+
     if(this.data.action == 'new_online') {
-      let selectedProduct = this.availableOnlineProducts.find((product) => product.value == this.licenseForm.controls["productKey"].value);
-      if(!!selectedProduct){
-        this.selectedProductCode = selectedProduct.value;
-      }
+      selectedProduct = this.availableOnlineProducts.find((product) => product.value == this.licenseForm.controls["productKey"].value);      
     }else{
-      let selectedProduct = this.availableProducts.find((product) => product.name == this.licenseForm.controls["productKey"].value);
-      this.selectedProductRate = selectedProduct?.rate;
+      selectedProduct = this.availableOfflineProducts.find((product) => product.value == this.licenseForm.controls["productKey"].value);
+    }
+
+    if(!!selectedProduct){
+      this.selectedProductCode = selectedProduct.value;
     }
     
   }
