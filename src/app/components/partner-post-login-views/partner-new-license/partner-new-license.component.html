@@ -40,8 +40,8 @@
                                 <mat-form-field appearance="outline" class="innov-matFormField mr-1"  [fxFlex]="100">
                                     <mat-label>Product Key</mat-label>
                                     <mat-select formControlName="productKey" name="productKey" (selectionChange)="onProductKeyChange()">
-                                      <mat-option *ngFor="let product of availableProducts" [value]="product.name">
-                                        {{product.name}}
+                                      <mat-option *ngFor="let product of availableOfflineProducts" [value]="product.value">
+                                        {{product.label}}
                                       </mat-option>
                                     </mat-select>
                                 </mat-form-field>    
@@ -49,9 +49,9 @@
                         </ng-container>
                     </ng-container>
                     
-                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" *ngIf="selectedProductRate">
+                    <!-- <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="end" *ngIf="selectedProductRate">
                         <mat-chip>The selected product price is : Rs. {{selectedProductRate | number : '1.2-2'}}</mat-chip>                        
-                    </div>
+                    </div> -->
 
                     <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="end" class="mt-2">
                         <div>
