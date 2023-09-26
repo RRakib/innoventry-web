@@ -17,7 +17,7 @@
                            formControlName="customerId">
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 20">
+                    <mat-form-field appearance="outline" class="innov-matFormField mr-1" [fxFlex]="(isHandset$ | async) ? 100 : 30">
                         <mat-label>API Count</mat-label>
                         <mat-select formControlName="count" name="count">
                           <mat-option value="100">100</mat-option>
@@ -26,18 +26,18 @@
                           <mat-option value="1000">1000</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    
+<!--                     
                     <button mat-raised-button class="button-group" [fxFlex]="(isHandset$ | async) ? 100 : 15" 
                         (click)="getLicenseKeyOwnerDetails()">
                         Search
-                    </button>
+                    </button> -->
 
-                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 15" (click)="buyApi()">
+                    <button mat-raised-button class="button-group"  color="primary" [fxFlex]="(isHandset$ | async) ? 100 : 20" (click)="buyApi()">
                         Buy
                     </button>
                 </div>
 
-                <div class="responsive-table">
+                <!-- <div class="responsive-table">
                     <table mat-table class="innoventry-table"  [dataSource]="dataSource" matSort aria-label="Elements">    
                         <ng-container matColumnDef="customer">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
@@ -84,7 +84,7 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                         </tr>
                     </table>
-                </div>
+                </div> -->
             </form>
 
             <div class="text-right" fxflexfill fxLayoutAlign="space-between">
