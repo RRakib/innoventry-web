@@ -17,29 +17,34 @@
                             <span>Back to Login</span>
                         </a>
                     </div>
-                    <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-between">
-                        <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                         [fxFlex]="100">
-                            <mat-label>Company Id</mat-label>
-                            <input type="text" placeholder="Enter Company Id" aria-label="attribute" matInput/>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                         [fxFlex]="100">
-                            <mat-label>Username</mat-label>
-                            <input type="text" placeholder="Enter Username" aria-label="attribute" matInput/>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" [class]="'innov-matFormField'"
-                         [fxFlex]="100">
-                            <mat-label>Email Id</mat-label>
-                            <input type="text" placeholder="Enter Email Id" aria-label="attribute" matInput/>
-                        </mat-form-field>
-
-                        <button mat-raised-button type="submit" color="primary">
-                            Reset Password
-                        </button>
-                        
-                        <mat-hint align="start">*This feature is for Administrator only. Other Users Please contact your administrator</mat-hint>
-                    </div>
+                    <form [formGroup]="forgotPasswordForm" (submit)="resetPassword()">
+                        <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Company Id</mat-label>
+                                <input type="text" placeholder="Enter Company Id" aria-label="attribute" matInput
+                                formControlName="companyId"/>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Username</mat-label>
+                                <input type="text" placeholder="Enter Username" aria-label="attribute" matInput
+                                formControlName="userName"/>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Email Id</mat-label>
+                                <input type="text" placeholder="Enter Email Id" aria-label="attribute" matInput
+                                formControlName="email"/>
+                            </mat-form-field>
+    
+                            <button mat-raised-button type="submit" color="primary">
+                                Reset Password
+                            </button>
+                            
+                            <mat-hint align="start">*This feature is for Administrator only. Other Users Please contact your administrator</mat-hint>
+                        </div>
+                    </form>                    
                 </ng-container>
                 <ng-container *ngSwitchCase="'ForgotCompanyUserName'">
                     <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start center">
@@ -71,13 +76,13 @@
                                     <mat-label>Company Id</mat-label>
                                     <input matInput placeholder="Company Id" formControlName="companyId"
                                         #companyid name="companyId" id="companyid">
-                                    <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Company Id</a></mat-hint>
+                                    <!-- <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Company Id</a></mat-hint> -->
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="innov-matFormField">
                                     <mat-label>Username</mat-label>
                                     <input matInput placeholder="Username" formControlName="username"
                                     #username name="username" id="username">
-                                    <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Username</a></mat-hint>
+                                    <!-- <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Username</a></mat-hint> -->
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="innov-matFormField">
                                     <mat-label>Password</mat-label>

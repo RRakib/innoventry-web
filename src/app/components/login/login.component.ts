@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CredentialsServiceService } from 'src/server';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -22,13 +24,17 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
+  forgotPasswordForm!: FormGroup;
+
   currentView : string;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private breakpointObserver: BreakpointObserver) {
+    private breakpointObserver: BreakpointObserver,
+    private credentialsServiceService: CredentialsServiceService,
+    private _snackBar: MatSnackBar) {
 
   }
 
@@ -87,7 +93,39 @@ export class LoginComponent implements OnInit {
   }
 
   enableForgotPasswordView(){
+
+    this.forgotPasswordForm = this.formBuilder.group({
+      companyId: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]]
+    })
     this.currentView = "ForgotPasswordView";
+  }
+
+  resetPassword(){
+    this.forgotPasswordForm.markAllAsTouched();
+
+    if(this.forgotPasswordForm.valid) {
+      this.credentialsServiceService.resetPassword(
+        this.forgotPasswordForm.controls["companyId"].value,
+        this.forgotPasswordForm.controls["email"].value,
+        this.forgotPasswordForm.controls["userName"].value,
+      ).subscribe({
+        next: (data) => {
+          if(data.status && data.message) {
+            this._snackBar.open(data.message,'Close', {
+              duration: 2000
+            });      
+          }else{
+            this._snackBar.open("Your Request Has Been Processed ,Details Has Been Sent By Email",'Close', {     
+              duration: 2000
+            });      
+          }
+          
+          this.currentView = "LoginView";
+        }
+      });  
+    }
   }
 
 
