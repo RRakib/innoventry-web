@@ -4,7 +4,7 @@
 }
 
 :host ::ng-deep mat-card.mat-card{
-    padding: 36px;
+    padding: 20px;
 }
 
 .login-container-fixed-height {

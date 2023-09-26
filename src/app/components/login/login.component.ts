@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
+  currentView : string;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -74,6 +76,18 @@ export class LoginComponent implements OnInit {
         );
 
     }
+  }
+
+  backToLoginView(){
+    this.currentView = "LoginView";
+  }
+
+  enableCompanyUsernameView(){
+    this.currentView = "ForgotCompanyUserName";
+  }
+
+  enableForgotPasswordView(){
+    this.currentView = "ForgotPasswordView";
   }
 
 
