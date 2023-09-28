@@ -9,50 +9,117 @@
             </div>
         </div>
         <mat-card [fxFlex]="(isHandset$ | async) ? 100 : 40" class="login-card-corners" [class]="(isHandset$ | async) ? 'handset-login-card' : 'browser-login-card'">
-            <mat-tab-group>
-                <mat-tab label="Login">
-                    <form fxLayoutAlign="stretch" fxLayout="column"
-                        [formGroup]="loginForm" (submit)="login()">
-                        <mat-form-field appearance="outline" class="innov-matFormField">
-                            <mat-label>Company Id</mat-label>
-                            <input matInput placeholder="Company Id" formControlName="companyId"
-                                #companyid name="companyId" id="companyid">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="innov-matFormField">
-                            <mat-label>Username</mat-label>
-                            <input matInput placeholder="Username" formControlName="username"
-                            #username name="username" id="username">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="innov-matFormField">
-                            <mat-label>Password</mat-label>
-                            <input matInput placeholder="Password" type="password" formControlName="password"
-                            #password name="password" id="password">
-                        </mat-form-field>
-            
-                        <button mat-raised-button type="submit" color="primary">
-                            Login             
-                        </button>
-
-                        <div class="or">
-                            OR
+            <ng-container [ngSwitch]="currentView">
+                <ng-container *ngSwitchCase="'ForgotPasswordView'">
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start center">
+                        <a class="fl-sb-center" (click)="backToLoginView()">
+                            <mat-icon>arrow_back</mat-icon>
+                            <span>Back to Login</span>
+                        </a>
+                    </div>
+                    <form [formGroup]="forgotPasswordForm" (submit)="resetPassword()">
+                        <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Company Id</mat-label>
+                                <input type="text" placeholder="Enter Company Id" aria-label="attribute" matInput
+                                formControlName="companyId"/>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Username</mat-label>
+                                <input type="text" placeholder="Enter Username" aria-label="attribute" matInput
+                                formControlName="userName"/>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                             [fxFlex]="100">
+                                <mat-label>Email Id</mat-label>
+                                <input type="text" placeholder="Enter Email Id" aria-label="attribute" matInput
+                                formControlName="email"/>
+                            </mat-form-field>
+    
+                            <button mat-raised-button type="submit" color="primary">
+                                Reset Password
+                            </button>
+                            
+                            <mat-hint align="start">*This feature is for Administrator only. Other Users Please contact your administrator</mat-hint>
                         </div>
-
-                        <button mat-raised-button type="button"
-                            style="background-color: #F0F0F0"
-                            (click)="newRegistration()">
-                            <mat-icon>account_box</mat-icon>
-                            Create Account                                 
-                        </button>
-
-                        <!-- <span class="mt-10px">Don't have an account ? 
-                            <a class="register-view" href="javascript:void(0)">Register</a>
-                        </span> -->
-                    </form>
-                </mat-tab>
-                <mat-tab label="Partner Login">
-                    <partner-login></partner-login>
-                </mat-tab>
-            </mat-tab-group>
+                    </form>                    
+                </ng-container>
+                <ng-container *ngSwitchCase="'ForgotCompanyUserName'">
+                    <div [fxLayout]="'row'" fxflexfill fxLayoutAlign="start center">
+                        <a class="fl-sb-center" (click)="backToLoginView()">
+                            <mat-icon>arrow_back</mat-icon>
+                            <span>Back to Login</span>
+                        </a>
+                    </div>
+                    <form [formGroup]="forgotCompanyIdForm" (submit)="getCompanyIdUsername()">
+                        <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="space-between"> 
+                            <mat-form-field appearance="outline" [class]="'innov-matFormField'"
+                            [fxFlex]="100">
+                               <mat-label>Email/Mobile No.</mat-label>
+                               <input type="text" placeholder="Enter Email/Mobile No." aria-label="attribute" matInput
+                               formControlName="emailMobile"/>
+                           </mat-form-field>
+   
+                           <button mat-raised-button type="submit" color="primary">
+                               Get Company Id / Username
+                           </button>
+                           
+                           <mat-hint align="start">*This feature is for Administrator only. Other Users Please contact your administrator</mat-hint>
+                        </div>
+                    </form>                    
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    <mat-tab-group>
+                        <mat-tab label="Login">
+                            <form fxLayoutAlign="stretch" fxLayout="column"
+                                [formGroup]="loginForm" (submit)="login()">
+                                <mat-form-field appearance="outline" class="innov-matFormField">
+                                    <mat-label>Company Id</mat-label>
+                                    <input matInput placeholder="Company Id" formControlName="companyId"
+                                        #companyid name="companyId" id="companyid">
+                                    <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Company Id</a></mat-hint>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="innov-matFormField">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput placeholder="Username" formControlName="username"
+                                    #username name="username" id="username">
+                                    <mat-hint align="end"><a (click)="enableCompanyUsernameView()">Forgot Username</a></mat-hint>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="innov-matFormField">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput placeholder="Password" type="password" formControlName="password"
+                                    #password name="password" id="password">
+                                    <mat-hint align="end"><a (click)="enableForgotPasswordView()">Forgot Password</a></mat-hint>
+                                </mat-form-field>
+                    
+                                <button mat-raised-button type="submit" color="primary">
+                                    Login             
+                                </button>
+        
+                                <div class="or">
+                                    OR
+                                </div>
+        
+                                <button mat-raised-button type="button"
+                                    style="background-color: #F0F0F0"
+                                    (click)="newRegistration()">
+                                    <mat-icon>account_box</mat-icon>
+                                    Create Account                                 
+                                </button>
+        
+                                <!-- <span class="mt-10px">Don't have an account ? 
+                                    <a class="register-view" href="javascript:void(0)">Register</a>
+                                </span> -->
+                            </form>
+                        </mat-tab>
+                        <mat-tab label="Partner Login">
+                            <partner-login></partner-login>
+                        </mat-tab>
+                    </mat-tab-group>
+                </ng-container>
+            </ng-container>            
         </mat-card>
         
 

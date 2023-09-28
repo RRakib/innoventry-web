@@ -13,7 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthenticationService } from './services/authentication.service';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AngularMaterialModule } from './shared/modules/angular-material.module';
-import { BASE_PATH,  } from 'src/server';
+import { BASE_PATH, CredentialsServiceService,  } from 'src/server';
 import { environment } from 'src/environments/environment';
 import { HttpAuthInterceptor } from './services/http.interceptor';
 import { DatabaseServiceService } from 'src/server/api/databaseService.service';
@@ -44,7 +44,8 @@ import { PartnerLoginComponent } from './components/login/partner-login/partner-
       useClass: HttpAuthInterceptor,
       multi: true
     },
-    NavService,AuthGuard, AuthenticationService, DatabaseServiceService],
+    NavService,AuthGuard, AuthenticationService, DatabaseServiceService,
+    CredentialsServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
