@@ -294,6 +294,20 @@ export class MenuConstants {
           children: []
         }
       ]
+    },
+    {
+      displayName: 'My Profile',
+      iconName: 'fa fa-user-circle',
+      route: 'main/user',
+      cssClass: 'mt-4 font125',
+      children: [
+        {
+          displayName: 'Business Plans',
+          iconName: 'fa fa-bar-chart',
+          route: 'profile',
+          children: []
+        }
+      ]
     }
   ];
 
