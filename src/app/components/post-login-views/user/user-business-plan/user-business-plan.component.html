@@ -138,32 +138,31 @@
 
         <mat-grid-tile *ngFor="let edition of companyPlanInfo.editions" [colspan]="(isHandset$ | async) ? editionCount : 1" [rowspan]="2">
             <div class="">
-                <mat-grid-tile-header class="mt-1 align-items-start" [fxLayout]="'column'">
-                    {{edition.title}}
-                    <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
-                        <div class="plan-price-tile">
-                            <span class="plan-price">{{ edition.rate | currency: 'INR':true }}</span> / year
+                <mat-grid-tile-header class="mt-1 fl-sb-center" [fxLayout]="'row'">
+                    <div>
+                        {{edition.title}}
+                        <div [fxLayout]="'column'" fxflexfill fxLayoutAlign="start" class="plan-name-price">
+                            <div class="plan-price-tile">
+                                <span class="plan-price">{{ edition.rate | currency: 'INR':true }}</span> / year
+                            </div>
                         </div>
                     </div>
+                    <button mat-raised-button color="primary" [fxFlex]="25" (click)="upgradePlan(edition.productCode)">
+                        {{navigationButton}}
+                    </button>                    
                 </mat-grid-tile-header>
      
                 <div style="margin-top: 3rem;">
                     <ul class="plan-features">
                         <ng-container *ngFor="let feature of edition.features;">
-                            <li class="d-flex align-items-center">
+                            <li style="display:flex; align-items:center; margin-top:5px">
                                 <mat-icon class="feature-tick">check</mat-icon> 
                                 {{feature.title}}
                             </li>
                         </ng-container>                    
                     </ul>
                 </div>
-            </div>            
-
-            <mat-grid-tile-footer [fxLayout]="'row'" fxflexfill fxLayoutAlign="center" class="mb-4">
-                    <button mat-raised-button color="primary" [fxFlex]="50" (click)="upgradePlan(edition.productCode)">
-                        {{navigationButton}}
-                    </button>
-            </mat-grid-tile-footer>
+            </div>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
