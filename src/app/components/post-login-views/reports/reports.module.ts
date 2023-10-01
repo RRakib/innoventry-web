@@ -63,6 +63,7 @@ import { TrialBalanceComponent } from './trial-balance/trial-balance.component';
 import { ItemAttributeSearchComponent } from './item-reports/item-attribute-search/item-attribute-search.component';
 import { ItemRegisterForLedgerComponent } from './item-reports/item-register-for-ledger/item-register-for-ledger.component';
 import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-location-register/item-stock-location-register.component';
+import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
 
 @NgModule({
   declarations: [ 
@@ -92,7 +93,8 @@ import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-lo
     TrialBalanceComponent,
     ItemAttributeSearchComponent,
     ItemRegisterForLedgerComponent,
-    ItemStockLocationRegisterComponent    
+    ItemStockLocationRegisterComponent,
+    InwardQuotationRegisterComponent    
   ],
   imports: [
     CommonModule,

@@ -42,8 +42,9 @@ import { OtherChargesServiceService } from 'src/server/api/otherChargesService.s
 import { DownloadService } from 'src/app/services/download.service';
 import { OrderTransportDetailComponent } from "src/app/components/post-login-views/transaction/order/order-tabs/order-transport-detail/order-transport-detail.component";
 import { OrderDescriptionComponent } from 'src/app/components/post-login-views/transaction/order/order-tabs/order-description/order-description.component';
-import { TermsServiceService } from 'src/server';
+import { InwardQuotationTxServiceService, TermsServiceService } from 'src/server';
 import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-autocomplete-box.component';
+import { InwardQuotationComponent } from 'src/app/components/post-login-views/transaction/order/inward-quotation/inward-quotation.component';
 
 @NgModule({
     declarations: [       
@@ -66,6 +67,7 @@ import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-au
         PurchaseComponent,   
         SaleOrderComponent, 
         QuotationComponent,
+        InwardQuotationComponent,
         OrderTransportDetailComponent,
         OrderDescriptionComponent
     ],
@@ -104,6 +106,7 @@ import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-au
         PurchaseOrderTxServiceService,
         POTxServiceService,
         QuotationTxServiceService,
+        InwardQuotationTxServiceService,
         TaxClassServiceService,
         TaxGroupServiceService,
         TaxableEntityServiceService,

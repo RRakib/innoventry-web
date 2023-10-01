@@ -1,0 +1,67 @@
+<div class="mat-elevation-z8">
+    <mat-card class="mb-1">
+        <mat-card-header class="justify-content-between">
+            <mat-card-title>
+                Inward Quotation Register
+                <div class="title-underline"></div>                            
+            </mat-card-title>
+            <div>
+                <button mat-raised-button color="primary" (click)="createNewInwardQuotationTx()">
+                    <mat-icon>note_add</mat-icon>                    
+                </button>
+
+                <button mat-raised-button class="ml-1" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #printMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </div>    
+        </mat-card-header>
+        <mat-card-content class="text-center">
+            <form [formGroup]="inwardQuotationForm">
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
+                    <div class="mr-1" [fxLayout]="'column'" fxflexfill fxLayoutAlign="start">
+                        <i-mat-datepicker [label]="'Start Date'" 
+                            [dateFormControl]="inwardQuotationForm.controls['startDate'] | convertToFormControl">
+                        </i-mat-datepicker>                       
+                    </div>
+
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
+                        <i-mat-datepicker [label]="'End Date'"
+                            [dateFormControl]="inwardQuotationForm.controls['endDate'] | convertToFormControl">
+                        </i-mat-datepicker>
+                    </div>                    
+                    <div [class]="(isHandset$ | async) ? '' : 'ml-1'">
+                        <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''"
+                            (click)="getInwardQuotationRegisterReport()">
+                            Show
+                        </button> 
+                    </div>
+                </div>   
+                <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
+                    [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
+                    <mat-checkbox formControlName="isItemDetailRequired" class="text-left">Show Item Details</mat-checkbox>
+                </div>                
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+          <i-tree-table [columnDefs]="columns" [data]="data" 
+          (onRowSelection)="onRowSelection($event)"
+          (onRowEdit)="onRowEdit()"></i-tree-table>          
+        </mat-card-content>
+    </mat-card>
+
+</div>

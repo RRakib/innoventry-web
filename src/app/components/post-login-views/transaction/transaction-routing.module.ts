@@ -9,6 +9,8 @@ import { SaleComponent } from './order/sale/sale.component';
 import { TransactionBaseViewComponent } from './transaction-base-view/transaction-base-view.component';
 import { PaymentComponent } from './voucher/payment/payment.component';
 import { ReceiptComponent } from './voucher/receipt/receipt.component';
+import { InwardQuotationRegisterComponent } from '../reports/inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
+import { InwardQuotationComponent } from './order/inward-quotation/inward-quotation.component';
 
 
 const routes: Routes = [
@@ -25,7 +27,9 @@ const routes: Routes = [
             { path: 'sale/new', component: SaleComponent},
             { path: 'newOrder/purchase', component: PurchaseComponent},
             { path: 'newOrder/saleOrder', component: SaleOrderComponent},
-            { path: 'newOrder/quotation', component: QuotationComponent}
+            { path: 'newOrder/quotation', component: QuotationComponent},
+            { path: 'inwardQuotation', component: InwardQuotationRegisterComponent},
+            { path: 'inwardQuotation/new', component: InwardQuotationComponent},
         ]
     },
     {
