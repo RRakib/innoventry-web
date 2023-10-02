@@ -1047,30 +1047,34 @@ export abstract class OrderTxComponent {
   }
 
   public addPaymentDetails() : void{
-    const OrderPaymentDialogRef = this.matDialog.open(OrderPaymentDetailComponent, { 
-      panelClass: 'custom-dialog-container', 
-      data : {
-        txLedgerId : this.orderTxForm.controls["ledgerId"].value,
-        netAmount  : this.netFinalAmount.value,
-        orderTxId: this.orderTxForm.controls["id"].value,
-        paymentLines: this.orderTxForm.controls["paymentLines"].value,
-        returnAmount: this.orderTxForm.controls["returnAmount"].value,
-      },
-      disableClose: true,      
-    }); 
-
-    OrderPaymentDialogRef.afterClosed().subscribe(result => {        
-      if(!!result && !!result.paymentLines && result.paymentLines.length > 0){
-        this.orderTxForm.patchValue({
-          paymentLines: result.paymentLines,
-          returnAmount: result.returnAmount
-        });
-
-        if(result.completeTx) {
-          this.saveOrderTx();
+    if(this.headerTitle != 'Quotation' && this.headerTitle != 'Inward Quotation'){
+      const OrderPaymentDialogRef = this.matDialog.open(OrderPaymentDetailComponent, { 
+        panelClass: 'custom-dialog-container', 
+        data : {
+          txLedgerId : this.orderTxForm.controls["ledgerId"].value,
+          netAmount  : this.netFinalAmount.value,
+          orderTxId: this.orderTxForm.controls["id"].value,
+          paymentLines: this.orderTxForm.controls["paymentLines"].value,
+          returnAmount: this.orderTxForm.controls["returnAmount"].value,
+        },
+        disableClose: true,      
+      }); 
+  
+      OrderPaymentDialogRef.afterClosed().subscribe(result => {        
+        if(!!result && !!result.paymentLines && result.paymentLines.length > 0){
+          this.orderTxForm.patchValue({
+            paymentLines: result.paymentLines,
+            returnAmount: result.returnAmount
+          });
+  
+          if(result.completeTx) {
+            this.saveOrderTx();
+          }
         }
-      }
-    });
+      });
+    }else{
+      this.saveOrderTx();
+    }    
   }
 
   getOrderFormControl(name: string) : FormControl{

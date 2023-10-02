@@ -51,7 +51,7 @@
                            
 
                             <!-- If Quotation Order then display Contact Box else display Ledger Box -->
-                            <ng-container *ngIf="headerTitle == 'Quotation'; else ledgerBox" >                                            
+                            <ng-container *ngIf="headerTitle == 'Quotation' || headerTitle == 'Inward Quotation'; else ledgerBox" >                                            
                                     <Contact-Box [fxFlex]="(isHandset$ | async) ? 100 : 20"                        
                                         [contactFormControl]="getOrderFormControl('contactName')"
                                         [contactBoxTitle]="'Contact'"

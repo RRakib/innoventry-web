@@ -3,6 +3,7 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { JournalComponent } from "src/app/components/post-login-views/transaction/journal/journal.component";
+import { InwardQuotationComponent } from "src/app/components/post-login-views/transaction/order/inward-quotation/inward-quotation.component";
 import { PurchaseComponent } from "src/app/components/post-login-views/transaction/order/purchase/purchase.component";
 import { QuotationComponent } from "src/app/components/post-login-views/transaction/order/quotation/quotation.component";
 import { SaleOrderComponent } from "src/app/components/post-login-views/transaction/order/sale-order/sale-order.component";
@@ -54,7 +55,7 @@ export class CommonUtils {
     /**
      * This function edit the type of reports by opening a Mat Dialog box.
      */
-    editReport(selectedTxType: string, selectedTxId: string) {
+    editReport(selectedTxType: string, selectedTxId: string) {  
         switch(selectedTxType) {
             case "Journal" :
               const JournalDialogRef = this.dialog.open(JournalComponent, { 
@@ -131,6 +132,17 @@ export class CommonUtils {
                 } 
               });
               QuotationDialogRef.afterClosed().subscribe(result => {                
+                this.editReportService.changeStatus(true);
+              });
+              break;
+            case "Inward Quotation" :      
+              const InwardQuotationDialogRef = this.dialog.open(InwardQuotationComponent, { 
+                panelClass: 'custom-dialog-container', 
+                data : {
+                  txId : selectedTxId
+                } 
+              });
+              InwardQuotationDialogRef.afterClosed().subscribe(result => {                
                 this.editReportService.changeStatus(true);
               });
               break;

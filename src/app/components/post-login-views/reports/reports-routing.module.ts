@@ -27,6 +27,7 @@ import { UnderstockReportComponent } from './understock-report/understock-report
 import { ItemAttributeSearchComponent } from './item-reports/item-attribute-search/item-attribute-search.component';
 import { ItemRegisterForLedgerComponent } from './item-reports/item-register-for-ledger/item-register-for-ledger.component';
 import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-location-register/item-stock-location-register.component';
+import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
 
 
 const routes: Routes = [
@@ -60,7 +61,10 @@ const routes: Routes = [
             /** Item Reports Routes */
             { path: 'itemAttributeSearchSummary', component: ItemAttributeSearchComponent},
             { path: 'itemStockLocationRegister', component: ItemStockLocationRegisterComponent },
-            { path: 'itemRegisterForLedger', component: ItemRegisterForLedgerComponent}
+            { path: 'itemRegisterForLedger', component: ItemRegisterForLedgerComponent},
+
+            /** Inventory Transaction Register */
+            { path: 'inwardQuotationRegister', component: InwardQuotationRegisterComponent}
 
         ]
 

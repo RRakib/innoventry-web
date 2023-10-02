@@ -119,6 +119,12 @@ export class MenuConstants {
           iconName: '',
           route: 'newOrder/quotation',
           children: []
+        },
+        {
+          displayName: 'Inward Quotation',
+          iconName: '',
+          route: 'inwardQuotation',
+          children: []
         }
       ]
     },
@@ -182,6 +188,19 @@ export class MenuConstants {
               children: []
             }
             
+          ]
+        },
+        {
+          displayName: 'Inventory Transaction Register',
+          iconName: '',
+          route: '',
+          children: [
+            {
+              displayName: 'Inward Quotation Register',
+              iconName: '',
+              route: 'inwardQuotationRegister',
+              children: []
+            }
           ]
         },
         {
