@@ -11,6 +11,8 @@ import { PaymentComponent } from './voucher/payment/payment.component';
 import { ReceiptComponent } from './voucher/receipt/receipt.component';
 import { InwardQuotationRegisterComponent } from '../reports/inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
 import { InwardQuotationComponent } from './order/inward-quotation/inward-quotation.component';
+import { SaleReturnRegisterComponent } from '../reports/inventory-tx-register/sale-return-register/sale-return-register.component';
+import { SaleReturnComponent } from './order/sale-return/sale-return.component';
 
 
 const routes: Routes = [
@@ -25,6 +27,8 @@ const routes: Routes = [
             { path: 'edit-journal/:journalId', component: JournalComponent},
             { path: 'sale', component: SaleRegisterComponent},
             { path: 'sale/new', component: SaleComponent},
+            { path: 'saleReturn', component: SaleReturnRegisterComponent},
+            { path: 'saleReturn/new', component: SaleReturnComponent},
             { path: 'newOrder/purchase', component: PurchaseComponent},
             { path: 'newOrder/saleOrder', component: SaleOrderComponent},
             { path: 'newOrder/quotation', component: QuotationComponent},

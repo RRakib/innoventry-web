@@ -42,9 +42,10 @@ import { OtherChargesServiceService } from 'src/server/api/otherChargesService.s
 import { DownloadService } from 'src/app/services/download.service';
 import { OrderTransportDetailComponent } from "src/app/components/post-login-views/transaction/order/order-tabs/order-transport-detail/order-transport-detail.component";
 import { OrderDescriptionComponent } from 'src/app/components/post-login-views/transaction/order/order-tabs/order-description/order-description.component';
-import { InwardQuotationTxServiceService, TermsServiceService } from 'src/server';
+import { InwardQuotationTxServiceService, SaleReturnOrderTxServiceService, TermsServiceService } from 'src/server';
 import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-autocomplete-box.component';
 import { InwardQuotationComponent } from 'src/app/components/post-login-views/transaction/order/inward-quotation/inward-quotation.component';
+import { SaleReturnComponent } from 'src/app/components/post-login-views/transaction/order/sale-return/sale-return.component';
 
 @NgModule({
     declarations: [       
@@ -64,8 +65,9 @@ import { InwardQuotationComponent } from 'src/app/components/post-login-views/tr
         ReceiptComponent,        
         JournalComponent,        
         SaleComponent,
+        SaleReturnComponent,
         PurchaseComponent,   
-        SaleOrderComponent, 
+        SaleOrderComponent,         
         QuotationComponent,
         InwardQuotationComponent,
         OrderTransportDetailComponent,
@@ -103,6 +105,7 @@ import { InwardQuotationComponent } from 'src/app/components/post-login-views/tr
         PaymentTxServiceService,
         JournalTxServiceService,
         SaleOrderTxServiceService,
+        SaleReturnOrderTxServiceService,
         PurchaseOrderTxServiceService,
         POTxServiceService,
         QuotationTxServiceService,

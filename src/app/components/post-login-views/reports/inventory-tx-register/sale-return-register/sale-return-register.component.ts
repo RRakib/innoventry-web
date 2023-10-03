@@ -12,19 +12,19 @@ import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { InventoryTxReportArgument, InventoryTxReportGroupLine, InventoryTxReportServiceGetReportAsFile, InventoryTxReportServiceService } from 'src/server';
 
 @Component({
-  selector: 'app-inward-quotation-register',
-  templateUrl: './inward-quotation-register.component.html',
-  styleUrls: ['./inward-quotation-register.component.css']
+  selector: 'app-sale-return-register',
+  templateUrl: './sale-return-register.component.html',
+  styleUrls: ['./sale-return-register.component.css']
 })
-export class InwardQuotationRegisterComponent implements OnInit {
+export class SaleReturnRegisterComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
     shareReplay()
   );
-  
-  public inwardQuotationForm!: FormGroup;
+
+  public saleReturnRegisterForm!: FormGroup;
   columns : Object[];
 
   data : Object[];
@@ -34,19 +34,19 @@ export class InwardQuotationRegisterComponent implements OnInit {
   private selectedTxId : string;
   private selectedTxType : string;
 
+
   constructor(private breakpointObserver: BreakpointObserver,private customDateAdapterService  : CustomDateAdapterService,
     private formBuilder: FormBuilder,private inventoryTxReportServiceService : InventoryTxReportServiceService,
     private overlayService : OverlayService, private router: Router, private editReportService : EditReportService,
     private commonUtils : CommonUtils, private downloadService : DownloadService) { 
+      let txDate = new Date();
 
-    let txDate = new Date();
-
-    this.inwardQuotationForm = this.formBuilder.group({      
-      startDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
-      endDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
-      isItemDetailRequired : new FormControl(true)
-    }); 
-  }
+      this.saleReturnRegisterForm = this.formBuilder.group({      
+        startDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
+        endDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
+        isItemDetailRequired : new FormControl(true)
+      }); 
+    }
 
   ngOnInit(): void {
     this.columns =  [
@@ -78,26 +78,26 @@ export class InwardQuotationRegisterComponent implements OnInit {
     ];
 
     this.data = [];
-    this.getInwardQuotationRegisterReport();
+    this.getSaleReturnRegisterReport();
 
     this.editReportService.reportEdited().subscribe({
       next: (data) =>{
         if(data) {
-          this.getInwardQuotationRegisterReport();       
+          this.getSaleReturnRegisterReport();       
         }
       }
     });
   }
 
-  getInwardQuotationRegisterReport() : void{
+  getSaleReturnRegisterReport(): void{
     this.inputModel = {};
     this.data = [];
 
-    this.inputModel.dateFrom = this.inwardQuotationForm.controls["startDate"].value;
-    this.inputModel.dateTo = this.inwardQuotationForm.controls["endDate"].value;
-    this.inputModel.showDetail = this.inwardQuotationForm.controls["isItemDetailRequired"].value;
+    this.inputModel.dateFrom = this.saleReturnRegisterForm.controls["startDate"].value;
+    this.inputModel.dateTo = this.saleReturnRegisterForm.controls["endDate"].value;
+    this.inputModel.showDetail = this.saleReturnRegisterForm.controls["isItemDetailRequired"].value;
 
-    this.inputModel.txTypeClassName = "in.solpro.nucleus.inventory.model.IInwardQuotationTx";
+    this.inputModel.txTypeClassName = "in.solpro.nucleus.inventory.model.ISaleReturnOrderTx";
     this.inputModel.billingGroup = 0;
     this.inputModel.billingClassification = 0;
 
@@ -158,8 +158,8 @@ export class InwardQuotationRegisterComponent implements OnInit {
     this.data = rowData;
   }
 
-  createNewInwardQuotationTx() : void{
-    this.router.navigate(['main/transaction/inwardQuotation/new']);
+  createNewSaleReturnnTx() : void{
+    this.router.navigate(['main/transaction/saleReturn/new']);
   }
 
   onRowSelection(event: any) : void {
@@ -191,11 +191,10 @@ export class InwardQuotationRegisterComponent implements OnInit {
 
     let modelArg : InventoryTxReportArgument  = {};
 
-    modelArg.dateFrom = this.inwardQuotationForm.controls["startDate"].value;
-    modelArg.dateTo = this.inwardQuotationForm.controls["endDate"].value;
-    modelArg.showDetail = this.inwardQuotationForm.controls["isItemDetailRequired"].value;
-
-    modelArg.txTypeClassName = "in.solpro.nucleus.inventory.model.IInwardQuotationTx";
+    modelArg.dateFrom = this.saleReturnRegisterForm.controls["startDate"].value;
+    modelArg.dateTo = this.saleReturnRegisterForm.controls["endDate"].value;
+    modelArg.showDetail = this.saleReturnRegisterForm.controls["isItemDetailRequired"].value;    
+    modelArg.txTypeClassName = "in.solpro.nucleus.inventory.model.ISaleReturnOrderTx";
     modelArg.billingGroup = 0;
     modelArg.billingClassification = 0;
 
