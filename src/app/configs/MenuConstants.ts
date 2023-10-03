@@ -103,6 +103,12 @@ export class MenuConstants {
           children: []
         },
         {
+          displayName: 'Sale Return',
+          iconName: '',
+          route: 'saleReturn',
+          children: []
+        },
+        {
           displayName: 'Purchase',
           iconName: '',
           route: 'newOrder/purchase',
@@ -194,7 +200,37 @@ export class MenuConstants {
           displayName: 'Inventory Transaction Register',
           iconName: '',
           route: '',
-          children: [
+          children: [            
+            {
+              displayName: 'Sale Register',
+              iconName: '',
+              route: 'saleRegister',
+              children: []
+            },
+            {
+              displayName: 'Purchase Register',
+              iconName: '',
+              route: 'purchaseRegister',
+              children: []
+            },
+            {
+              displayName: 'Sale Return Register',
+              iconName: '',
+              route: 'saleReturnRegister',
+              children: []
+            },
+            {
+              displayName: 'Purchase Return Register',
+              iconName: '',
+              route: 'purchaseReturnRegister',
+              children: []
+            },
+            {
+              displayName: 'Sale Order Register',
+              iconName: '',
+              route: 'saleOrderRegister',
+              children: []
+            },
             {
               displayName: 'Inward Quotation Register',
               iconName: '',
@@ -275,31 +311,13 @@ export class MenuConstants {
           iconName: '',
           route: 'profitLoss',
           children: []
-        },
-        {
-          displayName: 'Purchase Register',
-          iconName: '',
-          route: 'purchaseRegister',
-          children: []
-        },
-        {
-          displayName: 'Sale Register',
-          iconName: '',
-          route: 'saleRegister',
-          children: []
-        },       
+        },              
         {
           displayName: 'Stock Summary',
           iconName: '',
           route: 'stockSummary',
           children: []
-        },
-        {
-          displayName: 'Sale Order Register',
-          iconName: '',
-          route: 'saleOrderRegister',
-          children: []
-        },
+        },       
         {
           displayName: 'Trial Balance',
           iconName: '',

@@ -17,6 +17,7 @@ import { OrderServicesComponent } from './order/modal-popup/order-services/order
 import { OrderChargesDiscountsComponent } from './order/modal-popup/order-charges-discounts/order-charges-discounts.component';
 import { ItemSelectionFormComponent } from './order/modal-popup/item-selection-form/item-selection-form.component';
 
+
 @NgModule({
     declarations: [
         TransactionBaseViewComponent,        

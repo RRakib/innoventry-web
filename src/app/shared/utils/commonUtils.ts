@@ -7,6 +7,7 @@ import { InwardQuotationComponent } from "src/app/components/post-login-views/tr
 import { PurchaseComponent } from "src/app/components/post-login-views/transaction/order/purchase/purchase.component";
 import { QuotationComponent } from "src/app/components/post-login-views/transaction/order/quotation/quotation.component";
 import { SaleOrderComponent } from "src/app/components/post-login-views/transaction/order/sale-order/sale-order.component";
+import { SaleReturnComponent } from "src/app/components/post-login-views/transaction/order/sale-return/sale-return.component";
 import { SaleComponent } from "src/app/components/post-login-views/transaction/order/sale/sale.component";
 import { PaymentComponent } from "src/app/components/post-login-views/transaction/voucher/payment/payment.component";
 import { ReceiptComponent } from "src/app/components/post-login-views/transaction/voucher/receipt/receipt.component";
@@ -143,6 +144,17 @@ export class CommonUtils {
                 } 
               });
               InwardQuotationDialogRef.afterClosed().subscribe(result => {                
+                this.editReportService.changeStatus(true);
+              });
+              break;
+            case "Sale Return" :      
+              const SaleReturnComponentDialogRef = this.dialog.open(SaleReturnComponent, { 
+                panelClass: 'custom-dialog-container', 
+                data : {
+                  txId : selectedTxId
+                } 
+              });
+              SaleReturnComponentDialogRef.afterClosed().subscribe(result => {                
                 this.editReportService.changeStatus(true);
               });
               break;

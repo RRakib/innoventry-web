@@ -28,6 +28,8 @@ import { ItemAttributeSearchComponent } from './item-reports/item-attribute-sear
 import { ItemRegisterForLedgerComponent } from './item-reports/item-register-for-ledger/item-register-for-ledger.component';
 import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-location-register/item-stock-location-register.component';
 import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
+import { SaleReturnRegisterComponent } from './inventory-tx-register/sale-return-register/sale-return-register.component';
+import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchase-return-register/purchase-return-register.component';
 
 
 const routes: Routes = [
@@ -64,6 +66,8 @@ const routes: Routes = [
             { path: 'itemRegisterForLedger', component: ItemRegisterForLedgerComponent},
 
             /** Inventory Transaction Register */
+            { path: 'saleReturnRegister', component: SaleReturnRegisterComponent},
+            { path: 'purchaseReturnRegister', component: PurchaseReturnRegisterComponent},
             { path: 'inwardQuotationRegister', component: InwardQuotationRegisterComponent}
 
         ]
