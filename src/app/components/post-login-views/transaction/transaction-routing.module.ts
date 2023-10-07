@@ -13,6 +13,9 @@ import { InwardQuotationRegisterComponent } from '../reports/inventory-tx-regist
 import { InwardQuotationComponent } from './order/inward-quotation/inward-quotation.component';
 import { SaleReturnRegisterComponent } from '../reports/inventory-tx-register/sale-return-register/sale-return-register.component';
 import { SaleReturnComponent } from './order/sale-return/sale-return.component';
+import { PurchaseRegisterComponent } from '../reports/purchase-register/purchase-register.component';
+import { PurchaseReturnRegisterComponent } from '../reports/inventory-tx-register/purchase-return-register/purchase-return-register.component';
+import { PurchaseReturnComponent } from './order/purchase-return/purchase-return.component';
 
 
 const routes: Routes = [
@@ -25,10 +28,19 @@ const routes: Routes = [
             { path: 'edit-receipt/:receiptId', component: ReceiptComponent},
             { path: 'journal', component: JournalComponent},
             { path: 'edit-journal/:journalId', component: JournalComponent},
+
             { path: 'sale', component: SaleRegisterComponent},
             { path: 'sale/new', component: SaleComponent},
+
             { path: 'saleReturn', component: SaleReturnRegisterComponent},
             { path: 'saleReturn/new', component: SaleReturnComponent},
+
+            { path: 'purchase', component: PurchaseRegisterComponent},
+            { path: 'purchase/new', component: PurchaseComponent},
+
+            { path: 'purchaseReturn', component: PurchaseReturnRegisterComponent},
+            { path: 'purchaseReturn/new', component: PurchaseReturnComponent},
+            
             { path: 'newOrder/purchase', component: PurchaseComponent},
             { path: 'newOrder/saleOrder', component: SaleOrderComponent},
             { path: 'newOrder/quotation', component: QuotationComponent},

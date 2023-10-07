@@ -1,10 +1,16 @@
 <div class="mat-elevation-z8">
     <mat-card class="mb-1">
-        <mat-card-header>
+        <mat-card-header class="justify-content-between">
             <mat-card-title>
                 Purchase Register
-                <div class="title-underline"></div>
-                <button mat-raised-button class="more-button" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
+                <div class="title-underline"></div>                            
+            </mat-card-title>
+            <div>
+                <button mat-raised-button color="primary" (click)="createNewPurchaseTx()">
+                    <mat-icon>note_add</mat-icon>                    
+                </button>
+
+                <button mat-raised-button class="ml-1" [matMenuTriggerFor]="printMenu" aria-label="Toggle menu">
                     <mat-icon>print</mat-icon>
                 </button>
                 <mat-menu #printMenu="matMenu" xPosition="before">
@@ -17,19 +23,19 @@
                         Export as Excel
                     </button>
                 </mat-menu>
-            </mat-card-title>
+            </div>             
         </mat-card-header>
         <mat-card-content class="text-center">
             <form [formGroup]="purchaseRegisterForm">
                 <div [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxflexfill fxLayoutAlign="start"
                     [class]="(isHandset$ | async) ? 'pb-1' : 'search-criteria'">
                     
-                    <div >
-                        
+                    <div class="mr-1" [fxLayout]="'column'" fxflexfill fxLayoutAlign="start">                        
                         <Ledger-Box class="mr-1" [fxFlex]="100"
                             [ledgerFormControl]="purchaseRegisterForm.controls['ledgerName'] | convertToFormControl"
                             [ledgerBoxTitle]="'From Ledger'" (onLedgerSelection)="onFromLedgerSelection($event)">
                         </Ledger-Box>
+                        <mat-checkbox formControlName="isItemDetailRequired" class="text-left">Show Item Details</mat-checkbox>
                     </div>
                 
 
@@ -42,11 +48,7 @@
                         <i-mat-datepicker [label]="'End Date'"
                              [dateFormControl]="purchaseRegisterForm.controls['endDate'] | convertToFormControl">
                         </i-mat-datepicker>
-                    </div>
-                    <div fxflexfill fxLayout="column" [class]="'ml-1 mr-1'">
-                        <mat-checkbox formControlName="showItemDetails">Show Item Details</mat-checkbox>
-
-                    </div>
+                    </div>                   
                 <div>
                     <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''" 
                         (click)="getPurchaseRegisterReport()">

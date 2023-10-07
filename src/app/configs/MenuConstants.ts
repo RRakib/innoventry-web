@@ -111,7 +111,13 @@ export class MenuConstants {
         {
           displayName: 'Purchase',
           iconName: '',
-          route: 'newOrder/purchase',
+          route: 'purchase',
+          children: []
+        },
+        {
+          displayName: 'Purchase Return',
+          iconName: '',
+          route: 'purchaseReturn',
           children: []
         },
         {

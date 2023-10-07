@@ -25,6 +25,7 @@ export class ItemSelectionFormComponent implements OnInit {
     private taxableEntityService : TaxableEntityServiceService,
     public itemSelectionCompRef: MatDialogRef<ItemSelectionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { 
+      headerTitle: string,
       itemForm: FormGroup,
       itemLineEditMode: boolean,
       itemLines: IItemLine[],
@@ -81,7 +82,10 @@ export class ItemSelectionFormComponent implements OnInit {
       unitName: selectedItem.unitName     
     });  
 
-    let rate = this.itemForm.controls["mrp"].value - ((this.itemForm.controls["mrp"].value * this.itemForm.controls["discount"].value)/100);
+    //In case of Purchase Return don't show the Rates.
+    let rate = this.data.headerTitle == "Purchase Return" 
+      ? 0 
+      : this.itemForm.controls["mrp"].value - ((this.itemForm.controls["mrp"].value * this.itemForm.controls["discount"].value)/100);
 
     this.itemForm.patchValue({
       rate: rate, 
