@@ -11,6 +11,7 @@ import { OverlayService } from 'src/app/services/overlay.service';
 import { CommonUtils } from 'src/app/shared/utils/commonUtils';
 import { DownloadService } from 'src/app/services/download.service';
 import { formatNumber } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-register',
@@ -36,7 +37,7 @@ export class PurchaseRegisterComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private customDateAdapterService: CustomDateAdapterService,
     private inventoryTxReportServiceService : InventoryTxReportServiceService, private formBuilder: FormBuilder,
     private overlayService : OverlayService, private commonUtils : CommonUtils, private editReportService : EditReportService,
-    private downloadService : DownloadService) { 
+    private downloadService : DownloadService, private router: Router) { 
 
     let txDate = new Date();
 
@@ -45,7 +46,7 @@ export class PurchaseRegisterComponent implements OnInit {
       ledgerName : new FormControl(),
       startDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
       endDate : new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate())),
-      showItemDetails : new FormControl(true)
+      isItemDetailRequired : new FormControl(true)
     }); 
   }
 
@@ -222,5 +223,9 @@ export class PurchaseRegisterComponent implements OnInit {
         }
       }
     });
+  }
+
+  createNewPurchaseTx() : void{
+    this.router.navigate(['main/transaction/purchase/new']);
   }
 }

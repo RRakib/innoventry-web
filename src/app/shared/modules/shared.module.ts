@@ -42,10 +42,11 @@ import { OtherChargesServiceService } from 'src/server/api/otherChargesService.s
 import { DownloadService } from 'src/app/services/download.service';
 import { OrderTransportDetailComponent } from "src/app/components/post-login-views/transaction/order/order-tabs/order-transport-detail/order-transport-detail.component";
 import { OrderDescriptionComponent } from 'src/app/components/post-login-views/transaction/order/order-tabs/order-description/order-description.component';
-import { InwardQuotationTxServiceService, SaleReturnOrderTxServiceService, TermsServiceService } from 'src/server';
+import { InwardQuotationTxServiceService, PurchaseReturnOrderTxServiceService, SaleReturnOrderTxServiceService, TermsServiceService } from 'src/server';
 import { IAutocompleteBoxComponent } from '../components/i-autocomplete-box/i-autocomplete-box.component';
 import { InwardQuotationComponent } from 'src/app/components/post-login-views/transaction/order/inward-quotation/inward-quotation.component';
 import { SaleReturnComponent } from 'src/app/components/post-login-views/transaction/order/sale-return/sale-return.component';
+import { PurchaseReturnComponent } from 'src/app/components/post-login-views/transaction/order/purchase-return/purchase-return.component';
 
 @NgModule({
     declarations: [       
@@ -67,6 +68,7 @@ import { SaleReturnComponent } from 'src/app/components/post-login-views/transac
         SaleComponent,
         SaleReturnComponent,
         PurchaseComponent,   
+        PurchaseReturnComponent,
         SaleOrderComponent,         
         QuotationComponent,
         InwardQuotationComponent,
@@ -107,6 +109,7 @@ import { SaleReturnComponent } from 'src/app/components/post-login-views/transac
         SaleOrderTxServiceService,
         SaleReturnOrderTxServiceService,
         PurchaseOrderTxServiceService,
+        PurchaseReturnOrderTxServiceService,
         POTxServiceService,
         QuotationTxServiceService,
         InwardQuotationTxServiceService,
