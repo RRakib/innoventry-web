@@ -1,0 +1,115 @@
+
+<div class="mat-elevation-z8">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Trading Item Report
+                <div class="title-underline"></div>
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>print</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="download('PDF')">
+                        <mat-icon>picture_as_pdf</mat-icon> 
+                        Export as PDF
+                    </button>
+                    <button mat-menu-item (click)="download('EXCEL')">
+                        <mat-icon>description</mat-icon>
+                        Export as Excel
+                    </button>
+                </mat-menu>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div fxflexfill [fxLayout]="(isHandset$ | async) ? 'column' : 'row'" fxLayoutAlign="start center" class="mb-1">
+                <div>
+                    <i-mat-datepicker [label]="'From Date'" [dateFormControl]="startDate"></i-mat-datepicker>
+                </div>
+                <div [class]="(isHandset$ | async) ? '' : 'ml-1 mr-1'">
+                    <i-mat-datepicker [label]="'To Date'" [dateFormControl]="endDate"></i-mat-datepicker>
+                </div>
+                <div  fxflexfill fxLayout="column">
+                    <mat-checkbox  [(ngModel)]="showItem">Show only items with -ve profit</mat-checkbox>
+                </div>
+
+                <div [class]="(isHandset$ | async) ? '' : 'showbutton'">
+                    <button mat-raised-button color="primary" [class]="(isHandset$ | async) ? 'width100' : ''"  (click)="showReport()" >
+                        Show
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>            
+            <div class="responsive-table">
+                <table mat-table class="innoventry-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="item">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item</th>
+                        <td mat-cell [ngStyle]="{width: '50px'}" [class]="'text-left'" *matCellDef="let row" class="text-start">
+                            {{row.item }}
+                        </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="openingQty">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening Qty</th>
+                        <td mat-cell *matCellDef="let row" class="text-end">{{row.openingStockQuantity}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="openingValue">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening Value</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.openingStockAmount | number : '1.2-2'}}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="purchaseQty">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Qty</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.purchaseQuantity | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="salesQty">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales Qty</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.saleQuantity | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="salesValue">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales Value</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.saleAmount | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="closingQty">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Closing Qty</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.closingStockQuantity}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="closingValue">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Closing Value</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.closingStockAmount | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="profit">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Profit</th>
+                        <td mat-cell [class]="'text-right'" class="text-end" *matCellDef="let row">{{row.profit | number : '1.2-2'}}</td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        No Records Found.
+                        </td>
+                    </tr>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <mat-paginator #paginator
+                [pageSize]="200"
+                [pageSizeOptions]="[100, 200, 500]"
+                showFirstLastButtons 
+                aria-label="Select page">
+            </mat-paginator> 
+        </mat-card-content>
+    </mat-card>
+</div>

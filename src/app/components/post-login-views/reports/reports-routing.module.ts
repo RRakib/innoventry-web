@@ -30,6 +30,7 @@ import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-lo
 import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
 import { SaleReturnRegisterComponent } from './inventory-tx-register/sale-return-register/sale-return-register.component';
 import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchase-return-register/purchase-return-register.component';
+import {TradingItemReportComponent} from "./trading-item-report/trading-item-report.component";
 
 
 const routes: Routes = [
@@ -59,6 +60,9 @@ const routes: Routes = [
             { path: 'itemSaleSummary', component: ItemSaleSummaryComponent},
             { path: 'daywiseLedgerBalanceSummary', component: DaywiseLedgerBalanceComponent},
             { path: 'daywiseLedgerGroupBalanceSummary', component: DaywiseLedgerGroupBalanceComponent},
+
+            /** Trading Account Reports */
+            { path: 'tradingItemReport', component: TradingItemReportComponent},
 
             /** Item Reports Routes */
             { path: 'itemAttributeSearchSummary', component: ItemAttributeSearchComponent},

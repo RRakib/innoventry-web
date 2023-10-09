@@ -246,6 +246,19 @@ export class MenuConstants {
           ]
         },
         {
+          displayName: 'Trading Account Reports',
+          iconName: '',
+          route: '',
+          children: [
+            {
+              displayName: 'Trading Item Report',
+              iconName: '',
+              route: 'tradingItemReport',
+              children: []
+            },
+              ]
+        },
+        {
           displayName: 'Balance Sheet',
           iconName: '',
           route: 'balanceSheet',

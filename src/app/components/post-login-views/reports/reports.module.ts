@@ -8,7 +8,23 @@ import { CashInHandComponent } from './cash-in-hand/cash-in-hand.component';
 import { ReportsBaseViewComponent } from './reports-base-view/reports-base-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverstockReportComponent } from './overstock-report/overstock-report.component';
-import { AreaServiceService, AttributeGroupServiceService, AttributeServiceService, CashInHandReportServiceService, ChoiceListServiceService, ContactServiceService, ItemAttributeSearchReportServiceService, ItemLineServiceService, ItemRegisterForLedgerReportServiceService, ItemWiseStockLocationRegisterServiceService, PaymentModeServiceService, ServiceServiceService, StockAttributeGroupLineServiceService, TaxConfigurationServiceService } from 'src/server';
+import {
+  AreaServiceService,
+  AttributeGroupServiceService,
+  AttributeServiceService,
+  CashInHandReportServiceService,
+  ChoiceListServiceService,
+  ContactServiceService,
+  ItemAttributeSearchReportServiceService,
+  ItemLineServiceService,
+  ItemRegisterForLedgerReportServiceService,
+  ItemWiseStockLocationRegisterServiceService,
+  PaymentModeServiceService,
+  ServiceServiceService,
+  StockAttributeGroupLineServiceService,
+  TaxConfigurationServiceService,
+  TradingItemReportServiceService
+} from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
 import { LedgerBookComponent } from './ledger-book/ledger-book.component';
 import { LedgerServiceService } from 'src/server/api/ledgerService.service';
@@ -66,6 +82,7 @@ import { ItemStockLocationRegisterComponent } from './item-reports/item-stock-lo
 import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward-quotation-register/inward-quotation-register.component';
 import { SaleReturnRegisterComponent } from './inventory-tx-register/sale-return-register/sale-return-register.component';
 import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchase-return-register/purchase-return-register.component';
+import {TradingItemReportComponent} from "./trading-item-report/trading-item-report.component";
 
 @NgModule({
   declarations: [ 
@@ -86,6 +103,7 @@ import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchas
     SaleOrderReportComponent,
     OutstandingsReportComponent,
     InactiveLedgersComponent,
+    TradingItemReportComponent,
     ItemSaleSummaryComponent,
     DaywiseLedgerBalanceComponent,
     DaywiseLedgerGroupBalanceComponent,
@@ -150,7 +168,9 @@ import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchas
     StockSummaryReportService2Service,
     StockAttributeGroupLineServiceService,
     TaxConfigurationServiceService,
-    ServiceServiceService
+    TradingItemReportServiceService,
+    ServiceServiceService,
+
   ],
   bootstrap: []
 })
