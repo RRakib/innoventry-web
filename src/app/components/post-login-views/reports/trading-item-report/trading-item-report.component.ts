@@ -83,8 +83,6 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
     reportArgument.dateTo = this.endDate.value;
     reportArgument.btnShowOnlyWithNegativeProfit = this.showItem;
 
-    console.log(reportArgument, 92);
-
     this.overlayService.enableProgressSpinner();
     this.tradingItemReportService.getReportArg(reportArgument).subscribe({
       next: (data) => {
