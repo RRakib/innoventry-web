@@ -13,4 +13,5 @@
 export interface DateIntervalReportArgument { 
     dateFrom?: Date;
     dateTo?: Date;
+    showAccountWithZeroBalance?: boolean;
 }

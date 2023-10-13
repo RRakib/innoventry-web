@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://in.appserver.innoventry.io/innoventry/rest',
+  apiUrl: 'https://nucleuserp.in/nucleus/rest',
   webappUrl: 'https://in.webapp2.innoventry.io/#/login',
   upgradePlan: 'https://nucleuserp.in/nucleus/upgradeplan.jsp',
   buyLicenseUrl: 'https://nucleuserp.in/nucleus/buyLicense.jsp',

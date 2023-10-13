@@ -14,15 +14,15 @@ import {
   AttributeServiceService,
   CashInHandReportServiceService,
   ChoiceListServiceService,
-  ContactServiceService,
-  ItemAttributeSearchReportServiceService,
+  ContactServiceService, ExpiringItemsReportServiceService,
+  ItemAttributeSearchReportServiceService, ItemGroupWiseTradingAccountReportServiceService,
   ItemLineServiceService,
   ItemRegisterForLedgerReportServiceService,
   ItemWiseStockLocationRegisterServiceService,
   PaymentModeServiceService,
   ServiceServiceService,
   StockAttributeGroupLineServiceService,
-  TaxConfigurationServiceService,
+  TaxConfigurationServiceService, TradingAccountReportServiceService,
   TradingItemReportServiceService
 } from 'src/server';
 import { DayBookComponent } from './day-book/day-book.component';
@@ -83,6 +83,13 @@ import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward
 import { SaleReturnRegisterComponent } from './inventory-tx-register/sale-return-register/sale-return-register.component';
 import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchase-return-register/purchase-return-register.component';
 import {TradingItemReportComponent} from "./trading-item-report/trading-item-report.component";
+import {TradingAccountComponent} from "./trading-account/trading-account.component";
+import {ItemGroupwiseTradingAccComponent} from "./item-groupwise-trading-acc/item-groupwise-trading-acc.component";
+import {TaxClasswiseTradingAccComponent} from "./tax-classwise-trading-acc/tax-classwise-trading-acc.component";
+import {ExpiringItemsComponent} from "./expiring-items/expiring-items.component";
+import {
+  ItemPurchaseByLedgerSummaryComponent
+} from "./item-reports/item-purchase-by-ledger-summary/item-purchase-by-ledger-summary.component";
 
 @NgModule({
   declarations: [ 
@@ -104,15 +111,20 @@ import {TradingItemReportComponent} from "./trading-item-report/trading-item-rep
     OutstandingsReportComponent,
     InactiveLedgersComponent,
     TradingItemReportComponent,
+    TradingAccountComponent,
+    ItemGroupwiseTradingAccComponent,
+    TaxClasswiseTradingAccComponent,
     ItemSaleSummaryComponent,
     DaywiseLedgerBalanceComponent,
     DaywiseLedgerGroupBalanceComponent,
     ItemTxRegisterComponent,
+    ExpiringItemsComponent,
     ItemPurchaseRateVariationAnalysisComponent,
     ItemPurchaseRateAnalysisComponent,
     TrialBalanceComponent,
     ItemAttributeSearchComponent,
     ItemRegisterForLedgerComponent,
+    ItemPurchaseByLedgerSummaryComponent,
     ItemStockLocationRegisterComponent,
     InwardQuotationRegisterComponent,
     SaleReturnRegisterComponent,
@@ -151,6 +163,7 @@ import {TradingItemReportComponent} from "./trading-item-report/trading-item-rep
     ItemGroupServiceService,
     ItemRegisterReportServiceService,
     ItemTransactionRegisterReportServiceService,
+    ExpiringItemsReportServiceService,
     ItemPurchaseRateAnalysisServiceService,
     ItemPurchaseRateVariationAnalysisReportServiceService,
     ItemAttributeSearchReportServiceService,
@@ -169,8 +182,9 @@ import {TradingItemReportComponent} from "./trading-item-report/trading-item-rep
     StockAttributeGroupLineServiceService,
     TaxConfigurationServiceService,
     TradingItemReportServiceService,
+    ItemGroupWiseTradingAccountReportServiceService,
+    TradingAccountReportServiceService,
     ServiceServiceService,
-
   ],
   bootstrap: []
 })

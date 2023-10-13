@@ -12,16 +12,20 @@ import {
   TradingItemReportServiceService,
   TradingItemReportLine,
   TradingItemReportArgument,
-  TradingItemReportServiceGetReportAsFile
+  TradingItemReportServiceGetReportAsFile,
+  ItemGroupWiseTradingAccountReportServiceService,
+  ItemGroupWiseTradingAccountReportArgument,
+  ItemGroupWiseTradingAccountReportServiceGetReportAsFile,
+  ItemGroupWiseTradingAccountReportLine, ItemGroupWiseTradingAccountReport
 } from 'src/server';
 import { InActiveLedgersReportServiceService } from 'src/server/api/inActiveLedgersReportService.service';
 
 @Component({
   selector: 'app-trading-item-report',
-  templateUrl: './trading-item-report.component.html',
-  styleUrls: ['./trading-item-report.component.css']
+  templateUrl: './item-groupwise-trading-acc.component.html',
+  styleUrls: ['./item-groupwise-trading-acc.component.css']
 })
-export class TradingItemReportComponent implements OnInit, AfterViewInit {
+export class ItemGroupwiseTradingAccComponent implements OnInit, AfterViewInit {
 
   public startDate!: FormControl;
   public endDate!: FormControl;
@@ -41,13 +45,15 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
     'openingQty',
     'openingValue',
     'purchaseQty',
+    'purchaseValue',
     'salesQty',
     'salesValue',
     'closingQty',
     'closingValue',
     'profit',
   ];
-  dataSource = new MatTableDataSource<TradingItemReportLine>([]);
+  responseReport:ItemGroupWiseTradingAccountReport | null  = null;
+  dataSource = new MatTableDataSource<any>([]);
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
 
 
@@ -56,7 +62,7 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private overlayService: OverlayService,
     private customDateAdapterService: CustomDateAdapterService,
-    private tradingItemReportService: TradingItemReportServiceService,
+    private itemGroupWiseTradingAccService: ItemGroupWiseTradingAccountReportServiceService,
     private downloadService : DownloadService) {
     let txDate = new Date();
     this.startDate = new FormControl(this.customDateAdapterService.createDate(txDate.getFullYear(),txDate.getMonth(), txDate.getDate()));
@@ -75,16 +81,18 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
 
   showReport(): void {
 
-    let reportArgument: TradingItemReportArgument = {};
+    let reportArgument: ItemGroupWiseTradingAccountReportArgument = {};
     this.dataSource.data = [];
+    this.responseReport = null;
 
     reportArgument.dateFrom = this.startDate.value;
     reportArgument.dateTo = this.endDate.value;
-    reportArgument.btnShowOnlyWithNegativeProfit = this.showItem;
+    reportArgument.btnShowItem = this.showItem;
 
     this.overlayService.enableProgressSpinner();
-    this.tradingItemReportService.getReportArg(reportArgument).subscribe({
+    this.itemGroupWiseTradingAccService.getReportArg(reportArgument).subscribe({
       next: (data) => {
+        this.responseReport = data;
         this.dataSource.data = data.reportLines || [];
         this.overlayService.disableProgressSpinner();
       },
@@ -96,8 +104,8 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
 
   download(type: string) : void {
 
-    let model: TradingItemReportServiceGetReportAsFile  = {};
-    model.type = type as TradingItemReportServiceGetReportAsFile .TypeEnum;
+    let model: ItemGroupWiseTradingAccountReportServiceGetReportAsFile  = {};
+    model.type = type as ItemGroupWiseTradingAccountReportServiceGetReportAsFile .TypeEnum;
 
     let reportArgument: TradingItemReportArgument = {};
     reportArgument.dateFrom = this.startDate.value;
@@ -106,11 +114,11 @@ export class TradingItemReportComponent implements OnInit, AfterViewInit {
 
     model.arg = reportArgument;
 
-    this.tradingItemReportService.getReportAsFile(model).subscribe({
+    this.itemGroupWiseTradingAccService.getReportAsFile(model).subscribe({
       next: (data) => { 
         if(!!data.url) {
 
-          let fileType =  model.type == TradingItemReportServiceGetReportAsFile .TypeEnum.PDF
+          let fileType =  model.type == ItemGroupWiseTradingAccountReportServiceGetReportAsFile .TypeEnum.PDF
                           ? 'application/pdf' 
                           : 'application/vnd.ms-excel';
 

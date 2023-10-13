@@ -14,5 +14,5 @@ import { TradingAccountDetailReportLine } from './tradingAccountDetailReportLine
 export interface TradingAccountReportLine { 
     group?: string;
     groupBalance?: number;
-    detailReportLines?: Array<TradingAccountDetailReportLine>;
+    detailReportLines: TradingAccountDetailReportLine[];
 }

@@ -31,6 +31,13 @@ import { InwardQuotationRegisterComponent } from './inventory-tx-register/inward
 import { SaleReturnRegisterComponent } from './inventory-tx-register/sale-return-register/sale-return-register.component';
 import { PurchaseReturnRegisterComponent } from './inventory-tx-register/purchase-return-register/purchase-return-register.component';
 import {TradingItemReportComponent} from "./trading-item-report/trading-item-report.component";
+import {TradingAccountComponent} from "./trading-account/trading-account.component";
+import {ItemGroupwiseTradingAccComponent} from "./item-groupwise-trading-acc/item-groupwise-trading-acc.component";
+import {TaxClasswiseTradingAccComponent} from "./tax-classwise-trading-acc/tax-classwise-trading-acc.component";
+import {ExpiringItemsComponent} from "./expiring-items/expiring-items.component";
+import {
+    ItemPurchaseByLedgerSummaryComponent
+} from "./item-reports/item-purchase-by-ledger-summary/item-purchase-by-ledger-summary.component";
 
 
 const routes: Routes = [
@@ -48,6 +55,7 @@ const routes: Routes = [
             { path: 'purchaseRegister', component: PurchaseRegisterComponent},
             { path: 'itemRegister', component: ItemRegisterComponent},
             { path: 'itemTxRegister', component: ItemTxRegisterComponent},
+            { path: 'expiringItems', component: ExpiringItemsComponent},
             { path: 'itemPrRateAnalysis', component: ItemPurchaseRateAnalysisComponent },
             { path: 'itemPrRateVarAnalysis', component: ItemPurchaseRateVariationAnalysisComponent },
             { path: 'ledgerSaleSummary', component: LedgerSaleSummaryComponent},
@@ -63,11 +71,15 @@ const routes: Routes = [
 
             /** Trading Account Reports */
             { path: 'tradingItemReport', component: TradingItemReportComponent},
+            { path: 'tradingAccount', component: TradingAccountComponent},
+            { path: 'itemGroupWiseTradingAcc', component: ItemGroupwiseTradingAccComponent},
+            { path: 'taxClassWiseTradingAcc', component: TaxClasswiseTradingAccComponent},
 
             /** Item Reports Routes */
             { path: 'itemAttributeSearchSummary', component: ItemAttributeSearchComponent},
             { path: 'itemStockLocationRegister', component: ItemStockLocationRegisterComponent },
             { path: 'itemRegisterForLedger', component: ItemRegisterForLedgerComponent},
+            { path: 'itemPurchaseByLedgerSummary', component: ItemPurchaseByLedgerSummaryComponent},
 
             /** Inventory Transaction Register */
             { path: 'saleReturnRegister', component: SaleReturnRegisterComponent},

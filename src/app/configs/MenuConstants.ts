@@ -180,7 +180,13 @@ export class MenuConstants {
               iconName: '',
               route: 'itemRegisterForLedger',
               children: []
-            },            
+            },
+            {
+              displayName: 'Item Purchase by Ledger Summary',
+              iconName: '',
+              route: 'itemPurchaseByLedgerSummary',
+              children: []
+            },
             {
               displayName: 'Item Purchase Rate Analysis',
               iconName: '',
@@ -197,6 +203,12 @@ export class MenuConstants {
               displayName: 'Item Sale Summary',
               iconName: '',
               route: 'itemSaleSummary',
+              children: []
+            },
+            {
+              displayName: 'Expiring Item',
+              iconName: '',
+              route: 'expiringItems',
               children: []
             }
             
@@ -256,7 +268,25 @@ export class MenuConstants {
               route: 'tradingItemReport',
               children: []
             },
-              ]
+            {
+              displayName: 'Trading Account',
+              iconName: '',
+              route: 'tradingAccount',
+              children: []
+            },
+            // {
+            //   displayName: 'Tax class wise trading account',
+            //   iconName: '',
+            //   route: 'taxClassWiseTradingAcc',
+            //   children: []
+            // },
+            {
+              displayName: 'Item group wise trading account',
+              iconName: '',
+              route: 'itemGroupWiseTradingAcc',
+              children: []
+            },
+          ]
         },
         {
           displayName: 'Balance Sheet',
